@@ -1,0 +1,7 @@
+<div class="jumbotron" ng-class="{'alert-success': task.isDone()}">
+  <div class="focused-task"
+       ng-class="{'slide-in': isCurrentTodoSlidingToRight, 'slide-out': isCurrentTodoSlidingToLeft}">
+    <p class="hidden"></p>
+    <h2 class="display-3 current-task-name">{{ task.name }}</h2>
+  </div>
+</div>

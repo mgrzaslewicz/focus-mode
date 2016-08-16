@@ -2,6 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link type="text/css" rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
   <title>TimeHakerClient</title>
   <base href="/">
 
@@ -14,7 +18,7 @@
 <body>
   <app-root>Loading...</app-root>
 
-  
+
 
     {{#each scripts.polyfills}}
     <script src="{{.}}"></script>
@@ -25,7 +29,7 @@
       }).catch(console.error.bind(console));
     </script>
 
-  
+
 
 </body>
 </html>
