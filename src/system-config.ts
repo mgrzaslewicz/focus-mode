@@ -34,7 +34,9 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/task',
   'app/focused-task',
+  'app/focused-task-control',
   /** @cli-barrel */
 ];
 

@@ -1,25 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
-class Task {
-  private name: string;
-  private done: boolean = false;
-
-  constructor(name: string) {
-    this.name = name;
-  }
-
-  public switchDone() {
-    this.done = !this.done;
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-
-  public isDone(): boolean {
-    return this.done;
-  }
-}
+import {Task} from '../task/task';
 
 @Component({
   moduleId: module.id,
@@ -33,7 +13,7 @@ export class FocusedTaskComponent implements OnInit {
   private isCurrentTodoSlidingToLeft: boolean = false;
 
   constructor() {
-    this.task = new Task('example todo');
+    this.task = new Task('example todo', false);
   }
 
   ngOnInit() {

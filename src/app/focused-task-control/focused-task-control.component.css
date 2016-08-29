@@ -1,0 +1,9 @@
+.focused-task-control .progress-bar {
+  margin: auto;
+  display: table;
+  cursor: pointer;
+}
+
+.focused-task-control .progress-bar div, .focused-task-control .progress-bar span {
+  cursor: pointer;
+}
