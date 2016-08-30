@@ -24,6 +24,11 @@ describe('Model: Task', () => {
     day.switchFocusToNextTask();
     expect(day.canSwitchFocusToNextTask()).toBeFalsy();
   });
+  it('should not be able to switch focus to zero task', () => {
+    let day = getSampleDay();
+    day.switchFocusToNextTask();
+    expect(day.canSwitchFocusToNextTask()).toBeTruthy();
+  });
   it('should not be able to switch focus to previous task', () => {
     let day = getSampleDay();
     expect(day.canSwitchFocusToPreviousTask()).toBeFalsy();

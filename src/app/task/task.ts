@@ -64,7 +64,7 @@ export class Day {
   }
 
   public canSwitchFocusToPreviousTask(): boolean {
-    return this.focusedTaskIndexZeroBased - 1 > 0;
+    return this.focusedTaskIndexZeroBased - 1 >= 0;
   }
 
 }
