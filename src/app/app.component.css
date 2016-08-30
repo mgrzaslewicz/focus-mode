@@ -1,3 +1,7 @@
 .time-hacker {
-  background-color: #f9f9fa;
+
+}
+
+.time-hacker .focused-task-control {
+  margin-bottom: 20px;
 }
