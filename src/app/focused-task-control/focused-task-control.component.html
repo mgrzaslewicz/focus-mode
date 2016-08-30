@@ -1,13 +1,13 @@
 <div class="row focused-task-control">
   <div class="col-xs-3 col-md-4 col-lg-5">
-    <div class="previous-task" (click)="showPreviousTodo()" ng-show="canSwitchToPreviousTodo()">
+    <div class="previous-task" (click)="switchToPreviousTask()" *ngIf="canSwitchToPreviousTask()">
       <i class="fa fa-chevron-left"></i>
     </div>
   </div>
   <div class="col-xs-6 col-md-4 col-lg-2">
     <div id="progressBar" class="progress-bar" (click)="switchFocusedTaskDone()">
-      <div class="c100 green" [class]="currentProgressBarClass">
-        <span>{{ currentProgressPercent }}%</span>
+      <div class="c100 green" [class]="'p' + getCurrentProgressPercent()">
+        <span>{{ getCurrentProgressPercent() }}%</span>
         <div class="slice">
           <div class="bar"></div>
           <div class="fill"></div>
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="col-xs-3 col-md-4 col-lg-5">
-    <div class="next-task" (click)="showNextTodo()" ng-show="canSwitchToNextTodo()">
+    <div class="next-task" (click)="switchToNextTask()" *ngIf="canSwitchToNextTask()">
       <i class="fa fa-chevron-right"></i>
     </div>
   </div>

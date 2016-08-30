@@ -1,24 +1,13 @@
 /* tslint:disable:no-unused-variable */
 
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-import {
-  beforeEach,
-  beforeEachProviders,
-  describe,
-  xdescribe,
-  expect,
-  it,
-  xit,
-  async,
-  inject
-} from '@angular/core/testing';
+import {beforeEachProviders, describe, expect, it, inject} from '@angular/core/testing';
 import {FocusedTaskControlComponent} from './focused-task-control.component';
+import {EventBusService} from '../event-bus/event-bus.service';
 
 describe('Component: FocusedTaskControl', () => {
-  it('should create an instance', () => {
-    let component = new FocusedTaskControlComponent();
-    expect(component)
-      .toBeTruthy();
-  });
+  beforeEachProviders(() => [EventBusService, FocusedTaskControlComponent]);
+  it('should create instance',
+    inject([FocusedTaskControlComponent], (component: FocusedTaskControlComponent) => {
+      expect(component).toBeTruthy();
+    }));
 });

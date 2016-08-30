@@ -1,4 +1,4 @@
-<div class="jumbotron" ng-class="{'alert-success': task.isDone()}">
+<div *ngIf="hasTask()" class="jumbotron" ng-class="{'alert-success': task.isDone()}">
   <div class="focused-task"
        ng-class="{'slide-in': isCurrentTodoSlidingToRight, 'slide-out': isCurrentTodoSlidingToLeft}">
     <p class="hidden"></p>

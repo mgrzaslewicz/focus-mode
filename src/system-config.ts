@@ -35,6 +35,7 @@ const barrels: string[] = [
   'app',
   'app/shared',
   'app/task',
+  'app/event-bus',
   'app/focused-task',
   'app/focused-task-control',
   /** @cli-barrel */
