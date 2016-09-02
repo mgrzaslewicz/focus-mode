@@ -38,7 +38,7 @@ const barrels: string[] = [
   'app/event-bus',
   'app/focused-task',
   'app/focused-task-control',
-  'app/focus-timers',
+  'app/countdown-timers',
   /** @cli-barrel */
 ];
 

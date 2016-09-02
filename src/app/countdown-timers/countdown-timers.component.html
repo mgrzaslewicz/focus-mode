@@ -1,0 +1,12 @@
+<div class="countdown-timers">
+  <div *ngFor="let countdownTimer of countdownTimers" class="c100 small green countdown-timer"
+       (click)="startCountdownTimer(countdownTimer)"
+       [class.hidden]="countdownTimer.isHidden()">
+    <span *ngIf="!countdownTimer.isRunning" class="minutes">{{countdownTimer.howManyMinutes}}m</span>
+    <span *ngIf="countdownTimer.isRunning" class="minutes">{{countdownTimer.currentMinutes}}:{{countdownTimer.currentSeconds}}</span>
+    <div class="slice">
+      <div class="bar"></div>
+      <div class="fill"></div>
+    </div>
+  </div>
+</div>
