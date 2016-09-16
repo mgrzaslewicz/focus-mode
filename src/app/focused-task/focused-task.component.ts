@@ -3,7 +3,6 @@ import {Task} from '../task/task';
 import {EventBusService} from '../event-bus/event-bus.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'focused-task',
   templateUrl: 'focused-task.component.html',
   styleUrls: ['focused-task.component.css']

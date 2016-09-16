@@ -3,7 +3,6 @@ import {Day, Task} from '../task/task';
 import {EventBusService} from '../event-bus/event-bus.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'focused-task-control',
   templateUrl: 'focused-task-control.component.html',
   styleUrls: ['focused-task-control.component.css']

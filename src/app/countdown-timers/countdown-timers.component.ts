@@ -64,7 +64,6 @@ class CountdownTimer {
 
 
 @Component({
-  moduleId: module.id,
   selector: 'countdown-timers',
   templateUrl: 'countdown-timers.component.html',
   styleUrls: ['countdown-timers.component.css']
