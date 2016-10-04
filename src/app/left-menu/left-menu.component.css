@@ -1,0 +1,34 @@
+.left-menu {
+  border-right: 1px solid lightgray;
+  width: 200px;
+  margin-left: -15px;
+  opacity: 0.1;
+}
+
+.left-menu:hover {
+  opacity: 1;
+}
+
+.left-menu .menu-item {
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+  display: flex;
+  vertical-align: middle;
+}
+
+.left-menu .menu-item.selected {
+  color: white;
+  background-color: rgba(2, 117, 216, 0.33);
+  pointer-events: none;
+}
+
+.left-menu .menu-item:hover {
+  background-color: rgba(2, 117, 216, 0.27);
+}
+
+.left-menu .menu-item i {
+  margin-right: 5px;
+  margin-left: 10px;
+  line-height: 50px;
+}

@@ -1,13 +1,11 @@
-import {bootstrap} from '@angular/platform-browser-dynamic';
+import './polyfills.ts';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {enableProdMode} from '@angular/core';
-import {AppComponent, environment} from './app/';
-import {EventBusService} from './app/event-bus/event-bus.service';
+import {AppModule} from './app/';
+import {environment} from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrap(AppComponent, [
-  EventBusService
-]);
-
+platformBrowserDynamic().bootstrapModule(AppModule);

@@ -1,0 +1,20 @@
+<div class="left-menu">
+    <div>
+        <div class="menu-item" (click)="selectMenuItem(MenuItem.PLANNING)"
+             [class.selected]="selectedMenuItem == MenuItem.PLANNING">
+            <i class="fa fa-tachometer" aria-hidden="true"></i>Plan
+        </div>
+        <div class="menu-item" (click)="selectMenuItem(MenuItem.EXECUTE_PLAN)"
+             [class.selected]="selectedMenuItem == MenuItem.EXECUTE_PLAN">
+            <i class="fa fa-user" aria-hidden="true"></i>Task focus
+        </div>
+        <div class="menu-item" (click)="selectMenuItem(MenuItem.PRESENTATION)"
+             [class.selected]="selectedMenuItem == MenuItem.PRESENTATION">
+            <i class="fa fa-users" aria-hidden="true"></i>Presentation
+        </div>
+        <div class="menu-item" (click)="selectMenuItem(MenuItem.NOTES)"
+             [class.selected]="selectedMenuItem == MenuItem.NOTES">
+            <i class="fa fa-link" aria-hidden="true"></i>Notes
+        </div>
+    </div>
+</div>

@@ -1,11 +1,15 @@
-<div class="container time-hacker">
+<div class="container-fluid">
   <div class="row">
-    <countdown-timers></countdown-timers>
-  </div>
-  <div class="row">
-    <focused-task-control></focused-task-control>
-  </div>
-  <div class="row">
-    <focused-task></focused-task>
+    <div class="col-md-3 col-lg-2 hidden-sm-down">
+      <left-menu></left-menu>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+      <div [ngSwitch]="selectedMenuItem">
+        <planning *ngSwitchCase="MenuItem.PLANNING"></planning>
+        <execute-plan *ngSwitchCase="MenuItem.EXECUTE_PLAN"></execute-plan>
+        <presentation *ngSwitchCase="MenuItem.PRESENTATION"></presentation>
+        <notes *ngSwitchCase="MenuItem.NOTES"></notes>
+      </div>
+    </div>
   </div>
 </div>
