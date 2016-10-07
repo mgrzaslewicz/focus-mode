@@ -7,11 +7,12 @@ import {EventBusService} from './event-bus/event-bus.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ExecutePlanComponent } from './execute-plan/execute-plan.component';
-import { PlanningComponent } from './planning/planning.component';
-import { PresentationComponent } from './presentation/presentation.component';
-import { NotesComponent } from './notes/notes.component';
+import {ExecutePlanComponent} from './execute-plan/execute-plan.component';
+import {PlanningComponent} from './planning/planning.component';
+import {PresentationComponent} from './presentation/presentation.component';
+import {NotesComponent} from './notes/notes.component';
 import {LeftMenuComponent} from './left-menu/left-menu.component';
+import {CookieTaskService, TaskServiceToken} from './focused-task';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {LeftMenuComponent} from './left-menu/left-menu.component';
     HttpModule
   ],
   providers: [
-    EventBusService
+    EventBusService,
+    {provide: TaskServiceToken, useClass: CookieTaskService}
   ],
   bootstrap: [AppComponent],
 })

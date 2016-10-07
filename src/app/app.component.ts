@@ -11,6 +11,7 @@ export class AppComponent {
   private eventBus: EventBusService;
   private MenuItem = MenuItem;
   private selectedMenuItem: MenuItem;
+  private isLeftMenuHidden: boolean = false;
 
   constructor(eventBus: EventBusService) {
     this.eventBus = eventBus;
@@ -19,6 +20,8 @@ export class AppComponent {
   ngOnInit() {
     this.eventBus.menuItemSubject.asObservable()
       .subscribe((selectedMenuItem: MenuItem) => this.setSelectedMenuItem(selectedMenuItem));
+    this.eventBus.hideLeftMenuSubject.asObservable()
+      .subscribe((hidden: boolean) => this.setLeftMenuHidden(hidden));
     this.eventBus.menuItemSubject.next(MenuItem.PLANNING, 'AppComponent.ngOnInit');
   }
 
@@ -26,7 +29,20 @@ export class AppComponent {
     console.log(`on event ${this.eventBus.menuItemSubject.eventName} at AppComponent.setSelectedMenuItem`);
     if (selectedMenuItem != null) {
       this.selectedMenuItem = selectedMenuItem;
+      this.handleSelectedMenuItem();
     }
+  }
+
+  private handleSelectedMenuItem() {
+    switch (this.selectedMenuItem) {
+      case MenuItem.EXECUTE_PLAN: {
+        this.eventBus.hideLeftMenuSubject.next(true);
+      }
+    }
+  }
+
+  private setLeftMenuHidden(hidden: boolean) {
+    this.isLeftMenuHidden = hidden;
   }
 
 }
