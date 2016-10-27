@@ -8,8 +8,8 @@ class CountdownTimer {
   public isRunning: boolean = false;
   public isVisible: boolean = true;
   public howManyMinutes: number;
-  public currentMinutes: string;
-  public currentSeconds: string;
+  public currentMinutes: number;
+  public currentSeconds: number;
   private currentMilliseconds: number;
   private onFinish: OnCountdownTimerFinished;
 
@@ -32,14 +32,6 @@ class CountdownTimer {
     return !this.isVisible;
   }
 
-  private fill2Digits(digit: number): string {
-    if (digit < 10) {
-      return `0${digit}`;
-    } else {
-      return `${digit}`;
-    }
-  }
-
   private nextCountdown() {
     this.currentMilliseconds -= 1000;
     this.updateMinutesAndSeconds();
@@ -56,8 +48,8 @@ class CountdownTimer {
   }
 
   private updateMinutesAndSeconds() {
-    this.currentMinutes = this.fill2Digits(Math.floor((this.currentMilliseconds / 1000) / 60));
-    this.currentSeconds = this.fill2Digits((this.currentMilliseconds / 1000) % 60);
+    this.currentMinutes = Math.floor((this.currentMilliseconds / 1000) / 60);
+    this.currentSeconds = (this.currentMilliseconds / 1000) % 60;
   }
 
 }
