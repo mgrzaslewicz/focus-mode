@@ -32,7 +32,7 @@ export class LeftMenuComponent implements OnInit {
   }
 
   private setSelectedMenuItem(selectedMenuItem: MenuItem) {
-    console.log(`on event ${this.eventBus.menuItemSubject.eventName} at LeftMenuComponent.setSelectedMenuItem`);
+    this.eventBus.menuItemSubject.logOnEvent('LeftMenuComponent.setSelectedMenuItem');
     this.selectedMenuItem = selectedMenuItem;
   }
 

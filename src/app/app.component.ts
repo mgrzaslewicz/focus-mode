@@ -26,7 +26,7 @@ export class AppComponent {
   }
 
   private setSelectedMenuItem(selectedMenuItem: MenuItem) {
-    console.log(`on event ${this.eventBus.menuItemSubject.eventName} at AppComponent.setSelectedMenuItem`);
+    this.eventBus.menuItemSubject.logOnEvent('AppComponent.setSelectedMenuItem');
     if (selectedMenuItem != null) {
       this.selectedMenuItem = selectedMenuItem;
       this.handleSelectedMenuItem();
@@ -36,7 +36,7 @@ export class AppComponent {
   private handleSelectedMenuItem() {
     switch (this.selectedMenuItem) {
       case MenuItem.EXECUTE_PLAN: {
-        this.eventBus.hideLeftMenuSubject.next(true);
+        this.eventBus.hideLeftMenuSubject.next(true, 'AppComponent.handleSelectedMenuItem');
       }
     }
   }

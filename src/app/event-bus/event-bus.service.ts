@@ -13,12 +13,16 @@ export class BehaviorSubjectWithSource<T> extends BehaviorSubject<T> {
 
   next(value: T, source?: string): void {
     if (source) {
-      console.log(`firing event ${this.eventName} from ${source}`);
+      console.log(`%cfiring event ${this.eventName} from ${source}`, 'color: lightseagreen');
     } else {
-      console.log(`firing event ${this.eventName}`);
+      console.log(`%cfiring event ${this.eventName}`, 'color: lightseagreen');
     }
     console.log(value);
     super.next(value);
+  }
+
+  public logOnEvent(destination: string) {
+    console.log(`%con event ${this.eventName} at ${destination}`, 'color: lightgreen');
   }
 
 }
@@ -26,7 +30,7 @@ export class BehaviorSubjectWithSource<T> extends BehaviorSubject<T> {
 @Injectable()
 export class EventBusService {
   public userNotLoggedInSubject: Subject<boolean> = new Subject<boolean>();
-  public focusedTaskSubject: BehaviorSubject<Task> = new BehaviorSubject<Task>(null);
+  public focusedTaskSubject: BehaviorSubjectWithSource<Task> = new BehaviorSubjectWithSource<Task>(null);
   public menuItemSubject: BehaviorSubjectWithSource<MenuItem> = new BehaviorSubjectWithSource<MenuItem>(null, 'menuItem');
   public hideLeftMenuSubject: BehaviorSubjectWithSource<boolean> = new BehaviorSubjectWithSource<boolean>(false, 'hideLeftMenu');
 

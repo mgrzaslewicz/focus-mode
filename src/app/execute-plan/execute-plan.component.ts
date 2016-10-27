@@ -24,7 +24,7 @@ export class ExecutePlanComponent implements OnInit {
   }
 
   public switchLeftMenuHidden() {
-    this.eventBus.hideLeftMenuSubject.next(!this.isLeftMenuHidden);
+    this.eventBus.hideLeftMenuSubject.next(!this.isLeftMenuHidden, 'ExecutePlanComponent.switchLeftMenuHidden');
   }
 
 }
