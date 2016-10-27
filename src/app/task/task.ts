@@ -22,11 +22,18 @@ export class Task {
 }
 
 export class Day {
+  private name: string;
   private tasks: Array<Task> = new Array<Task>();
+  private timeline: string;
+  private date: Date;
+  private draftTaskName: string;
   private focusedTaskIndexZeroBased: number = 0;
 
-  constructor() {
-
+  constructor(name: string, tasks: Array<Task>, timeline: string, date: Date) {
+    this.name = name;
+    this.tasks = tasks;
+    this.timeline = timeline;
+    this.date = date;
   }
 
   public getProgressPercent(): number {
@@ -65,6 +72,13 @@ export class Day {
 
   public canSwitchFocusToPreviousTask(): boolean {
     return this.focusedTaskIndexZeroBased - 1 >= 0;
+  }
+
+  public addTaskFromDraft() {
+    if (this.draftTaskName) {
+      this.addTask(new Task(this.draftTaskName, false));
+      this.draftTaskName = '';
+    }
   }
 
 }

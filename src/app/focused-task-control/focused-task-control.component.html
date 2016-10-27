@@ -1,4 +1,4 @@
-<div class="focused-task-control">
+<div *ngIf="day" class="focused-task-control">
   <div class="col-xs-3 col-md-4 col-lg-5">
     <div class="previous-task" (click)="switchToPreviousTask()" *ngIf="canSwitchToPreviousTask()">
       <i class="fa fa-chevron-left"></i>

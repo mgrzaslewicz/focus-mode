@@ -13,9 +13,6 @@ export class FocusedTaskControlComponent implements OnInit {
 
   constructor(eventBus: EventBusService) {
     this.eventBus = eventBus;
-    this.day = new Day();
-    this.day.addTask(new Task('test 1', false));
-    this.day.addTask(new Task('test 2', true));
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Task} from '../task/task';
+import {Task, Day} from '../task/task';
 import {Subject, Subscription, BehaviorSubject} from 'rxjs/Rx';
 import {MenuItem} from '../left-menu/left-menu.component';
 
@@ -31,6 +31,7 @@ export class BehaviorSubjectWithSource<T> extends BehaviorSubject<T> {
 export class EventBusService {
   public userNotLoggedInSubject: Subject<boolean> = new Subject<boolean>();
   public focusedTaskSubject: BehaviorSubjectWithSource<Task> = new BehaviorSubjectWithSource<Task>(null, 'focusedTask');
+  public focusedDaySubject: BehaviorSubjectWithSource<Day> = new BehaviorSubjectWithSource<Day>(null, 'focusedDay');
   public menuItemSubject: BehaviorSubjectWithSource<MenuItem> = new BehaviorSubjectWithSource<MenuItem>(null, 'menuItem');
   public hideLeftMenuSubject: BehaviorSubjectWithSource<boolean> = new BehaviorSubjectWithSource<boolean>(false, 'hideLeftMenu');
 

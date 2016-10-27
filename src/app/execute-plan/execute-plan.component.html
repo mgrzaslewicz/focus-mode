@@ -1,4 +1,4 @@
-<div class="execute-plan">
+<div *ngIf="focusedDay" class="execute-plan">
   <div class="row">
     <div class="col-xs-2">
       <button *ngIf="!isLeftMenuHidden" (click)="switchLeftMenuHidden()" class="btn btn-sm btn-secondary">
