@@ -13,6 +13,7 @@ import {PresentationComponent} from './presentation/presentation.component';
 import {NotesComponent} from './notes/notes.component';
 import {LeftMenuComponent} from './left-menu/left-menu.component';
 import {CookieTaskService, TaskServiceToken} from './focused-task';
+import {AppRoutingModule} from './app.routing-module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {CookieTaskService, TaskServiceToken} from './focused-task';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [
     EventBusService,

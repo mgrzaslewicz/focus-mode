@@ -2,22 +2,24 @@
   border-right: 1px solid lightgray;
   width: 200px;
   margin-left: -15px;
-  opacity: 0.1;
-}
-
-.left-menu:hover {
-  opacity: 1;
 }
 
 .left-menu .menu-item {
   height: 50px;
+  width: 100%;
   line-height: 50px;
   cursor: pointer;
   display: flex;
   vertical-align: middle;
+  color: inherit;
+  text-decoration: none;
 }
 
-.left-menu .menu-item.selected {
+.left-menu a:hover {
+  text-decoration: none;
+}
+
+.left-menu .menu-item.active {
   color: white;
   background-color: rgba(2, 117, 216, 0.33);
   pointer-events: none;

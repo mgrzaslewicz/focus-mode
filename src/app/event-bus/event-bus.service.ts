@@ -30,7 +30,7 @@ export class BehaviorSubjectWithSource<T> extends BehaviorSubject<T> {
 @Injectable()
 export class EventBusService {
   public userNotLoggedInSubject: Subject<boolean> = new Subject<boolean>();
-  public focusedTaskSubject: BehaviorSubjectWithSource<Task> = new BehaviorSubjectWithSource<Task>(null);
+  public focusedTaskSubject: BehaviorSubjectWithSource<Task> = new BehaviorSubjectWithSource<Task>(null, 'focusedTask');
   public menuItemSubject: BehaviorSubjectWithSource<MenuItem> = new BehaviorSubjectWithSource<MenuItem>(null, 'menuItem');
   public hideLeftMenuSubject: BehaviorSubjectWithSource<boolean> = new BehaviorSubjectWithSource<boolean>(false, 'hideLeftMenu');
 

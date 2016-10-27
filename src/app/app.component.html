@@ -4,12 +4,7 @@
       <left-menu *ngIf="!isLeftMenuHidden"></left-menu>
     </div>
     <div class="col-xs-12 col-sm-12" [class.col-md-9]="!isLeftMenuHidden" [class.col-lg-10]="!isLeftMenuHidden">
-      <div [ngSwitch]="selectedMenuItem">
-        <planning *ngSwitchCase="MenuItem.PLANNING"></planning>
-        <execute-plan *ngSwitchCase="MenuItem.EXECUTE_PLAN"></execute-plan>
-        <presentation *ngSwitchCase="MenuItem.PRESENTATION"></presentation>
-        <notes *ngSwitchCase="MenuItem.NOTES"></notes>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
