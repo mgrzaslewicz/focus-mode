@@ -14,6 +14,7 @@ import {NotesComponent} from './notes/notes.component';
 import {LeftMenuComponent} from './left-menu/left-menu.component';
 import {CookieTaskService, TaskServiceToken} from './focused-task';
 import {AppRoutingModule} from './app.routing-module';
+import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {AppRoutingModule} from './app.routing-module';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DragulaModule
   ],
   providers: [
     EventBusService,
