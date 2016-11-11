@@ -1,0 +1,11 @@
+<div class="day-tasks-progress">
+  <div class="tasks">
+    <div *ngFor="let task of tasks; let i = index" class="task"
+         [class.done]="task.isDone()" [class.not-done]="!task.isDone()"
+         [class.current]="i == focusedTaskIndex" [style]="getWidthStyle() | safe"></div>
+  </div>
+  <!--<div class="task-indicators">
+    <div *ngFor="let task of tasks; let i = index" class="task-indicator" [class.current]="i == focusedTaskIndex"
+         [style]="getWidthStyle() | safe"></div>
+  </div>-->
+</div>

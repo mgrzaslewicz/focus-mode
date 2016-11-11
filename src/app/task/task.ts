@@ -22,10 +22,10 @@ export class Task {
 }
 
 export class Day {
-  private name: string;
-  private tasks: Array<Task> = new Array<Task>();
+  public name: string;
+  private tasks: Array<Task>;
   private timeline: string;
-  private date: Date;
+  public date: Date;
   private draftTaskName: string;
   private focusedTaskIndexZeroBased: number = 0;
 
@@ -37,9 +37,13 @@ export class Day {
   }
 
   public getProgressPercent(): number {
+    let result: number = 0;
     let howManyDone = 0;
-    this.tasks.forEach((task: Task) => howManyDone += task.isDone() ? 1 : 0);
-    return Math.floor(howManyDone / this.tasks.length * 100);
+    if (this.tasks.length > 0) {
+      this.tasks.forEach((task: Task) => howManyDone += task.isDone() ? 1 : 0);
+      result = Math.floor(howManyDone / this.tasks.length * 100);
+    }
+    return result;
   }
 
   public getTasks(): Array<Task> {
@@ -52,6 +56,10 @@ export class Day {
 
   public getFocusedTask(): Task {
     return this.tasks[this.focusedTaskIndexZeroBased];
+  }
+
+  public getFocusedTaskIndexZeroBased(): number {
+    return this.focusedTaskIndexZeroBased;
   }
 
   public switchFocusedTaskDone() {
@@ -81,8 +89,12 @@ export class Day {
     }
   }
 
+  public clearTasks() {
+    this.tasks = [];
+  }
+
 }
 
 export class DayList {
-  private days: Array<Day> = new Array<Day>();
+  public days: Array<Day> = new Array<Day>();
 }

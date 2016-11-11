@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from '../task/task';
-import {EventBusService} from '../event-bus/event-bus.service';
+import {Task} from '../../task/task';
+import {EventBusService} from '../../event-bus/event-bus.service';
 
 @Component({
   selector: 'focused-task',

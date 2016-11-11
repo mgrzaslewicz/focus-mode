@@ -2,7 +2,7 @@
 
 import {inject, TestBed} from '@angular/core/testing';
 import {FocusedTaskControlComponent} from './focused-task-control.component';
-import {EventBusService} from '../event-bus/event-bus.service';
+import {EventBusService} from '../../event-bus/event-bus.service';
 
 describe('Component: FocusedTaskControl', () => {
   beforeEach(() => {

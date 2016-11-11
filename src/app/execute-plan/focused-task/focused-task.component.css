@@ -1,3 +1,7 @@
+.jumbotron {
+  cursor: pointer;
+}
+
 .focused-task {
   display: table;
   margin: auto;

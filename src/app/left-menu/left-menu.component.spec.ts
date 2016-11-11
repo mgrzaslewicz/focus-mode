@@ -1,5 +1,4 @@
 /* tslint:disable:no-unused-variable */
-
 import {TestBed, inject} from '@angular/core/testing';
 import {LeftMenuComponent} from './left-menu.component';
 import {EventBusService} from '../event-bus/event-bus.service';

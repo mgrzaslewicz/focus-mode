@@ -8,15 +8,10 @@ import {NotesComponent} from './notes/notes.component';
 
 @NgModule({
   imports: [
-    /*
-     LoginComponent,
-     TutorialsComponent,
-     SupportComponent,
-     NewsComponent,
-     */
     RouterModule.forRoot([
+      {path: '', pathMatch: 'full', redirectTo: '/plan'},
+      {path: 'plan', component: PlanningComponent},
       {path: 'executeplan', component: ExecutePlanComponent},
-      {path: 'planning', component: PlanningComponent},
       {path: 'presentation', component: PresentationComponent},
       {path: 'notes', component: NotesComponent},
     ])

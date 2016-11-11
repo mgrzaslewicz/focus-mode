@@ -1,12 +1,13 @@
-import {describe, expect, it} from '@angular/core/testing';
 import {Day, Task} from './task';
 
 describe('Model: Task', () => {
   function getSampleDay(): Day {
-    let day = new Day();
-    day.addTask(new Task('test1', false));
-    day.addTask(new Task('test2', false));
-    day.addTask(new Task('test3', false));
+    let tasks: Array<Task> = [
+      new Task('test1', false),
+      new Task('test2', false),
+      new Task('test3', false)
+    ];
+    let day = new Day('day 1', tasks, 'future', new Date(1));
     return day;
   };
   it('should have focus on zero task initially', () => {

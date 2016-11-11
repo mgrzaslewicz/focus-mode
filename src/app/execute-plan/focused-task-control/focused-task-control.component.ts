@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Day, Task} from '../task/task';
-import {EventBusService} from '../event-bus/event-bus.service';
+import {Component, OnInit, Input} from '@angular/core';
+import {Day} from '../../task/task';
+import {EventBusService} from '../../event-bus/event-bus.service';
 
 @Component({
   selector: 'focused-task-control',
@@ -8,7 +8,8 @@ import {EventBusService} from '../event-bus/event-bus.service';
   styleUrls: ['focused-task-control.component.css']
 })
 export class FocusedTaskControlComponent implements OnInit {
-  private day: Day;
+  @Input()
+  public day: Day;
   private eventBus: EventBusService;
 
   constructor(eventBus: EventBusService) {

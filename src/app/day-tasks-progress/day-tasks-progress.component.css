@@ -1,0 +1,45 @@
+.tasks {
+  clear: both;
+}
+
+.done {
+  background-color: #dff0d8;
+}
+
+.not-done {
+  background-color: #f5f5f5;
+}
+
+.task {
+  height: 50px;
+  float: left;
+  border-radius: 4px;
+}
+
+.task.current {
+  border: 3px double gray;
+}
+
+.task.current.done {
+  border: 3px double gray;
+}
+
+.task-indicators {
+  margin-top: 10px;
+  clear: both;
+}
+
+.task-indicators .task-indicator {
+  height: 10px;
+  border-radius: 4px;
+  float: left;
+}
+
+.task-indicators .task-indicator.current {
+  background-color: lightgray;
+}
+
+.day-tasks-progress {
+  width: 100%;
+  border-radius: 4px;
+}

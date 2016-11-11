@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {EventBusService} from '../event-bus';
 import {Day} from '../task/task';
-import {TaskService, TaskServiceToken} from '../focused-task';
+import {TaskService, TaskServiceToken} from './focused-task';
 
 @Component({
   selector: 'execute-plan',

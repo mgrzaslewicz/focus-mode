@@ -1194,3 +1194,8 @@ body {
 .c100.orange.dark:hover > span {
   color: #e08833;
 }
+
+.faded {
+  pointer-events: none;
+  opacity: 0.03;
+}

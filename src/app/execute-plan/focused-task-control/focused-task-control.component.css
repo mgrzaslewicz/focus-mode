@@ -18,8 +18,12 @@
   height: 120px;
   color: lightgray;
   cursor: pointer;
-  padding-right: 100px;
   width: 100%;
+  font-size: 20px;
+}
+
+.focused-task-control .next-task i {
+  margin: auto;
 }
 
 .focused-task-control .previous-task {
@@ -29,5 +33,10 @@
   height: 120px;
   color: lightgray;
   cursor: pointer;
-  padding-left: 100%;
+  width: 100%;
+  font-size: 20px;
+}
+
+.focused-task-control .previous-task i {
+  margin: auto;
 }

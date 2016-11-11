@@ -1,4 +1,4 @@
-<div *ngIf="hasTask()" class="jumbotron" [class.alert-success]="task.isDone()">
+<div *ngIf="hasTask()" class="jumbotron" [class.alert-success]="task.isDone()" (click)="task.switchDone()">
   <div class="focused-task"
        [class.slide-in]="isCurrentTodoSlidingToRight" [class.slide-out]="isCurrentTodoSlidingToLeft">
     <p class="hidden"></p>

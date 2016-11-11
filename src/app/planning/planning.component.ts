@@ -1,8 +1,9 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {Day} from '../task/task';
-import {TaskService, TaskServiceToken} from '../focused-task';
 import {EventBusService} from '../event-bus';
 import {DragulaService} from 'ng2-dragula/components/dragula.provider';
+import {TaskService, TaskServiceToken} from '../execute-plan/focused-task/task.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: ' planning',
@@ -15,14 +16,19 @@ export class PlanningComponent implements OnInit {
   private days: Array<Day> = [];
   private taskService: TaskService;
   private dragulaService: DragulaService;
+  private router: Router;
 
-  constructor(eventBus: EventBusService, @Inject(TaskServiceToken) taskService: TaskService, dragulaService: DragulaService) {
+  constructor(eventBus: EventBusService, @Inject(TaskServiceToken) taskService: TaskService, dragulaService: DragulaService, router: Router) {
     this.eventBus = eventBus;
     this.taskService = taskService;
     this.dragulaService = dragulaService;
+    this.router = router;
   }
 
   ngOnInit() {
+    this.dragulaService.drag.subscribe((value: any) => {
+      console.log(`drag: ${value[0]}`);
+    });
     this.taskService.getDays((days: Array<Day>) => this.setDays(days));
   }
 
@@ -30,5 +36,23 @@ export class PlanningComponent implements OnInit {
     this.days = days;
   }
 
+  public goToExecuteDay(day: Day) {
+    this.eventBus.focusedDaySubject.next(day, 'PlanningComponent.goToExecuteDay');
+    this.taskService.saveDays(this.days, () => {
+    });
+    this.router.navigateByUrl('/executeplan');
+  }
+
+  public addTaskFromDraft(day: Day) {
+    day.addTaskFromDraft();
+    this.taskService.saveDays(this.days, () => {
+    });
+  }
+
+  public clearTasks(day: Day) {
+    day.clearTasks();
+    this.taskService.saveDays(this.days, () => {
+    });
+  }
 
 }
