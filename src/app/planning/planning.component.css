@@ -1,0 +1,9 @@
+.existing-task .actions {
+  margin-top: 5px;
+  padding-top: 5px;
+  display: none;
+}
+
+.existing-task:hover .actions {
+  display: inherit;
+}
