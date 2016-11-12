@@ -30,3 +30,9 @@
     </div>
   </div>
 </div>
+<div *ngIf="!focusedDay" class="execute-plan">
+  <div class="row">
+    No day selected,
+    <button routerLink="/plan" class="btn btn-warning">go back to plan</button>
+  </div>
+</div>
