@@ -127,4 +127,19 @@ export class Day {
     });
     return result;
   }
+
+  public removeTask(taskIndexZeroBased: number) {
+    this.tasks.splice(taskIndexZeroBased, 1);
+  }
+
+  public moveTaskToDraft(taskIndexZeroBased: number) {
+    let taskName: string = this.tasks[taskIndexZeroBased].getName();
+    this.removeTask(taskIndexZeroBased);
+    this.draftTaskName = taskName;
+  }
+
+  public hasNoTasks(): boolean {
+    return this.tasks.length == 0;
+  }
+
 }
