@@ -1,28 +1,15 @@
 import {Injectable, OpaqueToken} from '@angular/core';
 import {SuccessCallback, ErrorCallback} from '../../shared/callback';
-import {Day, Task} from '../../task/task';
+import {Day, Task, DayJson, TaskJson} from '../../task/task';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
-
-export interface TaskJson {
-  name: string;
-  done: boolean;
-}
-
-export interface DayJson {
-  name: string;
-  tasks: Array<TaskJson>;
-  timeline: string;
-  time: number;
-}
 
 export class DaysFromJsonMapper {
 
-  public createDaysFrom(days: Array<DayJson>): Array<Day> {
-    let result: Array<Day> = null;
-    if (days != null) {
-      result = [];
-      days.forEach((dayJson: DayJson) => {
-        result.push(this.createDayFrom(dayJson));
+  public createDaysFrom(dayMap: any): Array<Day> {
+    let result: Array<Day> = [];
+    if (dayMap != null) {
+      Object.getOwnPropertyNames(dayMap).forEach((key: string) => {
+        result.push(this.createDayFrom(dayMap[key]));
       });
     }
     return result;
@@ -48,6 +35,7 @@ export class DaysFromJsonMapper {
 export interface TaskService {
   getDays(successCallback: SuccessCallback<Array<Day>>, errorCallback?: ErrorCallback): void;
   saveDays(days: Array<Day>, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback): void;
+  saveDay(day: Day, successCallback: SuccessCallback<any>): void;
 }
 
 export const TaskServiceToken = new OpaqueToken('taskService');
@@ -64,17 +52,17 @@ export class CookieTaskService implements TaskService {
   }
 
   public getDays(successCallback: SuccessCallback<Array<Day>>, errorCallback?: ErrorCallback) {
-    let week: Array<DayJson> = <Array<DayJson>>this.cookieService.getObject('week');
-    let result: Array<Day> = this.dayFromJsonMapper.createDaysFrom(week);
-    if (result == null) {
+    let dayMap: any = this.getDayMap();
+    let result: Array<Day> = this.dayFromJsonMapper.createDaysFrom(dayMap);
+    if (result.length == 0) {
       result = this.createEmptyWeek();
     }
-
     successCallback(result);
   }
 
   public saveDays(days: Array<Day>, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback) {
-    this.cookieService.putObject('week', days);
+    days.forEach((day: Day) => this.saveDayInCookie(day));
+    successCallback(null);
   }
 
   private createEmptyWeek(): Array<Day> {
@@ -88,4 +76,28 @@ export class CookieTaskService implements TaskService {
     result.push(new Day('Nd', [], 'current', null));
     return result;
   }
+
+  public saveDay(day: Day, successCallback: SuccessCallback<any>) {
+    this.saveDayInCookie(day);
+    successCallback(null);
+  }
+
+  private getDayMap(): any {
+    return this.cookieService.getObject('dayMap');
+  }
+
+  private getDayMapOrCreateEmpty(): any {
+    let result: any = this.getDayMap();
+    if (!result) {
+      result = {};
+    }
+    return result;
+  }
+
+  private saveDayInCookie(day: Day) {
+    let dayMap: any = this.getDayMapOrCreateEmpty();
+    dayMap[day.name] = day.asJson();
+    this.cookieService.putObject('dayMap', dayMap);
+  }
+
 }

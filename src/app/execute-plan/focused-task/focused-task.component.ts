@@ -9,8 +9,6 @@ import {EventBusService} from '../../event-bus/event-bus.service';
 })
 export class FocusedTaskComponent implements OnInit {
   private task: Task;
-  private isCurrentTodoSlidingToRight: boolean = false;
-  private isCurrentTodoSlidingToLeft: boolean = false;
   private eventBus: EventBusService;
 
   constructor(eventBus: EventBusService) {
@@ -32,6 +30,7 @@ export class FocusedTaskComponent implements OnInit {
 
   public switchTaskDone() {
     this.task.switchDone();
+    this.eventBus.taskChangedSubject.next(this.task, 'FocusedTaskComponent.switchTaskDone');
   }
 
 }

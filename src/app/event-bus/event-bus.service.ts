@@ -31,6 +31,7 @@ export class EventBusService {
   public userNotLoggedInSubject: Subject<boolean> = new Subject<boolean>();
   public focusedTaskSubject: BehaviorSubjectWithSource<Task> = new BehaviorSubjectWithSource<Task>(null, 'focusedTask');
   public focusedDaySubject: BehaviorSubjectWithSource<Day> = new BehaviorSubjectWithSource<Day>(null, 'focusedDay');
+  public taskChangedSubject: BehaviorSubjectWithSource<Task> = new BehaviorSubjectWithSource<Task>(null, 'taskChanged');
   public hideLeftMenuSubject: BehaviorSubjectWithSource<boolean> = new BehaviorSubjectWithSource<boolean>(false, 'hideLeftMenu');
 
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {EventBusService} from '../event-bus';
-import {Day} from '../task/task';
+import {Day, Task} from '../task/task';
 import {TaskService, TaskServiceToken} from './focused-task';
 
 @Component({
@@ -23,6 +23,7 @@ export class ExecutePlanComponent implements OnInit {
     this.eventBus.hideLeftMenuSubject.asObservable()
       .subscribe((hidden: boolean) => this.setLeftMenuHidden(hidden));
     this.eventBus.focusedDaySubject.asObservable().subscribe((day: Day) => this.setFocusedDay(day));
+    this.eventBus.taskChangedSubject.asObservable().subscribe((task: Task) => this.onTaskChanged(task));
   }
 
   private setLeftMenuHidden(hidden: boolean) {
@@ -39,4 +40,10 @@ export class ExecutePlanComponent implements OnInit {
     this.focusedDay = day;
   }
 
+  private onTaskChanged(task: Task) {
+    if (task) {
+      this.taskService.saveDay(this.focusedDay, () => {
+      });
+    }
+  }
 }

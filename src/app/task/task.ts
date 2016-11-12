@@ -19,6 +19,24 @@ export class Task {
     return this.done;
   }
 
+  public asJson(): TaskJson {
+    return {
+      name: this.name,
+      done: this.done
+    }
+  }
+}
+
+export interface TaskJson {
+  name: string;
+  done: boolean;
+}
+
+export interface DayJson {
+  name: string;
+  tasks: Array<TaskJson>;
+  timeline: string;
+  time: number;
 }
 
 export class Day {
@@ -93,8 +111,20 @@ export class Day {
     this.tasks = [];
   }
 
-}
+  public asJson(): DayJson {
+    return {
+      name: this.name,
+      tasks: this.getTasksAsJson(),
+      timeline: this.timeline,
+      time: this.date ? this.date.getTime() : 0
+    }
+  }
 
-export class DayList {
-  public days: Array<Day> = new Array<Day>();
+  public getTasksAsJson(): Array<TaskJson> {
+    let result: Array<TaskJson> = [];
+    this.tasks.forEach((task: Task) => {
+      result.push(task.asJson());
+    });
+    return result;
+  }
 }
