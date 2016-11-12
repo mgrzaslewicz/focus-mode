@@ -30,4 +30,8 @@ export class FocusedTaskComponent implements OnInit {
     return this.task != null;
   }
 
+  public switchTaskDone() {
+    this.task.switchDone();
+  }
+
 }

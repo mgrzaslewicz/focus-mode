@@ -1,17 +1,17 @@
 <div class="row" *ngFor="let day of days">
   <div class="col-xs-6 col-lg-4">
-    <div class="card day day-{{day.timeline}}">
+    <div class="card day day-{{ day.timeline }}">
       <div class="card-block">
-        <div (click)="goToExecuteDay(day)" class="c100 small green p{{day.getProgressPercent()}} circle-progress">
-          <span class="ng-binding">{{day.getProgressPercent()}}%</span>
+        <div (click)="goToExecuteDay(day)" class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
+          <span class="ng-binding">{{ day.getProgressPercent() }}%</span>
           <div class="slice">
             <div class="bar"></div>
             <div class="fill"></div>
           </div>
         </div>
-        <h4 class="card-title">{{day.name}}</h4>
-        <h6 class="card-subtitle text-muted">{{day.date}}</h6>
-        <button class="btn btn-secondary pull-xs-right" (click)="clearTasks(day)">
+        <h4 class="card-title">{{ day.name }}</h4>
+        <!--<h6 class="card-subtitle text-muted">{{ day.date }}</h6>-->
+        <button class="btn btn-sm btn-secondary pull-xs-right" (click)="clearTasks(day)">
           <i class="fa fa-eraser" aria-hidden="true"></i>
         </button>
       </div>
@@ -29,7 +29,7 @@
                             <i *ngIf="task.isDone()" class="fa fa-check-circle-o"></i>
                             <i *ngIf="!task.isDone()" class="fa fa-circle-o"></i>
                         </span>
-          {{task.name}}
+          {{ task.name }}
         </li>
       </ul>
     </div>

@@ -19,7 +19,7 @@ export class DayTasksProgressComponent implements OnInit {
   }
 
   public getWidthStyle(): string {
-    let percentWidth = Math.floor(100 / this.tasks.length);
+    let percentWidth = 100 / this.tasks.length;
     return `width: ${percentWidth}%;`;
   }
 

@@ -38,4 +38,5 @@ export class ExecutePlanComponent implements OnInit {
     this.eventBus.focusedDaySubject.logOnEvent('ExecutePlanComponent.setFocusedDay');
     this.focusedDay = day;
   }
+
 }

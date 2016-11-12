@@ -20,10 +20,6 @@ export class FocusedTaskControlComponent implements OnInit {
     this.eventBus.focusedTaskSubject.next(this.day.getFocusedTask(), 'FocusedTaskControlComponent.ngOnInit');
   }
 
-  public getCurrentProgressPercent(): number {
-    return this.day.getProgressPercent();
-  }
-
   public canSwitchToNextTask(): boolean {
     return this.day.canSwitchFocusToNextTask();
   }
@@ -38,10 +34,6 @@ export class FocusedTaskControlComponent implements OnInit {
 
   public switchToNextTask() {
     this.eventBus.focusedTaskSubject.next(this.day.switchFocusToNextTask(), 'FocusedTaskControlComponent.switchToNextTask');
-  }
-
-  public switchFocusedTaskDone() {
-    this.day.switchFocusedTaskDone();
   }
 
 }

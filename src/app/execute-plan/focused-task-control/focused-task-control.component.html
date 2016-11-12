@@ -1,19 +1,12 @@
 <div *ngIf="day" class="focused-task-control">
-  <div class="col-xs-12">
-    <rectangle-progress-bar [progressPercent]="getCurrentProgressPercent()"></rectangle-progress-bar>
-    <day-tasks-progress [focusedTaskIndex]="day.getFocusedTaskIndexZeroBased()"
-                        [tasks]="day.getTasks()"></day-tasks-progress>
-    <div>
-      <div class="col-xs-6">
-        <div class="previous-task" (click)="switchToPreviousTask()" [class.faded]="!canSwitchToPreviousTask()">
-          <i class="fa fa-chevron-left"></i>
-        </div>
-      </div>
-      <div class="col-xs-6">
-        <div class="next-task" (click)="switchToNextTask()" [class.faded]="!canSwitchToNextTask()">
-          <i class="fa fa-chevron-right"></i>
-        </div>
-      </div>
+  <div class="col-xs-6">
+    <div class="previous-task" (click)="switchToPreviousTask()" [class.faded]="!canSwitchToPreviousTask()">
+      <i class="fa fa-chevron-left"></i>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="next-task" (click)="switchToNextTask()" [class.faded]="!canSwitchToNextTask()">
+      <i class="fa fa-chevron-right"></i>
     </div>
   </div>
 </div>

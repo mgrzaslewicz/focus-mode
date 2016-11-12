@@ -13,9 +13,20 @@
     </div>
   </div>
   <div class="row">
-    <focused-task-control [day]="focusedDay"></focused-task-control>
+    <div class="col-xs-12">
+      <rectangle-progress-bar [progressPercent]="focusedDay.getProgressPercent()"></rectangle-progress-bar>
+      <day-tasks-progress [focusedTaskIndex]="focusedDay.getFocusedTaskIndexZeroBased()"
+                          [tasks]="focusedDay.getTasks()"></day-tasks-progress>
+    </div>
   </div>
   <div class="row">
-    <focused-task></focused-task>
+    <div class="col-xs-12">
+      <focused-task-control [day]="focusedDay"></focused-task-control>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <focused-task></focused-task>
+    </div>
   </div>
 </div>
