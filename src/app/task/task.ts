@@ -142,4 +142,21 @@ export class Day {
     return this.tasks.length == 0;
   }
 
+  public moveTaskDown(taskIndexZeroBased: number) {
+    if (taskIndexZeroBased >= 0 && taskIndexZeroBased < this.tasks.length - 1) {
+      let newTaskIndexZeroBased = taskIndexZeroBased + 1;
+      let tmp = this.tasks[newTaskIndexZeroBased];
+      this.tasks[newTaskIndexZeroBased] = this.tasks[taskIndexZeroBased];
+      this.tasks[taskIndexZeroBased] = tmp;
+    }
+  }
+
+  public moveTaskUp(taskIndexZeroBased: number) {
+    if (taskIndexZeroBased > 0 && taskIndexZeroBased < this.tasks.length) {
+      let newTaskIndexZeroBased = taskIndexZeroBased - 1;
+      let tmp = this.tasks[newTaskIndexZeroBased];
+      this.tasks[newTaskIndexZeroBased] = this.tasks[taskIndexZeroBased];
+      this.tasks[taskIndexZeroBased] = tmp;
+    }
+  }
 }

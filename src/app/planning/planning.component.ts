@@ -68,4 +68,14 @@ export class PlanningComponent implements OnInit {
     this.saveDays();
   }
 
+  public moveTaskDown(day: Day, taskIndexZeroBased: number) {
+    day.moveTaskDown(taskIndexZeroBased);
+    this.saveDays();
+  }
+
+  public moveTaskUp(day: Day, taskIndexZeroBased: number) {
+    day.moveTaskUp(taskIndexZeroBased);
+    this.saveDays();
+  }
+
 }

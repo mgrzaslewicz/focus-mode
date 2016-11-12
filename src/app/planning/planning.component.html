@@ -15,7 +15,7 @@
           <i class="fa fa-eraser" aria-hidden="true"></i>
         </button>
         <button (click)="goToExecuteDay(day)"
-                [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-secondary pull-xs-right" >
+                [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-secondary pull-xs-right">
           <i class="fa fa-line-chart" aria-hidden="true"></i>
         </button>
       </div>
@@ -26,7 +26,8 @@
                  [(ngModel)]="day.draftTaskName"
                  (keydown)="$event.keyCode == 13 ? addTaskFromDraft(day): null">
         </li>
-        <li *ngFor="let task of day.tasks; let taskIndex = index" [dragula]="day.name" [dragulaModel]="day.tasks"
+        <li *ngFor="let task of day.tasks; let taskIndex = index; let isFirst = first; let isLast = last"
+            [dragula]="day.name" [dragulaModel]="day.tasks"
             class="existing-task list-group-item"
             [class.done-task]="task.isDone()">
                         <span class="done-mark">
@@ -41,14 +42,14 @@
             <button (click)="editTask(day, taskIndex)" class="btn btn-sm btn-secondary">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             </button>
-            <!--<button (click)="moveTaskToNextDay(task)" class="btn btn-sm btn-secondary">-->
-              <!--<i class="fa fa-angle-down" aria-hidden="true"></i>-->
-            <!--</button>-->
-            <!--<button (click)="moveTaskToPreviousDay(task)" class="btn btn-sm btn-secondary">-->
-              <!--<i class="fa fa-angle-up" aria-hidden="true"></i>-->
-            <!--</button>-->
+            <button (click)="moveTaskUp(day, taskIndex)" [class.faded]="isFirst" class="btn btn-sm btn-secondary">
+              <i class="fa fa-angle-up" aria-hidden="true"></i>
+            </button>
+            <button (click)="moveTaskDown(day, taskIndex)" [class.faded]="isLast" class="btn btn-sm btn-secondary">
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </button>
             <!--<button (click)="copyTaskToNextDay(task)" class="btn btn-sm btn-secondary">-->
-              <!--<i class="fa fa-angle-double-up" aria-hidden="true"></i>-->
+            <!--<i class="fa fa-angle-double-up" aria-hidden="true"></i>-->
             <!--</button>-->
           </div>
         </li>

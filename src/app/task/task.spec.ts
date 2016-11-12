@@ -48,4 +48,26 @@ describe('Model: Task', () => {
     day.getTasks().forEach((task: Task) => task.switchDone());
     expect(day.getProgressPercent()).toBe(100);
   });
+  it('should move task down', () => {
+    let day = getSampleDay();
+    day.moveTaskDown(1);
+    expect(day.getTasks()[2].getName()).toBe('test2');
+    expect(day.getTasks()[1].getName()).toBe('test3');
+  });
+  it('should move task up', () => {
+    let day = getSampleDay();
+    day.moveTaskUp(1);
+    expect(day.getTasks()[0].getName()).toBe('test2');
+    expect(day.getTasks()[1].getName()).toBe('test1');
+  });
+  it('should not move task up when first', () => {
+    let day = getSampleDay();
+    day.moveTaskUp(0);
+    expect(day.getTasks()[0].getName()).toBe('test1');
+  });
+  it('should not move task down when last', () => {
+    let day = getSampleDay();
+    day.moveTaskDown(2);
+    expect(day.getTasks()[2].getName()).toBe('test3');
+  });
 });
