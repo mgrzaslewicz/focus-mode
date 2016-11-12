@@ -20,6 +20,7 @@ import {DayTasksProgressComponent} from './day-tasks-progress/day-tasks-progress
 import {Safe} from './shared/pipes';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
 import {DaysFromJsonMapper} from './execute-plan/focused-task/task.service';
+import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import {DaysFromJsonMapper} from './execute-plan/focused-task/task.service';
     EventBusService,
     CookieService,
     DaysFromJsonMapper,
-    {provide: TaskServiceToken, useClass: CookieTaskService}
+    {provide: TaskServiceToken, useClass: CookieTaskService},
+    {provide: APP_BASE_HREF, useValue: '/'},
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent],
 })

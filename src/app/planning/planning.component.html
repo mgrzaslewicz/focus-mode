@@ -22,7 +22,7 @@
       <ul class="list-group list-group-flush todo-day-list">
         <li class="new-task list-group-item" *ngIf="day.timeline != 'passed'">
           <input type="text" class="form-control"
-                 placeholder="następna rzecz do zrobienia"
+                 placeholder="next task"
                  [(ngModel)]="day.draftTaskName"
                  (keydown)="$event.keyCode == 13 ? addTaskFromDraft(day): null">
         </li>
