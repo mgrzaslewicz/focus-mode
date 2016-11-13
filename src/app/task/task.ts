@@ -159,4 +159,9 @@ export class Day {
       this.tasks[taskIndexZeroBased] = tmp;
     }
   }
+
+  public createTaskFrom(task: Task) {
+    this.addTask(new Task(task.getName(), false));
+  }
+
 }

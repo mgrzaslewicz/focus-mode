@@ -78,4 +78,10 @@ export class PlanningComponent implements OnInit {
     this.saveDays();
   }
 
+  public copyTaskToNextDay(dayIndex: number, taskIndex: number) {
+    if (dayIndex < this.days.length - 1) {
+      this.days[dayIndex + 1].createTaskFrom(this.days[dayIndex].getTasks()[taskIndex]);
+    }
+  }
+
 }

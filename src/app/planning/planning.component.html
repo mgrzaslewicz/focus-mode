@@ -1,4 +1,4 @@
-<div class="row" *ngFor="let day of days">
+<div class="row" *ngFor="let day of days; let dayIndex = index; let isLastDay = last">
   <div class="col-xs-6 col-lg-4">
     <div class="card day day-{{ day.timeline }}">
       <div class="card-block">
@@ -48,9 +48,10 @@
             <button (click)="moveTaskDown(day, taskIndex)" [class.faded]="isLast" class="btn btn-sm btn-secondary">
               <i class="fa fa-angle-down" aria-hidden="true"></i>
             </button>
-            <!--<button (click)="copyTaskToNextDay(task)" class="btn btn-sm btn-secondary">-->
-            <!--<i class="fa fa-angle-double-up" aria-hidden="true"></i>-->
-            <!--</button>-->
+            <button (click)="copyTaskToNextDay(dayIndex, taskIndex)" [class.faded]="isLastDay"
+                    class="btn btn-sm btn-secondary">
+              <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+            </button>
           </div>
         </li>
       </ul>
