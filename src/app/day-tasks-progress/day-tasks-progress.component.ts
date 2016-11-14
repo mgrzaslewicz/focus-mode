@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Task} from '../task/task';
+import {Day} from '../task/task';
+import {EventBusService} from '../event-bus/event-bus.service';
 
 @Component({
   selector: 'day-tasks-progress',
@@ -8,19 +9,37 @@ import {Task} from '../task/task';
 })
 export class DayTasksProgressComponent implements OnInit {
   @Input()
-  public focusedTaskIndex: number = 0;
-  @Input()
-  public tasks: Array<Task>;
+  public day: Day;
+  private eventBus: EventBusService;
 
-  constructor() {
+  constructor(eventBus: EventBusService) {
+    this.eventBus = eventBus;
   }
 
   ngOnInit() {
   }
 
   public getWidthStyle(): string {
-    let percentWidth = 100 / this.tasks.length;
+    let percentWidth = 100 / this.day.tasksCount();
     return `width: ${percentWidth}%;`;
+  }
+
+  public setFocusedTaskIndex(index: number) {
+    if (this.day.getFocusedTaskIndexZeroBased() == index) {
+      this.switchFocusedTaskDone();
+    } else {
+      this.setFocusAtTask(index);
+    }
+  }
+
+  private switchFocusedTaskDone() {
+    this.day.switchFocusedTaskDone();
+    this.eventBus.taskChangedSubject.next(this.day.getFocusedTask(), 'FocusedTaskComponent.switchFocusedTaskDone');
+  }
+
+  private setFocusAtTask(index: number) {
+    this.day.setFocusedTaskIndex(index);
+    this.eventBus.focusedTaskSubject.next(this.day.getFocusedTask(), 'DayTasksProgressComponent.setFocusAtTask');
   }
 
 }

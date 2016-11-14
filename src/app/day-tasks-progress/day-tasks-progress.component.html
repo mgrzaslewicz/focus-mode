@@ -1,7 +1,8 @@
-<div class="day-tasks-progress">
+<div *ngIf="day" class="day-tasks-progress">
   <div class="tasks">
-    <div *ngFor="let task of tasks; let i = index" class="task"
+    <div *ngFor="let task of day.getTasks(); let i = index" (click)="setFocusedTaskIndex(i)"
+         class="task"
          [class.done]="task.isDone()" [class.not-done]="!task.isDone()"
-         [class.current]="i == focusedTaskIndex" [style]="getWidthStyle() | safe"></div>
+         [class.current]="i == day.getFocusedTaskIndexZeroBased()" [style]="getWidthStyle() | safe"></div>
   </div>
 </div>

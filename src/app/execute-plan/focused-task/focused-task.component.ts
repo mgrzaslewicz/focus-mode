@@ -21,6 +21,7 @@ export class FocusedTaskComponent implements OnInit {
   }
 
   private setTask(task: Task) {
+    this.eventBus.focusedTaskSubject.logOnEvent('FocusedTaskComponent.setTask');
     this.task = task;
   }
 

@@ -14,14 +14,16 @@
   height: 40px;
   float: left;
   border-radius: 4px;
+  cursor: pointer;
+  border-right: 1px solid lightgray;
 }
 
-.task.current {
-  border: 3px double gray;
+.task.current.not-done {
+  border: 3px dashed lightgray;
 }
 
 .task.current.done {
-  border: 3px double gray;
+  border: 3px dashed #3c763d;
 }
 
 .task-indicators {

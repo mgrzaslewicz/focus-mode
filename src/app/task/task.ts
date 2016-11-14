@@ -76,6 +76,10 @@ export class Day {
     return this.tasks[this.focusedTaskIndexZeroBased];
   }
 
+  public setFocusedTaskIndex(index: number) {
+    this.focusedTaskIndexZeroBased = index;
+  }
+
   public getFocusedTaskIndexZeroBased(): number {
     return this.focusedTaskIndexZeroBased;
   }
@@ -162,6 +166,10 @@ export class Day {
 
   public createTaskFrom(task: Task) {
     this.addTask(new Task(task.getName(), false));
+  }
+
+  public tasksCount(): number {
+    return this.tasks.length;
   }
 
 }
