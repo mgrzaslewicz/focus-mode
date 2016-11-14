@@ -15,6 +15,9 @@
   float: left;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.task.with-right-border {
   border-right: 1px solid lightgray;
 }
 
