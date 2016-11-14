@@ -12,11 +12,12 @@ describe('DayTasksProgressComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         Safe,
-        DayTasksProgressComponent,
+        DayTasksProgressComponent
+      ],
+      providers: [
         EventBusService
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

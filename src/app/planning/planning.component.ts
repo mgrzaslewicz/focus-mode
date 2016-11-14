@@ -58,6 +58,11 @@ export class PlanningComponent implements OnInit {
     this.saveDays();
   }
 
+  public sortTasks(day: Day) {
+    day.sortTasksByValue();
+    this.saveDays();
+  }
+
   public removeTask(day: Day, taskIndexZeroBased: number) {
     day.removeTask(taskIndexZeroBased);
     this.saveDays();

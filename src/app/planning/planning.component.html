@@ -11,7 +11,14 @@
         </div>
         <h4 class="card-title">{{ day.name }}</h4>
         <!--<h6 class="card-subtitle text-muted">{{ day.date }}</h6>-->
-        <button class="btn btn-sm btn-secondary pull-xs-right" (click)="clearTasks(day)">
+        <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
+                title="Sort by task value"
+                (click)="sortTasks(day)">
+          <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-sm btn-secondary pull-xs-right"
+                [class.faded]="day.hasNoTasks()"
+                (click)="clearTasks(day)">
           <i class="fa fa-eraser" aria-hidden="true"></i>
         </button>
         <button (click)="goToExecuteDay(day)"

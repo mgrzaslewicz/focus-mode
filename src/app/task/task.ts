@@ -25,6 +25,25 @@ export class Task {
       done: this.done
     }
   }
+
+  public getValue(): number {
+    let lastWord = this.getLastWordFromName();
+    return this.zeroOrLastWordAsInt(lastWord);
+  }
+
+  private isNumberAtLeast2Digit(word: string) {
+    return /^[0-9]{2,}$/.test(word);
+  }
+
+  private getLastWordFromName(): string {
+    let words = this.name.split(' ');
+    return words[words.length - 1];
+  }
+
+  private zeroOrLastWordAsInt(lastWord: string) {
+    return this.isNumberAtLeast2Digit(lastWord) ? parseInt(lastWord) : 0;
+  }
+
 }
 
 export interface TaskJson {
@@ -170,6 +189,20 @@ export class Day {
 
   public tasksCount(): number {
     return this.tasks.length;
+  }
+
+  public tasksValue(): number {
+    let result = 0;
+    this.tasks.forEach((task: Task) => result += task.getValue());
+    return result;
+  }
+
+  public hasZeroTasksValue(): boolean {
+    return this.tasksValue() == 0;
+  }
+
+  public sortTasksByValue() {
+    this.tasks.sort((task1: Task, task2: Task) => task2.getValue() - task1.getValue());
   }
 
 }
