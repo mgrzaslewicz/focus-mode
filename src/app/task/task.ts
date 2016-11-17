@@ -27,21 +27,17 @@ export class Task {
   }
 
   public getValue(): number {
-    let lastWord = this.getLastWordFromName();
-    return this.zeroOrLastWordAsInt(lastWord);
+    return this.getZeroOrValueFromName();
   }
 
-  private isNumberAtLeast2Digit(word: string) {
-    return /^[0-9]{2,}$/.test(word);
+  private getZeroOrValueFromName(): number {
+    let foundValueStringWithDollarPrefix = this.name.match(/\$[0-9]+/);
+    let result = foundValueStringWithDollarPrefix === null ? 0 : this.getNumberFromNumberWithDollarPrefix(foundValueStringWithDollarPrefix[0]);
+    return result;
   }
 
-  private getLastWordFromName(): string {
-    let words = this.name.split(' ');
-    return words[words.length - 1];
-  }
-
-  private zeroOrLastWordAsInt(lastWord: string) {
-    return this.isNumberAtLeast2Digit(lastWord) ? parseInt(lastWord) : 0;
+  private getNumberFromNumberWithDollarPrefix(numberWithDollarPrefix: string) {
+    return parseInt(numberWithDollarPrefix.substring(1));
   }
 
 }

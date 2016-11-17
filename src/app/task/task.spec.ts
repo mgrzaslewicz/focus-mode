@@ -3,16 +3,16 @@ import {Day, Task} from './task';
 describe('Model: Task', () => {
   function getSampleDay(): Day {
     let tasks: Array<Task> = [
-      new Task('test1 2000', false),
+      new Task('test1 $2000', false),
       new Task('test2', false),
-      new Task('test3 100', false)
+      new Task('test3 $100', false)
     ];
     let day = new Day('day 1', tasks, 'future', new Date(1));
     return day;
   };
   it('should have focus on zero task initially', () => {
     let day = getSampleDay();
-    expect(day.getFocusedTask().getName()).toBe('test1 2000');
+    expect(day.getFocusedTask().getName()).toBe('test1 $2000');
   });
   it('should switch focus to next task', () => {
     let day = getSampleDay();
@@ -52,34 +52,34 @@ describe('Model: Task', () => {
     let day = getSampleDay();
     day.moveTaskDown(1);
     expect(day.getTasks()[2].getName()).toBe('test2');
-    expect(day.getTasks()[1].getName()).toBe('test3 100');
+    expect(day.getTasks()[1].getName()).toBe('test3 $100');
   });
   it('should move task up', () => {
     let day = getSampleDay();
     day.moveTaskUp(1);
     expect(day.getTasks()[0].getName()).toBe('test2');
-    expect(day.getTasks()[1].getName()).toBe('test1 2000');
+    expect(day.getTasks()[1].getName()).toBe('test1 $2000');
   });
   it('should not move task up when first', () => {
     let day = getSampleDay();
     day.moveTaskUp(0);
-    expect(day.getTasks()[0].getName()).toBe('test1 2000');
+    expect(day.getTasks()[0].getName()).toBe('test1 $2000');
   });
   it('should not move task down when last', () => {
     let day = getSampleDay();
     day.moveTaskDown(2);
-    expect(day.getTasks()[2].getName()).toBe('test3 100');
+    expect(day.getTasks()[2].getName()).toBe('test3 $100');
   });
   it('should return value 300 when value 300 at the end of the task name', () => {
-    let task = new Task('test todo 300', false);
+    let task = new Task('test todo $300', false);
     expect(task.getValue()).toBe(300);
   });
   it('should return 0 value when no value in the task name', () => {
-    let task = new Task('test todo', false);
+    let task = new Task('test todo $', false);
     expect(task.getValue()).toBe(0);
   });
   it('should return 2000 value when value 2000 after another number in the task name', () => {
-    let task = new Task('test todo 5888 2000', false);
+    let task = new Task('test todo 5888 $2000 $199', false);
     expect(task.getValue()).toBe(2000);
   });
   it('should day return sum of tasks value', () => {
@@ -93,8 +93,8 @@ describe('Model: Task', () => {
   it('should day sort tasks by value descending', () => {
     let day = getSampleDay();
     day.sortTasksByValue();
-    expect(day.getTasks()[0].getName()).toBe('test1 2000');
-    expect(day.getTasks()[1].getName()).toBe('test3 100');
+    expect(day.getTasks()[0].getName()).toBe('test1 $2000');
+    expect(day.getTasks()[1].getName()).toBe('test3 $100');
     expect(day.getTasks()[2].getName()).toBe('test2');
   });
 });
