@@ -10,9 +10,10 @@
           </div>
         </div>
         <h4 class="card-title">{{ day.name }}</h4>
+        <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
         <!--<h6 class="card-subtitle text-muted">{{ day.date }}</h6>-->
         <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
-                title="Sort by task value"
+                title="Posortuj po wartości rzeczy do zrobienia"
                 (click)="sortTasks(day)">
           <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> $
         </button>
@@ -29,7 +30,7 @@
       <ul class="list-group list-group-flush todo-day-list">
         <li class="new-task list-group-item" *ngIf="day.timeline != 'passed'">
           <input type="text" class="form-control"
-                 placeholder="next task"
+                 placeholder="następna rzecz do zrobienia"
                  [(ngModel)]="day.draftTaskName"
                  (keydown)="$event.keyCode == 13 ? addTaskFromDraft(day): null">
         </li>

@@ -7,3 +7,7 @@
 .existing-task:hover .actions {
   display: inherit;
 }
+
+.tasks-value {
+  color: lightgray;
+}
