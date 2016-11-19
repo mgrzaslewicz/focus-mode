@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {Day, Task} from '../task/task';
+import {Day} from '../task/task';
 import {EventBusService} from '../event-bus';
 import {DragulaService} from 'ng2-dragula/components/dragula.provider';
 import {TaskService, TaskServiceToken} from '../execute-plan/focused-task/task.service';
@@ -48,10 +48,10 @@ export class PlanningComponent implements OnInit {
     this.saveDays();
   }
 
- public saveDays() {
-   this.taskService.saveDays(this.days, () => {
-   });
- }
+  public saveDays() {
+    this.taskService.saveDays(this.days, () => {
+    });
+  }
 
   public clearTasks(day: Day) {
     day.clearTasks();

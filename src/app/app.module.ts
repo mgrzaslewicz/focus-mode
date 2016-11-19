@@ -12,7 +12,7 @@ import {PlanningComponent} from './planning/planning.component';
 import {PresentationComponent} from './presentation/presentation.component';
 import {NotesComponent} from './notes/notes.component';
 import {LeftMenuComponent} from './left-menu/left-menu.component';
-import {CookieTaskService, TaskServiceToken} from './execute-plan/focused-task';
+import {TaskServiceToken} from './execute-plan/focused-task';
 import {AppRoutingModule} from './app.routing-module';
 import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 import {RectangleProgressBarComponent} from './rectangle-progress-bar/rectangle-progress-bar.component';
@@ -20,7 +20,11 @@ import {DayTasksProgressComponent} from './day-tasks-progress/day-tasks-progress
 import {Safe} from './shared/pipes';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
 import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
-import {DaysFromJsonMapper, localStorageServiceConfig} from './execute-plan/focused-task/task.service';
+import {
+  DaysFromJsonMapper,
+  localStorageServiceConfig,
+  LocalStorageTaskService
+} from './execute-plan/focused-task/task.service';
 import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
@@ -50,7 +54,7 @@ import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/co
     EventBusService,
     CookieService,
     DaysFromJsonMapper,
-    {provide: TaskServiceToken, useClass: CookieTaskService},
+    {provide: TaskServiceToken, useClass: LocalStorageTaskService},
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     LocalStorageService,
