@@ -19,7 +19,8 @@ import {RectangleProgressBarComponent} from './rectangle-progress-bar/rectangle-
 import {DayTasksProgressComponent} from './day-tasks-progress/day-tasks-progress.component';
 import {Safe} from './shared/pipes';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
-import {DaysFromJsonMapper} from './execute-plan/focused-task/task.service';
+import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
+import {DaysFromJsonMapper, localStorageServiceConfig} from './execute-plan/focused-task/task.service';
 import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
@@ -51,7 +52,9 @@ import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/co
     DaysFromJsonMapper,
     {provide: TaskServiceToken, useClass: CookieTaskService},
     {provide: APP_BASE_HREF, useValue: '/'},
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    LocalStorageService,
+    {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig}
   ],
   bootstrap: [AppComponent],
 })
