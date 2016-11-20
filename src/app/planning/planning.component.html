@@ -9,9 +9,9 @@
             <div class="fill"></div>
           </div>
         </div>
-        <h4 class="card-title">{{ day.name }}</h4>
+        <h4 class="card-title">{{ day.getDayOfWeekName() }}</h4>
         <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
-        <h6 class="card-subtitle text-muted">{{ day.date | date:'medium' }}</h6>
+        <h6 class="card-subtitle text-muted">{{ day.date | date:'mediumDate' }}</h6>
         <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
                 title="Posortuj po wartości rzeczy do zrobienia"
                 (click)="sortTasks(day)">
@@ -35,7 +35,7 @@
                  (keydown)="$event.keyCode == 13 ? addTaskFromDraft(day): null">
         </li>
         <li *ngFor="let task of day.tasks; let taskIndex = index; let isFirst = first; let isLast = last"
-            [dragula]="day.name" [dragulaModel]="day.tasks"
+            [dragula]="day.date" [dragulaModel]="day.tasks"
             class="existing-task list-group-item"
             [class.done-task]="task.isDone()">
                         <span class="done-mark">

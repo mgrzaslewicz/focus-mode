@@ -1,5 +1,7 @@
 import {Day, Task} from './task';
 
+let testDate = '2016-11-20';
+
 describe('Model: Task', () => {
   function getSampleDay(dateMMddYYYY?: string): Day {
     let tasks: Array<Task> = [
@@ -7,7 +9,7 @@ describe('Model: Task', () => {
       new Task('test2', false),
       new Task('test3 $100', false)
     ];
-    let day = new Day('day 1', tasks, null);
+    let day = new Day(tasks, new Date(testDate));
     if (dateMMddYYYY) {
       day.setDate(new Date(dateMMddYYYY));
     }
@@ -127,9 +129,5 @@ describe('Model: Task', () => {
   it('should day return sunday as day of week', () => {
     let day = getSampleDay('11/27/2016');
     expect(day.getDayOfWeekName()).toBe('Nd');
-  });
-  it('should day return empty string when no date', () => {
-    let day = getSampleDay();
-    expect(day.getDayOfWeekName()).toBe('');
   });
 });

@@ -1,7 +1,8 @@
-import {Injectable, OpaqueToken} from '@angular/core';
+import {Injectable, OpaqueToken, Inject} from '@angular/core';
 import {SuccessCallback, ErrorCallback} from '../../shared/callback';
 import {Day, Task, DayJson, TaskJson} from '../../task/task';
 import {LocalStorageService} from 'angular-2-local-storage';
+import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
 
 export class DaysFromJsonMapper {
 
@@ -16,7 +17,7 @@ export class DaysFromJsonMapper {
   }
 
   private createDayFrom(dayJson: DayJson): Day {
-    return new Day(dayJson.name, this.createTasksFrom(dayJson.tasks), new Date(dayJson.date));
+    return new Day(this.createTasksFrom(dayJson.tasks), new Date(dayJson.date));
   }
 
   private createTasksFrom(tasks: Array<TaskJson>): Array<Task> {
@@ -50,10 +51,12 @@ export const localStorageServiceConfig = {
 export class LocalStorageTaskService implements TaskService {
   private localStorageService: LocalStorageService;
   private dayFromJsonMapper: DaysFromJsonMapper;
+  private timeProvider: TimeProvider;
 
-  constructor(localStorageService: LocalStorageService, dayFromJsonMapper: DaysFromJsonMapper) {
+  constructor(localStorageService: LocalStorageService, dayFromJsonMapper: DaysFromJsonMapper, @Inject(TimeProviderToken) timeProvider: TimeProvider) {
     this.localStorageService = localStorageService;
     this.dayFromJsonMapper = dayFromJsonMapper;
+    this.timeProvider = timeProvider;
 
   }
 
@@ -73,13 +76,9 @@ export class LocalStorageTaskService implements TaskService {
 
   private createEmptyWeek(): Array<Day> {
     let result: Array<Day> = [];
-    result.push(new Day('Pn', [], null));
-    result.push(new Day('Wt', [], null));
-    result.push(new Day('Sr', [], null));
-    result.push(new Day('Czw', [], null));
-    result.push(new Day('Pt', [], null));
-    result.push(new Day('Sb', [], null));
-    result.push(new Day('Nd', [], null));
+    for (let howManyDaysAhead = 6; howManyDaysAhead >= 0; howManyDaysAhead--) {
+      result.push(new Day([], this.getCurrentDatePlusDays(howManyDaysAhead)));
+    }
     return result;
   }
 
@@ -102,8 +101,14 @@ export class LocalStorageTaskService implements TaskService {
 
   private saveDayInLocalStorage(day: Day) {
     let dayMap: any = this.getDayMapOrCreateEmpty();
-    dayMap[day.name] = day.asJson();
+    dayMap[day.getDateAsISOString()] = day.asJson();
     this.localStorageService.set('dayMap', dayMap);
+  }
+
+  private getCurrentDatePlusDays(howManyDaysAhead: number) {
+    let result = new Date(this.timeProvider.getTime());
+    result.setDate(result.getDate() + howManyDaysAhead);
+    return result;
   }
 
 }

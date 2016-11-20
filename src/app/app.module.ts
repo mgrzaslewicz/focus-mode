@@ -26,6 +26,7 @@ import {
   LocalStorageTaskService
 } from './execute-plan/focused-task/task.service';
 import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
+import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/co
     CookieService,
     DaysFromJsonMapper,
     {provide: TaskServiceToken, useClass: LocalStorageTaskService},
+    {provide: TimeProviderToken, useClass: RealTimeProvider},
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     LocalStorageService,
