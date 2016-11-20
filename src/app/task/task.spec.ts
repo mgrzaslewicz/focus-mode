@@ -7,7 +7,7 @@ describe('Model: Task', () => {
       new Task('test2', false),
       new Task('test3 $100', false)
     ];
-    let day = new Day('day 1', tasks, 'future', null);
+    let day = new Day('day 1', tasks, null);
     if (dateMMddYYYY) {
       day.setDate(new Date(dateMMddYYYY));
     }

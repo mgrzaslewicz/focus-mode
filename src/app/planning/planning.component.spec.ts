@@ -3,7 +3,10 @@ import {TestBed, inject} from '@angular/core/testing';
 import {PlanningComponent} from './planning.component';
 import {EventBusService} from '../event-bus';
 import {DragulaService} from 'ng2-dragula/components/dragula.provider';
-import {TaskServiceToken, CookieTaskService} from '../execute-plan/focused-task/task.service';
+import {
+  TaskServiceToken, LocalStorageTaskService,
+  localStorageServiceConfig
+} from '../execute-plan/focused-task/task.service';
 import {AppRoutingModule} from '../app.routing-module';
 import {ExecutePlanComponent} from '../execute-plan/execute-plan.component';
 import {PresentationComponent} from '../presentation/presentation.component';
@@ -17,6 +20,7 @@ import {DayTasksProgressComponent} from '../day-tasks-progress/day-tasks-progres
 import {RectangleProgressBarComponent} from '../rectangle-progress-bar/rectangle-progress-bar.component';
 import {Safe} from '../shared/pipes';
 import {APP_BASE_HREF} from '@angular/common';
+import {LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
 
 describe('Component: Planning', () => {
   beforeEach(() => {
@@ -42,7 +46,8 @@ describe('Component: Planning', () => {
         {provide: APP_BASE_HREF, useValue: '/'},
         EventBusService,
         DragulaService,
-        {provide: TaskServiceToken, CookieTaskService},
+        {provide: TaskServiceToken, LocalStorageTaskService},
+        {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig},
         PlanningComponent,
       ]
     });

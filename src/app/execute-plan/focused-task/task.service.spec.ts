@@ -6,6 +6,9 @@ import {DaysFromJsonMapper, LocalStorageTaskService, localStorageServiceConfig} 
 import {Day, DayJson} from '../../task/task';
 import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
 
+let day1Date = '2016-11-20';
+let day2Date = '2016-11-21';
+
 let testDay1: DayJson = {
   name: 'day 1',
   tasks: [
@@ -18,8 +21,7 @@ let testDay1: DayJson = {
       done: false
     }
   ],
-  timeline: 'passed',
-  time: 1
+  date: day1Date
 };
 
 let testDay2: DayJson = {
@@ -34,8 +36,7 @@ let testDay2: DayJson = {
       done: false
     }
   ],
-  timeline: 'future',
-  time: 2
+  date: day2Date
 };
 
 let testDayMap: any = {
@@ -62,9 +63,9 @@ describe('TaskService', () => {
     let days: Array<Day> = daysFromJsonMapper.createDaysFrom(testDayMap);
     expect(days.length).toBe(2);
     expect(days[0].name).toBe('day 1');
-    expect(days[0].date.getTime()).toBe(1);
+    expect(days[0].date.getTime()).toBe(new Date(day1Date).getTime());
     expect(days[1].name).toBe('day 2');
-    expect(days[1].date.getTime()).toBe(2);
+    expect(days[1].date.getTime()).toBe(new Date(day2Date).getTime());
   }));
   it('should create empty day list from null day map', inject([DaysFromJsonMapper], (daysFromJsonMapper: DaysFromJsonMapper) => {
     let days: Array<Day> = daysFromJsonMapper.createDaysFrom(null);

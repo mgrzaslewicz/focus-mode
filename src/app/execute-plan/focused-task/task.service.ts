@@ -1,7 +1,6 @@
 import {Injectable, OpaqueToken} from '@angular/core';
 import {SuccessCallback, ErrorCallback} from '../../shared/callback';
 import {Day, Task, DayJson, TaskJson} from '../../task/task';
-import {CookieService} from 'angular2-cookie/services/cookies.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 
 export class DaysFromJsonMapper {
@@ -17,7 +16,7 @@ export class DaysFromJsonMapper {
   }
 
   private createDayFrom(dayJson: DayJson): Day {
-    return new Day(dayJson.name, this.createTasksFrom(dayJson.tasks), dayJson.timeline, new Date(dayJson.time));
+    return new Day(dayJson.name, this.createTasksFrom(dayJson.tasks), new Date(dayJson.date));
   }
 
   private createTasksFrom(tasks: Array<TaskJson>): Array<Task> {
@@ -74,13 +73,13 @@ export class LocalStorageTaskService implements TaskService {
 
   private createEmptyWeek(): Array<Day> {
     let result: Array<Day> = [];
-    result.push(new Day('Pn', [], 'current', null));
-    result.push(new Day('Wt', [], 'current', null));
-    result.push(new Day('Sr', [], 'current', null));
-    result.push(new Day('Czw', [], 'current', null));
-    result.push(new Day('Pt', [], 'current', null));
-    result.push(new Day('Sb', [], 'current', null));
-    result.push(new Day('Nd', [], 'current', null));
+    result.push(new Day('Pn', [], null));
+    result.push(new Day('Wt', [], null));
+    result.push(new Day('Sr', [], null));
+    result.push(new Day('Czw', [], null));
+    result.push(new Day('Pt', [], null));
+    result.push(new Day('Sb', [], null));
+    result.push(new Day('Nd', [], null));
     return result;
   }
 

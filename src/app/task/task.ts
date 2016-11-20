@@ -50,23 +50,20 @@ export interface TaskJson {
 export interface DayJson {
   name: string;
   tasks: Array<TaskJson>;
-  timeline: string;
-  time: number;
+  date: string;
 }
 
 export class Day {
   public name: string;
   private tasks: Array<Task>;
-  private timeline: string;
   public date: Date;
   private draftTaskName: string;
   private focusedTaskIndexZeroBased: number = 0;
   private static dayOfWeekNameSundayFirst: Array<string> = ['Nd', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'];
 
-  constructor(name: string, tasks: Array<Task>, timeline: string, date: Date) {
+  constructor(name: string, tasks: Array<Task>, date: Date) {
     this.name = name;
     this.tasks = tasks;
-    this.timeline = timeline;
     this.date = date;
   }
 
@@ -135,8 +132,7 @@ export class Day {
     return {
       name: this.name,
       tasks: this.getTasksAsJson(),
-      timeline: this.timeline,
-      time: this.date ? this.date.getTime() : 0
+      date: this.date ? this.date.toISOString().slice(0, 10) : null
     }
   }
 
@@ -208,7 +204,7 @@ export class Day {
 
   public getDayOfWeekName(): string {
     let result = '';
-    if (this.date) {
+    if (this.date != null) {
       result = Day.dayOfWeekNameSundayFirst[this.date.getDay()];
     }
     return result;
