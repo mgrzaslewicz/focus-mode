@@ -11,7 +11,7 @@
         </div>
         <h4 class="card-title">{{ day.name }}</h4>
         <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
-        <!--<h6 class="card-subtitle text-muted">{{ day.date }}</h6>-->
+        <h6 class="card-subtitle text-muted">{{ day.date | date:'medium' }}</h6>
         <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
                 title="Posortuj po wartości rzeczy do zrobienia"
                 (click)="sortTasks(day)">

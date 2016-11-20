@@ -1,13 +1,16 @@
 import {Day, Task} from './task';
 
 describe('Model: Task', () => {
-  function getSampleDay(): Day {
+  function getSampleDay(dateMMddYYYY?: string): Day {
     let tasks: Array<Task> = [
       new Task('test1 $2000', false),
       new Task('test2', false),
       new Task('test3 $100', false)
     ];
-    let day = new Day('day 1', tasks, 'future', new Date(1));
+    let day = new Day('day 1', tasks, 'future', null);
+    if (dateMMddYYYY) {
+      day.setDate(new Date(dateMMddYYYY));
+    }
     return day;
   };
   it('should have focus on zero task initially', () => {
@@ -96,5 +99,37 @@ describe('Model: Task', () => {
     expect(day.getTasks()[0].getName()).toBe('test1 $2000');
     expect(day.getTasks()[1].getName()).toBe('test3 $100');
     expect(day.getTasks()[2].getName()).toBe('test2');
+  });
+  it('should day return monday as day of week', () => {
+    let day = getSampleDay('11/21/2016');
+    expect(day.getDayOfWeekName()).toBe('Pn');
+  });
+  it('should day return tuesday as day of week', () => {
+    let day = getSampleDay('11/22/2016');
+    expect(day.getDayOfWeekName()).toBe('Wt');
+  });
+  it('should day return wednesday as day of week', () => {
+    let day = getSampleDay('11/23/2016');
+    expect(day.getDayOfWeekName()).toBe('Śr');
+  });
+  it('should day return thursday as day of week', () => {
+    let day = getSampleDay('11/24/2016');
+    expect(day.getDayOfWeekName()).toBe('Czw');
+  });
+  it('should day return friday as day of week', () => {
+    let day = getSampleDay('11/25/2016');
+    expect(day.getDayOfWeekName()).toBe('Pt');
+  });
+  it('should day return saturday as day of week', () => {
+    let day = getSampleDay('11/26/2016');
+    expect(day.getDayOfWeekName()).toBe('Sb');
+  });
+  it('should day return sunday as day of week', () => {
+    let day = getSampleDay('11/27/2016');
+    expect(day.getDayOfWeekName()).toBe('Nd');
+  });
+  it('should day return empty string when no date', () => {
+    let day = getSampleDay();
+    expect(day.getDayOfWeekName()).toBe('');
   });
 });

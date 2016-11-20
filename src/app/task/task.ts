@@ -61,6 +61,7 @@ export class Day {
   public date: Date;
   private draftTaskName: string;
   private focusedTaskIndexZeroBased: number = 0;
+  private static dayOfWeekNameSundayFirst: Array<string> = ['Nd', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'];
 
   constructor(name: string, tasks: Array<Task>, timeline: string, date: Date) {
     this.name = name;
@@ -199,6 +200,18 @@ export class Day {
 
   public sortTasksByValue() {
     this.tasks.sort((task1: Task, task2: Task) => task2.getValue() - task1.getValue());
+  }
+
+  public setDate(date: Date) {
+    this.date = date;
+  }
+
+  public getDayOfWeekName(): string {
+    let result = '';
+    if (this.date) {
+      result = Day.dayOfWeekNameSundayFirst[this.date.getDay()];
+    }
+    return result;
   }
 
 }
