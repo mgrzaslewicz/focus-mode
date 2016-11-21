@@ -4,6 +4,7 @@ import {EventBusService} from '../event-bus';
 import {DragulaService} from 'ng2-dragula/components/dragula.provider';
 import {TaskService, TaskServiceToken} from '../execute-plan/focused-task/task.service';
 import {Router} from '@angular/router';
+import {CopyTaskEvent} from './day-plan-tile/day-plan-tile.component';
 
 @Component({
   selector: ' planning',
@@ -36,57 +37,16 @@ export class PlanningComponent implements OnInit {
     this.days = days;
   }
 
-  public goToExecuteDay(day: Day) {
-    this.eventBus.focusedDaySubject.next(day, 'PlanningComponent.goToExecuteDay');
-    this.taskService.saveDays(this.days, () => {
-    });
-    this.router.navigateByUrl('/executeplan');
-  }
-
-  public addTaskFromDraft(day: Day) {
-    day.addTaskFromDraft();
-    this.saveDays();
-  }
-
   public saveDays() {
     this.taskService.saveDays(this.days, () => {
     });
   }
 
-  public clearTasks(day: Day) {
-    day.clearTasks();
-    this.saveDays();
-  }
-
-  public sortTasks(day: Day) {
-    day.sortTasksByValue();
-    this.saveDays();
-  }
-
-  public removeTask(day: Day, taskIndexZeroBased: number) {
-    day.removeTask(taskIndexZeroBased);
-    this.saveDays();
-  }
-
-  public editTask(day: Day, taskIndexZeroBased: number) {
-    day.moveTaskToDraft(taskIndexZeroBased);
-    this.saveDays();
-  }
-
-  public moveTaskDown(day: Day, taskIndexZeroBased: number) {
-    day.moveTaskDown(taskIndexZeroBased);
-    this.saveDays();
-  }
-
-  public moveTaskUp(day: Day, taskIndexZeroBased: number) {
-    day.moveTaskUp(taskIndexZeroBased);
-    this.saveDays();
-  }
-
-  public copyTaskToNextDay(dayIndex: number, taskIndex: number) {
-    if (dayIndex < this.days.length - 1) {
-      this.days[dayIndex + 1].createTaskFrom(this.days[dayIndex].getTasks()[taskIndex]);
+  public copyTaskToNextDay(copyTaskEvent: CopyTaskEvent) {
+    if (copyTaskEvent.dayIndex < this.days.length - 1) {
+      this.days[copyTaskEvent.dayIndex + 1].createTaskFrom(this.days[copyTaskEvent.dayIndex].getTasks()[copyTaskEvent.taskIndex]);
     }
+    this.saveDays();
   }
 
 }

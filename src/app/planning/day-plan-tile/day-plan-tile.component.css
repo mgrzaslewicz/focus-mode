@@ -1,0 +1,18 @@
+.day .tasks-value {
+  color: lightgray;
+}
+
+.day .task {
+  border-left: none;
+  border-right: none;
+}
+
+.day .task .actions {
+  margin-top: 5px;
+  padding-top: 5px;
+  display: none;
+}
+
+.day .task:hover .actions {
+  display: inherit;
+}

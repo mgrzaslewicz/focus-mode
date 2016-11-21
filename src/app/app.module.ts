@@ -27,6 +27,7 @@ import {
 } from './execute-plan/focused-task/task.service';
 import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
 import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider';
+import { DayPlanTileComponent } from './planning/day-plan-tile/day-plan-tile.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider
     NotesComponent,
     RectangleProgressBarComponent,
     DayTasksProgressComponent,
-    Safe
+    Safe,
+    DayPlanTileComponent
   ],
   imports: [
     BrowserModule,

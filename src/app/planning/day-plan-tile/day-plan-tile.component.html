@@ -1,0 +1,62 @@
+<div *ngIf="day" class="card day day-{{ day.timeline }}">
+  <div class="card-block">
+    <div (click)="goToExecuteDay(day)" class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
+      <span class="ng-binding">{{ day.getProgressPercent() }}%</span>
+      <div class="slice">
+        <div class="bar"></div>
+        <div class="fill"></div>
+      </div>
+    </div>
+    <h4 class="card-title">{{ day.getDayOfWeekName() }}</h4>
+    <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
+    <h6 class="card-subtitle text-muted">{{ day.date | date:'mediumDate' }}</h6>
+    <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
+            title="Posortuj po wartości rzeczy do zrobienia"
+            (click)="sortTasks(day)">
+      <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> $
+    </button>
+    <button class="btn btn-sm btn-secondary pull-xs-right"
+            [class.faded]="day.hasNoTasks()"
+            (click)="clearTasks(day)">
+      <i class="fa fa-eraser" aria-hidden="true"></i>
+    </button>
+    <button (click)="goToExecuteDay(day)"
+            [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-secondary pull-xs-right">
+      <i class="fa fa-line-chart" aria-hidden="true"></i>
+    </button>
+  </div>
+  <ul class="list-group list-group-flush todo-day-list">
+    <li class="new-task list-group-item" *ngIf="day.timeline != 'passed'">
+      <input type="text" class="form-control"
+             placeholder="następna rzecz do zrobienia"
+             [(ngModel)]="day.draftTaskName"
+             (keydown)="$event.keyCode == 13 ? addTaskFromDraft(day): null">
+    </li>
+    <li *ngFor="let task of day.tasks; let taskIndex = index; let isFirst = first; let isLast = last"
+        class="task list-group-item"
+        [class.done-task]="task.isDone()">
+                        <span class="done-mark">
+                            <i *ngIf="task.isDone()" class="fa fa-check-circle-o"></i>
+                            <i *ngIf="!task.isDone()" class="fa fa-circle-o"></i>
+                        </span>
+      {{ task.name }}
+      <div class="actions">
+        <button (click)="removeTask(taskIndex)" class="btn btn-sm btn-secondary">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+        <button (click)="editTask(taskIndex)" class="btn btn-sm btn-secondary">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+        <button (click)="moveTaskUp(taskIndex)" [class.faded]="isFirst" class="btn btn-sm btn-secondary">
+          <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </button>
+        <button (click)="moveTaskDown(taskIndex)" [class.faded]="isLast" class="btn btn-sm btn-secondary">
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </button>
+        <button (click)="copyTaskToNextDay(taskIndex)" class="btn btn-sm btn-secondary">
+          <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
