@@ -4,6 +4,8 @@
          class="task"
          [class.done]="task.isDone()" [class.not-done]="!task.isDone()"
          [class.with-right-border]="!isLast"
-         [class.current]="i == day.getFocusedTaskIndexZeroBased()" [style]="getWidthStyle() | safe"></div>
+         [class.current]="i == day.getFocusedTaskIndexZeroBased()" [style]="getWidthStyle() | safe">
+      <i *ngIf="task.isDone()" class="fa fa-check" aria-hidden="true"></i>
+    </div>
   </div>
 </div>

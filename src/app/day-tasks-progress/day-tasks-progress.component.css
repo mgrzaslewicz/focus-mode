@@ -12,6 +12,8 @@
 
 .task {
   height: 40px;
+  line-height: 40px;
+  text-align: center;
   float: left;
   border-radius: 4px;
   cursor: pointer;
@@ -25,8 +27,13 @@
   border: 3px dashed lightgray;
 }
 
+.task.done {
+  color: #3c763d;
+}
+
 .task.current.done {
   border: 3px dashed #3c763d;
+  line-height: 35px;
 }
 
 .task-indicators {

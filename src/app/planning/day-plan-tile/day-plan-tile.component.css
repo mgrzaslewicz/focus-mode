@@ -2,7 +2,7 @@
   color: lightgray;
 }
 
-.day .task {
+.day .task, .day .new-task {
   border-left: none;
   border-right: none;
 }
