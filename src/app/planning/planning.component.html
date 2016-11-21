@@ -1,3 +1,10 @@
+<div class="row">
+  <div class="col-xs-6 col-lg-4">
+    <button class="btn btn-secondary show-more-days-ahead">
+      Pokaż więcej dni do przodu <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
 <div class="row" *ngFor="let day of days; let dayIndex = index; let isLastDay = last">
   <div class="col-xs-6 col-lg-4">
     <div class="card day day-{{ day.timeline }}">

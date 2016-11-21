@@ -11,3 +11,8 @@
 .tasks-value {
   color: lightgray;
 }
+
+button.show-more-days-ahead {
+  width: 100%;
+  margin-bottom: 20px;
+}
