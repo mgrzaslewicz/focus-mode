@@ -5,18 +5,8 @@ import {LocalStorageService} from 'angular-2-local-storage';
 import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
 
 export class DaysFromJsonMapper {
+  public createDayFrom(dayJson: DayJson): Day {
 
-  public createDaysFrom(dayMap: any): Array<Day> {
-    let result: Array<Day> = [];
-    if (dayMap != null) {
-      Object.getOwnPropertyNames(dayMap).forEach((key: string) => {
-        result.push(this.createDayFrom(dayMap[key]));
-      });
-    }
-    return result;
-  }
-
-  private createDayFrom(dayJson: DayJson): Day {
     return new Day(this.createTasksFrom(dayJson.tasks), new Date(dayJson.date));
   }
 
@@ -61,12 +51,21 @@ export class LocalStorageTaskService implements TaskService {
   }
 
   public getDays(successCallback: SuccessCallback<Array<Day>>, errorCallback?: ErrorCallback) {
-    let dayMap: any = this.getDayMap();
-    let result: Array<Day> = this.dayFromJsonMapper.createDaysFrom(dayMap);
-    if (result.length == 0) {
-      result = this.createEmptyWeek();
-    }
+    let dayDateIndex: Array<string> = this.getDayDateIndexOrCreateEmpty();
+    this.add7NextDaysIfNotExistTo(dayDateIndex);
+    this.sortDayDateIndexDescending(dayDateIndex);
+    let result: Array<Day> = this.createDaysFrom(dayDateIndex);
     successCallback(result);
+  }
+
+  private createDaysFrom(dayDateIndex: Array<string>): Array<Day> {
+    let result: Array<Day> = [];
+    dayDateIndex.forEach((dayDate: string) => {
+      let dayJson: DayJson = <DayJson> this.localStorageService.get(`day.${dayDate}`);
+      let day: Day = dayJson ? this.dayFromJsonMapper.createDayFrom(dayJson) : this.createEmptyDay(dayDate);
+      result.push(day);
+    });
+    return result;
   }
 
   public saveDays(days: Array<Day>, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback) {
@@ -74,12 +73,16 @@ export class LocalStorageTaskService implements TaskService {
     successCallback(null);
   }
 
-  private createEmptyWeek(): Array<Day> {
-    let result: Array<Day> = [];
-    for (let howManyDaysAhead = 6; howManyDaysAhead >= 0; howManyDaysAhead--) {
-      result.push(new Day([], this.getCurrentDatePlusDays(howManyDaysAhead)));
+  private get7NextDayDates(): Array<string> {
+    let result: Array<string> = [];
+    for (let howManyDaysAhead = 0; howManyDaysAhead < 7; howManyDaysAhead++) {
+      result.push(this.getDateAsISOString(this.getCurrentDatePlusDays(howManyDaysAhead)));
     }
     return result;
+  }
+
+  private createEmptyDay(dayDate: string): Day {
+    return new Day([], new Date(dayDate));
   }
 
   public saveDay(day: Day, successCallback: SuccessCallback<any>) {
@@ -87,28 +90,56 @@ export class LocalStorageTaskService implements TaskService {
     successCallback(null);
   }
 
-  private getDayMap(): any {
-    return this.localStorageService.get('dayMap');
+  private getDayDateIndexFromLocalStorage(): Array<string> {
+    return <Array<string>>this.localStorageService.get('dayDateIndex');
   }
 
-  private getDayMapOrCreateEmpty(): any {
-    let result: any = this.getDayMap();
+  private getDayDateIndexOrCreateEmpty(): Array<string> {
+    let result: Array<string> = this.getDayDateIndexFromLocalStorage();
     if (!result) {
-      result = {};
+      result = [];
     }
     return result;
   }
 
   private saveDayInLocalStorage(day: Day) {
-    let dayMap: any = this.getDayMapOrCreateEmpty();
-    dayMap[day.getDateAsISOString()] = day.asJson();
-    this.localStorageService.set('dayMap', dayMap);
+    this.addDayToIndex(day);
+    this.localStorageService.set(`day.${day.getDateAsISOString()}`, day.asJson());
+  }
+
+  private getDateAsISOString(date: Date) {
+    return date.toISOString().slice(0, 10);
   }
 
   private getCurrentDatePlusDays(howManyDaysAhead: number) {
     let result = new Date(this.timeProvider.getTime());
     result.setDate(result.getDate() + howManyDaysAhead);
     return result;
+  }
+
+  private addDayToIndex(day: Day) {
+    let dayDateIndex: any = this.getDayDateIndexOrCreateEmpty();
+    if (dayDateIndex.indexOf(day.getDateAsISOString()) == -1) {
+      dayDateIndex.push(day.getDateAsISOString());
+    }
+    this.localStorageService.set('dayDateIndex', dayDateIndex);
+  }
+
+  private dayDateIndexContains(dayDateIndex: Array<string>, dayDate: string) {
+    return dayDateIndex.indexOf(dayDate) != -1;
+  }
+
+  private add7NextDaysIfNotExistTo(dayDateIndex: Array<string>) {
+    let sevenNextDays: Array<string> = this.get7NextDayDates();
+    sevenNextDays.forEach((dayDate: string) => {
+      if (!this.dayDateIndexContains(dayDateIndex, dayDate)) {
+        dayDateIndex.push(dayDate);
+      }
+    });
+  }
+
+  private sortDayDateIndexDescending(dayDateIndex: Array<string>) {
+    dayDateIndex.sort((dayDate1: string, dayDate2: string) => new Date(dayDate2).getTime() - new Date(dayDate1).getTime());
   }
 
 }
