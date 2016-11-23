@@ -3,6 +3,7 @@ import {Day} from '../../task/task';
 import {EventBusService} from '../../event-bus/event-bus.service';
 import {TaskService, TaskServiceToken} from '../../execute-plan/focused-task/task.service';
 import {Router} from '@angular/router';
+import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
 
 export interface CopyTaskEvent {
   dayIndex: number;
@@ -21,11 +22,14 @@ export class DayPlanTileComponent implements OnInit {
   private eventBus: EventBusService;
   private taskService: TaskService;
   private router: Router;
+  private timeProvider: TimeProvider;
+  private timeline: string = null;
 
-  constructor(eventBus: EventBusService, @Inject(TaskServiceToken) taskService: TaskService, router: Router) {
+  constructor(eventBus: EventBusService, @Inject(TaskServiceToken) taskService: TaskService, router: Router, @Inject(TimeProviderToken) timeProvider: TimeProvider) {
     this.eventBus = eventBus;
     this.taskService = taskService;
     this.router = router;
+    this.timeProvider = timeProvider;
   }
 
   ngOnInit() {
@@ -80,6 +84,27 @@ export class DayPlanTileComponent implements OnInit {
 
   public copyTaskToNextDay(taskIndex: number) {
     this.copyTask.emit({dayIndex: this.dayIndex, taskIndex: taskIndex});
+  }
+
+  private getCurrentDayWithoutMinutesTime(): number {
+    return new Date(new Date(this.timeProvider.getTime()).toISOString().slice(0, 10)).getTime();
+  }
+
+  public getTimeline(): string {
+    if (this.timeline == null) {
+      this.timeline = 'current';
+      let differenceBetweenNowAndDay = this.getCurrentDayWithoutMinutesTime() - this.day.date.getTime();
+      if (differenceBetweenNowAndDay < 0) {
+        this.timeline = 'future';
+      } else if (differenceBetweenNowAndDay > 0) {
+        this.timeline = 'past';
+      }
+    }
+    return this.timeline;
+  }
+
+  public isDayInThePast(): boolean {
+    return this.getTimeline() == 'past';
   }
 
 }

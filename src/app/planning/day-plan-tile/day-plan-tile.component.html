@@ -10,23 +10,25 @@
     <h4 class="card-title">{{ day.getDayOfWeekName() }}</h4>
     <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
     <h6 class="card-subtitle text-muted">{{ day.date | date:'mediumDate' }}</h6>
-    <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
-            title="Posortuj po wartości rzeczy do zrobienia"
-            (click)="sortTasks(day)">
-      <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> $
-    </button>
-    <button class="btn btn-sm btn-secondary pull-xs-right"
-            [class.faded]="day.hasNoTasks()"
-            (click)="clearTasks(day)">
-      <i class="fa fa-eraser" aria-hidden="true"></i>
-    </button>
-    <button (click)="goToExecuteDay(day)"
-            [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-secondary pull-xs-right">
-      <i class="fa fa-line-chart" aria-hidden="true"></i>
-    </button>
+    <div *ngIf="!isDayInThePast()">
+      <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
+              title="Posortuj po wartości rzeczy do zrobienia"
+              (click)="sortTasks(day)">
+        <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> $
+      </button>
+      <button class="btn btn-sm btn-secondary pull-xs-right"
+              [class.faded]="day.hasNoTasks()"
+              (click)="clearTasks(day)">
+        <i class="fa fa-eraser" aria-hidden="true"></i>
+      </button>
+      <button (click)="goToExecuteDay(day)"
+              [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-secondary pull-xs-right">
+        <i class="fa fa-line-chart" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
   <ul class="list-group list-group-flush todo-day-list">
-    <li class="new-task list-group-item" *ngIf="day.timeline != 'passed'">
+    <li class="new-task list-group-item" *ngIf="!isDayInThePast()">
       <input type="text" class="form-control"
              placeholder="następna rzecz do zrobienia"
              [(ngModel)]="day.draftTaskName"
@@ -40,7 +42,7 @@
                             <i *ngIf="!task.isDone()" class="fa fa-circle-o"></i>
                         </span>
       {{ task.name }}
-      <div class="actions">
+      <div *ngIf="!isDayInThePast()" class="actions">
         <button (click)="removeTask(taskIndex)" class="btn btn-sm btn-secondary">
           <i class="fa fa-times" aria-hidden="true"></i>
         </button>
