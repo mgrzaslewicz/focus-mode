@@ -18,11 +18,13 @@
       </button>
       <button class="btn btn-sm btn-secondary pull-xs-right"
               [class.faded]="day.hasNoTasks()"
+              title="Wyczyść zadania"
               (click)="clearTasks(day)">
         <i class="fa fa-eraser" aria-hidden="true"></i>
       </button>
-      <button (click)="goToExecuteDay(day)"
-              [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-secondary pull-xs-right">
+      <button *ngIf="isDayCurrent()" (click)="goToExecuteDay(day)"
+              [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-success pull-xs-right"
+              title="Zrealizuj plan & rośnij">
         <i class="fa fa-line-chart" aria-hidden="true"></i>
       </button>
     </div>

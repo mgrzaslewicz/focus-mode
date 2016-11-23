@@ -107,4 +107,8 @@ export class DayPlanTileComponent implements OnInit {
     return this.getTimeline() == 'past';
   }
 
+  public isDayCurrent(): boolean {
+    return this.getTimeline() == 'current';
+  }
+
 }
