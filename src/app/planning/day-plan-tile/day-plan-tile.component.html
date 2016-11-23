@@ -1,6 +1,6 @@
-<div *ngIf="day" class="card day day-{{ day.timeline }}">
+<div *ngIf="isDayVisible()" class="card day day-{{ day.timeline }}">
   <div class="card-block">
-    <div (click)="goToExecuteDay(day)" class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
+    <div class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
       <span class="ng-binding">{{ day.getProgressPercent() }}%</span>
       <div class="slice">
         <div class="bar"></div>

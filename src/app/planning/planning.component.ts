@@ -15,6 +15,7 @@ export class PlanningComponent implements OnInit {
 
   private eventBus: EventBusService;
   private days: Array<Day> = [];
+  private isShowingFutureDays: boolean = false;
   private taskService: TaskService;
   private dragulaService: DragulaService;
   private router: Router;
@@ -43,10 +44,14 @@ export class PlanningComponent implements OnInit {
   }
 
   public copyTaskToNextDay(copyTaskEvent: CopyTaskEvent) {
-    if (copyTaskEvent.dayIndex < this.days.length - 1) {
-      this.days[copyTaskEvent.dayIndex + 1].createTaskFrom(this.days[copyTaskEvent.dayIndex].getTasks()[copyTaskEvent.taskIndex]);
+    if (copyTaskEvent.dayIndex > 0) {
+      this.days[copyTaskEvent.dayIndex - 1].createTaskFrom(this.days[copyTaskEvent.dayIndex].getTasks()[copyTaskEvent.taskIndex]);
     }
     this.saveDays();
+  }
+
+  public showFutureDays() {
+    this.isShowingFutureDays = true;
   }
 
 }

@@ -18,6 +18,7 @@ export interface CopyTaskEvent {
 export class DayPlanTileComponent implements OnInit {
   @Input() public day: Day;
   @Input() public dayIndex: number;
+  @Input() public isShowingFutureDay: boolean;
   @Output() public copyTask: EventEmitter<CopyTaskEvent> = new EventEmitter<CopyTaskEvent>();
   private eventBus: EventBusService;
   private taskService: TaskService;
@@ -109,6 +110,14 @@ export class DayPlanTileComponent implements OnInit {
 
   public isDayCurrent(): boolean {
     return this.getTimeline() == 'current';
+  }
+
+  public isDayCurrentOrPast(): boolean {
+    return this.getTimeline() != 'future';
+  }
+
+  public isDayVisible(): boolean {
+    return this.day && (this.isShowingFutureDay || this.isDayCurrentOrPast());
   }
 
 }
