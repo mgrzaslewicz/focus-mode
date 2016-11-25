@@ -11,6 +11,8 @@ import {
 import {LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
 import {Router} from '@angular/router';
 import createSpy = jasmine.createSpy;
+import {QuestionComponent} from '../../question/question.component';
+import {RealTimeProvider, TimeProviderToken} from '../../time-provider/time-provider';
 
 class MockRouter {
   navigate = createSpy('navigate');
@@ -22,7 +24,10 @@ describe('DayPlanTileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DayPlanTileComponent],
+      declarations: [
+        DayPlanTileComponent,
+        QuestionComponent
+      ],
       imports: [
         FormsModule,
       ],
@@ -30,6 +35,7 @@ describe('DayPlanTileComponent', () => {
         EventBusService,
         {provide: TaskServiceToken, LocalStorageTaskService},
         {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig},
+        {provide: TimeProviderToken, useValue: RealTimeProvider},
         {provide: Router, useClass: MockRouter},
       ]
     })

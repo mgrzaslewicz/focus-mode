@@ -28,6 +28,7 @@ import {
 import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
 import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider';
 import { DayPlanTileComponent } from './planning/day-plan-tile/day-plan-tile.component';
+import { QuestionComponent } from './question/question.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { DayPlanTileComponent } from './planning/day-plan-tile/day-plan-tile.com
     RectangleProgressBarComponent,
     DayTasksProgressComponent,
     Safe,
-    DayPlanTileComponent
+    DayPlanTileComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,

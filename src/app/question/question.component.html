@@ -1,0 +1,15 @@
+<div class="question">
+  <div class="row">
+    <h5 class="header">
+      {{ question }}
+    </h5>
+  </div>
+  <div class="row">
+    <div (click)="emitAnswer1()" class="col-xs-6">
+      <button class="btn btn-warning">{{ answer1 }}</button>
+    </div>
+    <div (click)="emitAnswer2()" class="col-xs-6">
+      <button class="btn btn-secondary">{{ answer2 }}</button>
+    </div>
+  </div>
+</div>

@@ -1,32 +1,38 @@
 <div *ngIf="isDayVisible()" class="card day day-{{ day.timeline }}">
   <div class="card-block">
-    <div class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
-      <span class="ng-binding">{{ day.getProgressPercent() }}%</span>
-      <div class="slice">
-        <div class="bar"></div>
-        <div class="fill"></div>
+    <div *ngIf="!isShowingQuestion">
+      <div class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
+        <span class="ng-binding">{{ day.getProgressPercent() }}%</span>
+        <div class="slice">
+          <div class="bar"></div>
+          <div class="fill"></div>
+        </div>
+      </div>
+      <h4 class="card-title">{{ day.getDayOfWeekName() }}</h4>
+      <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
+      <h6 class="card-subtitle text-muted">{{ day.date | date:'mediumDate' }}</h6>
+      <div *ngIf="!isDayInThePast()">
+        <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
+                title="Posortuj po wartości rzeczy do zrobienia"
+                (click)="sortTasks(day)">
+          <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> $
+        </button>
+        <button class="btn btn-sm btn-secondary pull-xs-right"
+                [class.faded]="day.hasNoTasks()"
+                title="Wyczyść zadania"
+                (click)="showQuestion()">
+          <i class="fa fa-eraser" aria-hidden="true"></i>
+        </button>
+        <button *ngIf="isDayCurrent()" (click)="goToExecuteDay(day)"
+                [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-success pull-xs-right"
+                title="Zrealizuj plan & rośnij">
+          <i class="fa fa-line-chart" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
-    <h4 class="card-title">{{ day.getDayOfWeekName() }}</h4>
-    <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
-    <h6 class="card-subtitle text-muted">{{ day.date | date:'mediumDate' }}</h6>
-    <div *ngIf="!isDayInThePast()">
-      <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
-              title="Posortuj po wartości rzeczy do zrobienia"
-              (click)="sortTasks(day)">
-        <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> $
-      </button>
-      <button class="btn btn-sm btn-secondary pull-xs-right"
-              [class.faded]="day.hasNoTasks()"
-              title="Wyczyść zadania"
-              (click)="clearTasks(day)">
-        <i class="fa fa-eraser" aria-hidden="true"></i>
-      </button>
-      <button *ngIf="isDayCurrent()" (click)="goToExecuteDay(day)"
-              [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-success pull-xs-right"
-              title="Zrealizuj plan & rośnij">
-        <i class="fa fa-line-chart" aria-hidden="true"></i>
-      </button>
+    <div *ngIf="isShowingQuestion">
+      <question [question]="'Czy na pewno chcesz usunąć całą listę rzeczy do zrobienia?'" [answer1]="'Tak'"
+                [answer2]="'Nie'" (onAnswer1)="clearTasks(day)" (onAnswer2)="hideQuestion()"></question>
     </div>
   </div>
   <ul class="list-group list-group-flush todo-day-list">

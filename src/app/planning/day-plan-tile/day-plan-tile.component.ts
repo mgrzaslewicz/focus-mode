@@ -25,6 +25,7 @@ export class DayPlanTileComponent implements OnInit {
   private router: Router;
   private timeProvider: TimeProvider;
   private timeline: string = null;
+  private isShowingQuestion: boolean = false;
 
   constructor(eventBus: EventBusService, @Inject(TaskServiceToken) taskService: TaskService, router: Router, @Inject(TimeProviderToken) timeProvider: TimeProvider) {
     this.eventBus = eventBus;
@@ -56,6 +57,7 @@ export class DayPlanTileComponent implements OnInit {
   public clearTasks(day: Day) {
     day.clearTasks();
     this.saveDay();
+    this.hideQuestion();
   }
 
   public sortTasks(day: Day) {
@@ -119,5 +121,14 @@ export class DayPlanTileComponent implements OnInit {
   public isDayVisible(): boolean {
     return this.day && (this.isShowingFutureDay || this.isDayCurrentOrPast());
   }
+
+  public showQuestion() {
+    this.isShowingQuestion = true;
+  }
+
+  public hideQuestion() {
+    this.isShowingQuestion = false;
+  }
+
 
 }
