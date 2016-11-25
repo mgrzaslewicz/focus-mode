@@ -12,8 +12,8 @@ export interface CopyTaskEvent {
 
 @Component({
   selector: 'day-plan-tile',
-  templateUrl: 'day-plan-tile.component.html',
-  styleUrls: ['day-plan-tile.component.css']
+  templateUrl: './day-plan-tile.component.html',
+  styleUrls: ['./day-plan-tile.component.css']
 })
 export class DayPlanTileComponent implements OnInit {
   @Input() public day: Day;

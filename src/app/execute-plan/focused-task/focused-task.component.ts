@@ -4,8 +4,8 @@ import {EventBusService} from '../../event-bus/event-bus.service';
 
 @Component({
   selector: 'focused-task',
-  templateUrl: 'focused-task.component.html',
-  styleUrls: ['focused-task.component.css']
+  templateUrl: './focused-task.component.html',
+  styleUrls: ['./focused-task.component.css']
 })
 export class FocusedTaskComponent implements OnInit {
   private task: Task;

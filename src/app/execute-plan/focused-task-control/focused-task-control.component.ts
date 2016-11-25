@@ -4,8 +4,8 @@ import {EventBusService} from '../../event-bus/event-bus.service';
 
 @Component({
   selector: 'focused-task-control',
-  templateUrl: 'focused-task-control.component.html',
-  styleUrls: ['focused-task-control.component.css']
+  templateUrl: './focused-task-control.component.html',
+  styleUrls: ['./focused-task-control.component.css']
 })
 export class FocusedTaskControlComponent implements OnInit {
   @Input()

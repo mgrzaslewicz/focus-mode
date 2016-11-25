@@ -57,8 +57,8 @@ class CountdownTimer {
 
 @Component({
   selector: 'countdown-timers',
-  templateUrl: 'countdown-timers.component.html',
-  styleUrls: ['countdown-timers.component.css']
+  templateUrl: './countdown-timers.component.html',
+  styleUrls: ['./countdown-timers.component.css']
 })
 export class CountdownTimersComponent implements OnInit, OnCountdownTimerFinished {
   private countdownTimers: Array<CountdownTimer>;
