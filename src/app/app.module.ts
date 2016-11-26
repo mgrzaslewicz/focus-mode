@@ -14,7 +14,6 @@ import {NotesComponent} from './notes/notes.component';
 import {LeftMenuComponent} from './left-menu/left-menu.component';
 import {TaskServiceToken} from './execute-plan/focused-task';
 import {AppRoutingModule} from './app.routing-module';
-import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 import {RectangleProgressBarComponent} from './rectangle-progress-bar/rectangle-progress-bar.component';
 import {DayTasksProgressComponent} from './day-tasks-progress/day-tasks-progress.component';
 import {Safe} from './shared/pipes';
@@ -52,8 +51,7 @@ import { QuestionComponent } from './question/question.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule,
-    DragulaModule
+    AppRoutingModule
   ],
   providers: [
     EventBusService,

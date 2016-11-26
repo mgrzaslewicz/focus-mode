@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 
-interface OnCountdownTimerFinished {
+export interface OnCountdownTimerFinished {
   countdownTimerFinished(finishedCountdownTimer: CountdownTimer): void;
 }
 
-class CountdownTimer {
+export class CountdownTimer {
   public isRunning: boolean = false;
   public isVisible: boolean = true;
   public howManyMinutes: number;
