@@ -1,5 +1,5 @@
 <div *ngIf="isDayVisible()" class="card day day-{{ day.timeline }}">
-  <div class="card-block">
+  <div class="card-block card-top">
     <div *ngIf="!isShowingQuestion">
       <div class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
         <span class="ng-binding">{{ day.getProgressPercent() }}%</span>
@@ -11,7 +11,7 @@
       <h4 class="card-title">{{ day.getDayOfWeekName() }}</h4>
       <h5 *ngIf="!day.hasZeroTasksValue()" class="card-title tasks-value">${{ day.tasksValue() }}</h5>
       <h6 class="card-subtitle text-muted">{{ day.date | date:'mediumDate' }}</h6>
-      <div *ngIf="!isDayInThePast()">
+      <div *ngIf="!isDayInThePast()" class="buttons">
         <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
                 title="Posortuj po wartości rzeczy do zrobienia"
                 (click)="sortTasks(day)">

@@ -16,3 +16,13 @@
 .day .task:hover .actions {
   display: inherit;
 }
+
+.card-top {
+  position: relative;
+}
+
+.card-top .buttons {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+}
