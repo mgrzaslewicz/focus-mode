@@ -1,0 +1,24 @@
+.goals .goal, .goals .new-goal {
+  border-left: none;
+  border-right: none;
+}
+
+.goals .goal .actions {
+  margin-top: 5px;
+  padding-top: 5px;
+  display: none;
+}
+
+.goals .goal:hover .actions {
+  display: inherit;
+}
+
+.top {
+  position: relative;
+}
+
+.top .buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

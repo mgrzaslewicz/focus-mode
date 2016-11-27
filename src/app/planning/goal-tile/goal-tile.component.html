@@ -1,0 +1,42 @@
+<div *ngIf="goals" class="card card-success card-inverse">
+  <div class="card-block">
+    <div *ngIf="!isShowingQuestion" class="top">
+      <h4 class="card-title">Cele</h4>
+      <div class="buttons">
+        <button class="btn btn-sm btn-secondary bg-success pull-xs-right"
+                [class.faded]="goals.hasNoGoals()"
+                title="Wyczyść cele"
+                (click)="showQuestion()">
+          <i class="fa fa-eraser" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="isShowingQuestion">
+      <question [question]="'Czy na pewno chcesz usunąć wszystkie cele?'" [answer1]="'Tak'"
+                [answer2]="'Nie'" (onAnswer1)="clearGoals()" (onAnswer2)="hideQuestion()"></question>
+    </div>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="new-goal list-group-item list-group-item-success">
+      <input type="text" class="form-control"
+             placeholder="następny cel"
+             [(ngModel)]="goals.draftGoalName"
+             (keydown)="$event.keyCode == 13 ? addGoalFromDraft(): null">
+    </li>
+    <li *ngFor="let goal of goals.getGoals(); let goalIndex = index; let isFirst = first; let isLast = last"
+        class="goal list-group-item">
+      <span class="done-mark">
+          <i class="fa fa-check-circle"></i>
+      </span>
+      {{ goal.name }}
+      <div class="actions">
+        <button (click)="removeGoal(goalIndex)" class="btn btn-sm btn-secondary">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+        <button (click)="editGoal(goalIndex)" class="btn btn-sm btn-secondary">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

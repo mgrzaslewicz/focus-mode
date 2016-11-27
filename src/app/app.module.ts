@@ -26,8 +26,9 @@ import {
 } from './execute-plan/focused-task/task.service';
 import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
 import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider';
-import { DayPlanTileComponent } from './planning/day-plan-tile/day-plan-tile.component';
-import { QuestionComponent } from './question/question.component';
+import {DayPlanTileComponent} from './planning/day-plan-tile/day-plan-tile.component';
+import {QuestionComponent} from './question/question.component';
+import {GoalTileComponent} from './planning/goal-tile/goal-tile.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { QuestionComponent } from './question/question.component';
     DayTasksProgressComponent,
     Safe,
     DayPlanTileComponent,
-    QuestionComponent
+    QuestionComponent,
+    GoalTileComponent
   ],
   imports: [
     BrowserModule,
