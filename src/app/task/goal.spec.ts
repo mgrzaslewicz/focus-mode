@@ -19,7 +19,7 @@ describe('Model: Goals', () => {
     let goals = getSampleGoals();
     goals.moveGoalUp(1);
     expect(goals.getGoals()[0].getName()).toBe('test2');
-    expect(goals.getGoals()[1].getName()).toBe('test1 $2000');
+    expect(goals.getGoals()[1].getName()).toBe('test1');
   });
   it('should not move goal up when first', () => {
     let goals = getSampleGoals();

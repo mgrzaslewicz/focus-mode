@@ -43,8 +43,8 @@ export class Goals {
   private goals: Array<Goal>;
   private draftGoalName: string;
 
-  constructor(goals: Array<Goal>) {
-    this.goals = goals;
+  constructor(goalList: Array<Goal>) {
+    this.goals = goalList;
   }
 
   public getGoals(): Array<Goal> {
@@ -62,7 +62,7 @@ export class Goals {
     }
   }
 
-  public clearTasks() {
+  public clearGoals() {
     this.goals = [];
   }
 

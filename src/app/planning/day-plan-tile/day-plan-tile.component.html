@@ -34,7 +34,7 @@
     </div>
     <div *ngIf="isShowingQuestion">
       <question [question]="'Czy na pewno chcesz usunąć całą listę rzeczy do zrobienia?'" [answer1]="'Tak'"
-                [answer2]="'Nie'" (onAnswer1)="clearTasks(day)" (onAnswer2)="hideQuestion()"></question>
+                [answer2]="'Nie'" (onAnswer1)="clearGoals(day)" (onAnswer2)="hideQuestion()"></question>
     </div>
   </div>
   <ul class="list-group list-group-flush todo-day-list">
