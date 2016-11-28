@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {GoalTileComponent} from './goal-tile.component';
+import {GoalSystemTileComponent} from './goal-system-tile.component';
 import {QuestionComponent} from '../../question/question.component';
 import {FormsModule} from '@angular/forms';
 import {
@@ -11,14 +11,14 @@ import {
 import {localStorageServiceConfig} from '../../execute-plan/focused-task/task.service';
 import {LOCAL_STORAGE_SERVICE_CONFIG, LocalStorageService} from 'angular-2-local-storage';
 
-describe('GoalTileComponent', () => {
-  let component: GoalTileComponent;
-  let fixture: ComponentFixture<GoalTileComponent>;
+describe('GoalSystemTileComponent', () => {
+  let component: GoalSystemTileComponent;
+  let fixture: ComponentFixture<GoalSystemTileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        GoalTileComponent,
+        GoalSystemTileComponent,
         QuestionComponent
       ],
       imports: [
@@ -34,7 +34,7 @@ describe('GoalTileComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GoalTileComponent);
+    fixture = TestBed.createComponent(GoalSystemTileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

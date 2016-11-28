@@ -15,31 +15,17 @@ export class Goal {
     }
   }
 
-  public getValue(): number {
-    return this.getZeroOrValueFromName();
-  }
-
-  private getZeroOrValueFromName(): number {
-    let foundValueStringWithDollarPrefix = this.name.match(/\$[0-9]+/);
-    let result = foundValueStringWithDollarPrefix === null ? 0 : this.getNumberFromNumberWithDollarPrefix(foundValueStringWithDollarPrefix[0]);
-    return result;
-  }
-
-  private getNumberFromNumberWithDollarPrefix(numberWithDollarPrefix: string) {
-    return parseInt(numberWithDollarPrefix.substring(1));
-  }
-
 }
 
 export interface GoalJson {
   name: string;
 }
 
-export interface GoalsJson {
+export interface GoalSystemJson {
   goals: Array<GoalJson>;
 }
 
-export class Goals {
+export class GoalSystem {
   private goals: Array<Goal>;
   private draftGoalName: string;
 
@@ -66,13 +52,13 @@ export class Goals {
     this.goals = [];
   }
 
-  public asJson(): GoalsJson {
+  public asJson(): GoalSystemJson {
     return {
-      goals: this.getGoalsAsJson()
+      goals: this.getGoalSystemAsJson()
     }
   }
 
-  public getGoalsAsJson(): Array<GoalJson> {
+  public getGoalSystemAsJson(): Array<GoalJson> {
     let result: Array<GoalJson> = [];
     this.goals.forEach((goal: Goal) => {
       result.push(goal.asJson());

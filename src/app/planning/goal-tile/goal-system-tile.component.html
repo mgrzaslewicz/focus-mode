@@ -1,7 +1,7 @@
 <div *ngIf="goals" class="goals card card-success card-inverse">
   <div class="card-block">
     <div *ngIf="!isShowingQuestion" class="top">
-      <h4 class="card-title">Cele</h4>
+      <h4 class="card-title">Działanie dla efektów</h4>
       <div class="buttons">
         <button class="btn btn-sm btn-secondary bg-success pull-xs-right"
                 [class.faded]="goals.hasNoGoals()"
@@ -19,7 +19,7 @@
   <ul class="list-group list-group-flush">
     <li class="new-goal list-group-item list-group-item-success">
       <input type="text" class="form-control"
-             placeholder="następny cel"
+             placeholder="następne działanie"
              [(ngModel)]="goals.draftGoalName"
              (keydown)="$event.keyCode == 13 ? addGoalFromDraft(): null">
     </li>

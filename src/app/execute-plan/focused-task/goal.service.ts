@@ -1,14 +1,14 @@
 import {Injectable, OpaqueToken} from '@angular/core';
 import {SuccessCallback, ErrorCallback} from '../../shared/callback';
 import {LocalStorageService} from 'angular-2-local-storage';
-import {GoalsJson, Goals, GoalJson, Goal} from '../../task/goal';
+import {GoalSystemJson, GoalSystem, GoalJson, Goal} from '../../task/goal';
 
 export class GoalsFromJsonMapper {
 
-  public createGoalsFrom(goalsJson: GoalsJson): Goals {
-    let result: Goals = new Goals([]);
+  public createGoalsFrom(goalsJson: GoalSystemJson): GoalSystem {
+    let result: GoalSystem = new GoalSystem([]);
     if (goalsJson != null) {
-      result = new Goals(this.createGoalListFrom(goalsJson.goals));
+      result = new GoalSystem(this.createGoalListFrom(goalsJson.goals));
     }
     return result;
   }
@@ -30,8 +30,8 @@ export class GoalsFromJsonMapper {
 }
 
 export interface GoalService {
-  getGoals(successCallback: SuccessCallback<Goals>, errorCallback?: ErrorCallback): void;
-  saveGoals(goals: Goals, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback): void;
+  getGoals(successCallback: SuccessCallback<GoalSystem>, errorCallback?: ErrorCallback): void;
+  saveGoals(goals: GoalSystem, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback): void;
 }
 
 export const GoalServiceToken = new OpaqueToken('goalService');
@@ -47,12 +47,12 @@ export class LocalStorageGoalService implements GoalService {
     this.goalsFromJsonMapper = goalsFromJsonMapper;
   }
 
-  public getGoals(successCallback: SuccessCallback<Goals>, errorCallback?: ErrorCallback) {
-    let result: Goals = this.goalsFromJsonMapper.createGoalsFrom(<GoalsJson> this.localStorageService.get(`goals`));
+  public getGoals(successCallback: SuccessCallback<GoalSystem>, errorCallback?: ErrorCallback) {
+    let result: GoalSystem = this.goalsFromJsonMapper.createGoalsFrom(<GoalSystemJson> this.localStorageService.get(`goals`));
     successCallback(result);
   }
 
-  public saveGoals(goals: Goals, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback) {
+  public saveGoals(goals: GoalSystem, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback) {
     this.localStorageService.set(`goals`, goals.asJson());
     successCallback(null);
   }

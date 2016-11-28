@@ -28,7 +28,7 @@ import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/co
 import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider';
 import {DayPlanTileComponent} from './planning/day-plan-tile/day-plan-tile.component';
 import {QuestionComponent} from './question/question.component';
-import {GoalTileComponent} from './planning/goal-tile/goal-tile.component';
+import {GoalSystemTileComponent} from './planning/goal-tile/goal-system-tile.component';
 import {LocalStorageGoalService, GoalServiceToken, GoalsFromJsonMapper} from './execute-plan/focused-task/goal.service';
 
 @NgModule({
@@ -47,7 +47,7 @@ import {LocalStorageGoalService, GoalServiceToken, GoalsFromJsonMapper} from './
     Safe,
     DayPlanTileComponent,
     QuestionComponent,
-    GoalTileComponent
+    GoalSystemTileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,15 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {GoalServiceToken, GoalService} from '../../execute-plan/focused-task/goal.service';
-import {Goals} from '../../task/goal';
+import {GoalSystem} from '../../task/goal';
 
 @Component({
-  selector: 'goal-tile',
-  templateUrl: './goal-tile.component.html',
-  styleUrls: ['./goal-tile.component.css']
+  selector: 'goal-system-tile',
+  templateUrl: './goal-system-tile.component.html',
+  styleUrls: ['./goal-system-tile.component.css']
 })
-export class GoalTileComponent implements OnInit {
+export class GoalSystemTileComponent implements OnInit {
   private goalService: GoalService;
-  private goals: Goals;
+  private goals: GoalSystem;
   private isShowingQuestion: boolean = false;
 
   constructor(@Inject(GoalServiceToken) goalService: GoalService) {
@@ -17,10 +17,10 @@ export class GoalTileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.goalService.getGoals((goals: Goals) => this.setGoals(goals));
+    this.goalService.getGoals((goals: GoalSystem) => this.setGoals(goals));
   }
 
-  private setGoals(goals: Goals) {
+  private setGoals(goals: GoalSystem) {
     this.goals = goals;
   }
 
