@@ -54,7 +54,7 @@
       {{ task.name }}
       <div *ngIf="!isDayInThePast()" class="actions">
         <button (click)="removeTask(taskIndex)" class="btn btn-sm btn-secondary">
-          <i class="fa fa-times" aria-hidden="true"></i>
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
         <button (click)="editTask(taskIndex)" class="btn btn-sm btn-secondary">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
