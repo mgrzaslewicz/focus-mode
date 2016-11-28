@@ -14,6 +14,7 @@ import {DayPlanTileComponent} from './day-plan-tile/day-plan-tile.component';
 import {Router} from '@angular/router';
 import createSpy = jasmine.createSpy;
 import {QuestionComponent} from '../question/question.component';
+import {GoalTileComponent} from './goal-tile/goal-tile.component';
 
 class MockRouter {
   navigate = createSpy('navigate');
@@ -25,7 +26,8 @@ describe('Component: Planning', () => {
       declarations: [
         PlanningComponent,
         DayPlanTileComponent,
-        QuestionComponent
+        QuestionComponent,
+        GoalTileComponent
       ],
       imports: [
         FormsModule

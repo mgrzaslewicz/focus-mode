@@ -1,4 +1,4 @@
-<div *ngIf="goals" class="card card-success card-inverse">
+<div *ngIf="goals" class="goals card card-success card-inverse">
   <div class="card-block">
     <div *ngIf="!isShowingQuestion" class="top">
       <h4 class="card-title">Cele</h4>
@@ -24,7 +24,7 @@
              (keydown)="$event.keyCode == 13 ? addGoalFromDraft(): null">
     </li>
     <li *ngFor="let goal of goals.getGoals(); let goalIndex = index; let isFirst = first; let isLast = last"
-        class="goal list-group-item">
+        class="goal list-group-item list-group-item-success">
       <span class="done-mark">
           <i class="fa fa-check-circle"></i>
       </span>

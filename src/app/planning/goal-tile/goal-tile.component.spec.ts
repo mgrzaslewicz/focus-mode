@@ -4,7 +4,8 @@ import {GoalTileComponent} from './goal-tile.component';
 import {QuestionComponent} from '../../question/question.component';
 import {FormsModule} from '@angular/forms';
 import {
-  GoalService, GoalServiceToken, LocalStorageGoalService,
+  GoalServiceToken,
+  LocalStorageGoalService,
   GoalsFromJsonMapper
 } from '../../execute-plan/focused-task/goal.service';
 import {localStorageServiceConfig} from '../../execute-plan/focused-task/task.service';

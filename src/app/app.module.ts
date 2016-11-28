@@ -29,7 +29,7 @@ import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider
 import {DayPlanTileComponent} from './planning/day-plan-tile/day-plan-tile.component';
 import {QuestionComponent} from './question/question.component';
 import {GoalTileComponent} from './planning/goal-tile/goal-tile.component';
-import {LocalStorageGoalService, GoalServiceToken} from './execute-plan/focused-task/goal.service';
+import {LocalStorageGoalService, GoalServiceToken, GoalsFromJsonMapper} from './execute-plan/focused-task/goal.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import {LocalStorageGoalService, GoalServiceToken} from './execute-plan/focused-
     {provide: TimeProviderToken, useClass: RealTimeProvider},
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
+    GoalsFromJsonMapper,
     LocalStorageService,
     {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig}
   ],
