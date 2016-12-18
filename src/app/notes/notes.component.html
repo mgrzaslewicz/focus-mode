@@ -1,3 +1,23 @@
-<p>
-  notes works!
-</p>
+<div class="component">
+  <div class="row new-note">
+    <div class="col-xs-12">
+      <button [disabled]="!hasNewNote()" (click)="addNewNote()" class="center btn-fixed-width btn btn-secondary">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+      </button>
+      <input [(ngModel)]="newNote" (keydown)="$event.keyCode == 13 ? addNewNote(): null" name="newNote"
+             type="text" class="form-control">
+    </div>
+  </div>
+  <div class="row added-notes">
+    <div class="col-xs-12">
+      <button *ngIf="!isShowingNotes()" (click)="showNotes()"
+              class="center btn-fixed-width btn btn-secondary">
+        <i class="fa fa-list" aria-hidden="true"></i> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </button>
+      <button *ngIf="isShowingNotes()" (click)="hideNotes()" class="center btn-fixed-width btn btn-secondary">
+        <i class="fa fa-list" aria-hidden="true"></i> <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <textarea *ngIf="isShowingNotes()" [(ngModel)]="notes" name="notes" class="form-control notes"></textarea>
+    </div>
+  </div>
+</div>

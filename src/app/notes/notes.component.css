@@ -1,0 +1,35 @@
+.component {
+  padding-top: 15px;
+}
+
+textarea.notes {
+  height: 300px;
+}
+
+.new-note .btn {
+  float: left;
+}
+
+.new-note input {
+  float: left;
+  width: calc(100% - 75px);
+  margin-left: 15px;
+}
+
+.added-notes {
+  margin-top: 15px;
+}
+
+.added-notes .btn {
+  float: left;
+}
+
+.added-notes textarea {
+  float: left;
+  width: calc(100% - 75px);
+  margin-left: 15px;
+}
+
+.btn-fixed-width {
+  width: 60px;
+}
