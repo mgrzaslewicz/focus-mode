@@ -9,6 +9,9 @@ export interface CopyTaskEvent {
   dayIndex: number;
   taskIndex: number;
 }
+export interface CopyNotDoneTasksEvent {
+  dayIndex: number;
+}
 
 @Component({
   selector: 'day-plan-tile',
@@ -20,6 +23,7 @@ export class DayPlanTileComponent implements OnInit {
   @Input() public dayIndex: number;
   @Input() public isShowingFutureDay: boolean;
   @Output() public copyTask: EventEmitter<CopyTaskEvent> = new EventEmitter<CopyTaskEvent>();
+  @Output() public copyNotDoneTasks: EventEmitter<CopyNotDoneTasksEvent> = new EventEmitter<CopyNotDoneTasksEvent>();
   private eventBus: EventBusService;
   private taskService: TaskService;
   private router: Router;
@@ -87,6 +91,10 @@ export class DayPlanTileComponent implements OnInit {
 
   public copyTaskToNextDay(taskIndex: number) {
     this.copyTask.emit({dayIndex: this.dayIndex, taskIndex: taskIndex});
+  }
+
+  public copyNotDoneTasksToNextDay() {
+    this.copyNotDoneTasks.emit({dayIndex: this.dayIndex});
   }
 
   private getCurrentDayWithoutMinutesTime(): number {

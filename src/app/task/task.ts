@@ -176,6 +176,14 @@ export class Day {
     this.addTask(new Task(task.getName(), false));
   }
 
+  public copyNotDoneTasksFrom(other: Day) {
+    other.getTasks().forEach((task: Task) => {
+      if (!task.isDone()) {
+        this.createTaskFrom(task)
+      }
+    });
+  }
+
   public tasksCount(): number {
     return this.tasks.length;
   }
@@ -206,4 +214,14 @@ export class Day {
     return this.date.toISOString().slice(0, 10);
   }
 
+  public hasAllTasksDone(): boolean {
+    let result = true;
+    for (let i = 0; i < this.tasks.length; i++) {
+      if (!this.tasks[i].isDone()) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  }
 }

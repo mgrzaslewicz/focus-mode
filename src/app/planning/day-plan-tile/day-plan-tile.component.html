@@ -25,6 +25,12 @@
                 (click)="showQuestion()">
           <i class="fa fa-eraser" aria-hidden="true"></i>
         </button>
+        <button class="btn btn-sm btn-secondary pull-xs-right"
+                [class.faded]="day.hasNoTasks() || day.hasAllTasksDone()"
+                title="Skopiuj nieukończone zadania na kolejny dzień"
+                (click)="copyNotDoneTasksToNextDay()">
+          <i class="fa fa-files-o" aria-hidden="true"></i>
+        </button>
         <button *ngIf="isDayCurrent()" (click)="goToExecuteDay(day)"
                 [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-success pull-xs-right"
                 title="Zrealizuj plan & rośnij">
@@ -34,7 +40,7 @@
     </div>
     <div *ngIf="isShowingQuestion">
       <question [question]="'Czy na pewno chcesz usunąć całą listę rzeczy do zrobienia?'" [answer1]="'Tak'"
-                [answer2]="'Nie'" (onAnswer1)="clearGoals(day)" (onAnswer2)="hideQuestion()"></question>
+                [answer2]="'Nie'" (onAnswer1)="clearTasks(day)" (onAnswer2)="hideQuestion()"></question>
     </div>
   </div>
   <ul class="list-group list-group-flush todo-day-list">
@@ -59,14 +65,17 @@
         <button (click)="editTask(taskIndex)" class="btn btn-sm btn-secondary">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         </button>
-        <button (click)="moveTaskUp(taskIndex)" [class.faded]="isFirst" class="btn btn-sm btn-secondary">
+        <button (click)="moveTaskUp(taskIndex)" [class.faded]="isFirst" class="btn btn-sm btn-secondary"
+                title="Przesuń w górę">
           <i class="fa fa-angle-up" aria-hidden="true"></i>
         </button>
-        <button (click)="moveTaskDown(taskIndex)" [class.faded]="isLast" class="btn btn-sm btn-secondary">
+        <button (click)="moveTaskDown(taskIndex)" [class.faded]="isLast" class="btn btn-sm btn-secondary"
+                title="Przesuń w dół">
           <i class="fa fa-angle-down" aria-hidden="true"></i>
         </button>
-        <button (click)="copyTaskToNextDay(taskIndex)" class="btn btn-sm btn-secondary">
-          <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        <button (click)="copyTaskToNextDay(taskIndex)" class="btn btn-sm btn-secondary"
+                title="Skopiuj na następny dzień">
+          <i class="fa fa-files-o" aria-hidden="true"></i>
         </button>
       </div>
     </li>

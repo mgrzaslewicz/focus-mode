@@ -3,7 +3,7 @@ import {Day} from '../task/task';
 import {EventBusService} from '../event-bus';
 import {TaskService, TaskServiceToken} from '../execute-plan/focused-task/task.service';
 import {Router} from '@angular/router';
-import {CopyTaskEvent} from './day-plan-tile/day-plan-tile.component';
+import {CopyTaskEvent, CopyNotDoneTasksEvent} from './day-plan-tile/day-plan-tile.component';
 
 @Component({
   selector: ' planning',
@@ -40,6 +40,13 @@ export class PlanningComponent implements OnInit {
   public copyTaskToNextDay(copyTaskEvent: CopyTaskEvent) {
     if (copyTaskEvent.dayIndex > 0) {
       this.days[copyTaskEvent.dayIndex - 1].createTaskFrom(this.days[copyTaskEvent.dayIndex].getTasks()[copyTaskEvent.taskIndex]);
+    }
+    this.saveDays();
+  }
+
+  public copyNotDoneTasksToNextDay(copyNotDoneTasksEvent: CopyNotDoneTasksEvent) {
+    if (copyNotDoneTasksEvent.dayIndex > 0) {
+      this.days[copyNotDoneTasksEvent.dayIndex - 1].copyNotDoneTasksFrom(this.days[copyNotDoneTasksEvent.dayIndex]);
     }
     this.saveDays();
   }

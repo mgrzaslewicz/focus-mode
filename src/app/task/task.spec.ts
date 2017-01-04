@@ -3,11 +3,14 @@ import {Day, Task} from './task';
 let testDate = '2016-11-20';
 
 describe('Model: Task', () => {
-  function getSampleDay(dateMMddYYYY?: string): Day {
+  function getSampleDay(dateMMddYYYY?: string, allTasksDone?: boolean): Day {
+    if (allTasksDone === undefined) {
+      allTasksDone = false;
+    }
     let tasks: Array<Task> = [
-      new Task('test1 $2000', false),
-      new Task('test2', false),
-      new Task('test3 $100', false)
+      new Task('test1 $2000', allTasksDone),
+      new Task('test2', allTasksDone),
+      new Task('test3 $100', allTasksDone)
     ];
     let day = new Day(tasks, new Date(testDate));
     if (dateMMddYYYY) {
@@ -15,6 +18,9 @@ describe('Model: Task', () => {
     }
     return day;
   };
+  function getSampleDayWithAllTasksDone(dateMMddYYYY?: string) {
+    return getSampleDay(dateMMddYYYY, true);
+  }
   it('should have focus on zero task initially', () => {
     let day = getSampleDay();
     expect(day.getFocusedTask().getName()).toBe('test1 $2000');
@@ -129,5 +135,30 @@ describe('Model: Task', () => {
   it('should day return sunday as day of week', () => {
     let day = getSampleDay('11/27/2016');
     expect(day.getDayOfWeekName()).toBe('Nd');
+  });
+  it('should hasAllTasksDone return false when not all tasks done', () => {
+    let day = getSampleDay('11/27/2016');
+    expect(day.hasAllTasksDone()).toBeFalsy();
+  });
+  it('should hasAllTasksDone return true', () => {
+    let day = getSampleDayWithAllTasksDone('11/27/2016');
+    expect(day.hasAllTasksDone()).toBeTruthy();
+  });
+  it('should copy all not done tasks from other day when all from source are not done', () => {
+    let sourceDay = getSampleDay();
+    let numberOfNotDoneTasksBeforeCopying = sourceDay.getTasks().length;
+    let destinationDay = getSampleDay();
+    let numberOfDestinationTasksBeforeCopying = destinationDay.getTasks().length;
+
+    destinationDay.copyNotDoneTasksFrom(sourceDay);
+    expect(destinationDay.getTasks().length).toBe(numberOfNotDoneTasksBeforeCopying + numberOfDestinationTasksBeforeCopying);
+  });
+  it('should copy all not done tasks from other day when all from source are done', () => {
+    let sourceDayWithAllTasksDone = getSampleDayWithAllTasksDone();
+    let destinationDay = getSampleDay();
+    let numberOfDestinationTasksBeforeCopying = destinationDay.getTasks().length;
+
+    destinationDay.copyNotDoneTasksFrom(sourceDayWithAllTasksDone);
+    expect(destinationDay.getTasks().length).toBe(numberOfDestinationTasksBeforeCopying);
   });
 });
