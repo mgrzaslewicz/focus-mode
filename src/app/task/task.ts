@@ -1,5 +1,5 @@
 export class Task {
-  private name: string;
+  public name: string;
   private done: boolean = false;
 
   constructor(name: string, done: boolean) {

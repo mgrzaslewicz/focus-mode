@@ -17,7 +17,7 @@
         <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
                 title="Posortuj po wartości rzeczy do zrobienia"
                 (click)="sortTasks(day)">
-          <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> $
+          <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> <i class="fa fa-usd" aria-hidden="true"></i>
         </button>
         <button class="btn btn-sm btn-secondary pull-xs-right"
                 [class.faded]="day.hasNoTasks()"
@@ -57,7 +57,9 @@
                             <i *ngIf="task.isDone()" class="fa fa-check-circle-o"></i>
                             <i *ngIf="!task.isDone()" class="fa fa-circle-o"></i>
                         </span>
-      {{ task.name }}
+      <task-input *ngIf="!isDayInThePast()" [task]="task" [taskIndex]="taskIndex"
+                  (taskChanged)="saveDay()"></task-input>
+      <span *ngIf="isDayInThePast()">{{ task.name }}</span>
       <div *ngIf="!isDayInThePast()" class="actions">
         <button (click)="removeTask(taskIndex)" class="btn btn-sm btn-secondary">
           <i class="fa fa-trash-o" aria-hidden="true"></i>

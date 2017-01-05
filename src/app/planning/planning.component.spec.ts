@@ -7,7 +7,7 @@ import {
   LocalStorageTaskService,
   localStorageServiceConfig
 } from '../execute-plan/focused-task/task.service';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {APP_BASE_HREF} from '@angular/common';
 import {LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
 import {DayPlanTileComponent} from './day-plan-tile/day-plan-tile.component';
@@ -15,6 +15,7 @@ import {Router} from '@angular/router';
 import createSpy = jasmine.createSpy;
 import {QuestionComponent} from '../question/question.component';
 import {GoalSystemTileComponent} from './goal-tile/goal-system-tile.component';
+import {TaskInputComponent} from './task-input/task-input.component';
 
 class MockRouter {
   navigate = createSpy('navigate');
@@ -27,10 +28,12 @@ describe('Component: Planning', () => {
         PlanningComponent,
         DayPlanTileComponent,
         QuestionComponent,
-        GoalSystemTileComponent
+        GoalSystemTileComponent,
+        TaskInputComponent
       ],
       imports: [
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/'},

@@ -9,7 +9,7 @@
   display: none;
 }
 
-.day .task:hover .actions {
+.day .todo-day-list:hover .actions {
   display: inherit;
 }
 

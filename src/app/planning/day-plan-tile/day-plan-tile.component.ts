@@ -24,6 +24,7 @@ export class DayPlanTileComponent implements OnInit {
   @Input() public isShowingFutureDay: boolean;
   @Output() public copyTask: EventEmitter<CopyTaskEvent> = new EventEmitter<CopyTaskEvent>();
   @Output() public copyNotDoneTasks: EventEmitter<CopyNotDoneTasksEvent> = new EventEmitter<CopyNotDoneTasksEvent>();
+
   private eventBus: EventBusService;
   private taskService: TaskService;
   private router: Router;
@@ -75,8 +76,7 @@ export class DayPlanTileComponent implements OnInit {
   }
 
   public editTask(taskIndexZeroBased: number) {
-    this.day.moveTaskToDraft(taskIndexZeroBased);
-    this.saveDay();
+    this.eventBus.focusTaskInputSubject.next(taskIndexZeroBased);
   }
 
   public moveTaskDown(taskIndexZeroBased: number) {

@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {DayPlanTileComponent} from './day-plan-tile.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EventBusService} from '../../event-bus/event-bus.service';
 import {
   localStorageServiceConfig,
@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import createSpy = jasmine.createSpy;
 import {QuestionComponent} from '../../question/question.component';
 import {RealTimeProvider, TimeProviderToken} from '../../time-provider/time-provider';
+import {TaskInputComponent} from '../task-input/task-input.component';
 
 class MockRouter {
   navigate = createSpy('navigate');
@@ -26,10 +27,12 @@ describe('DayPlanTileComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DayPlanTileComponent,
-        QuestionComponent
+        QuestionComponent,
+        TaskInputComponent
       ],
       imports: [
         FormsModule,
+        ReactiveFormsModule
       ],
       providers: [
         EventBusService,
@@ -38,8 +41,7 @@ describe('DayPlanTileComponent', () => {
         {provide: TimeProviderToken, useValue: RealTimeProvider},
         {provide: Router, useClass: MockRouter},
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

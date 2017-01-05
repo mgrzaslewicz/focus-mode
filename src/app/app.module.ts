@@ -30,6 +30,7 @@ import {DayPlanTileComponent} from './planning/day-plan-tile/day-plan-tile.compo
 import {QuestionComponent} from './question/question.component';
 import {GoalSystemTileComponent} from './planning/goal-tile/goal-system-tile.component';
 import {LocalStorageGoalService, GoalServiceToken, GoalsFromJsonMapper} from './execute-plan/focused-task/goal.service';
+import {TaskInputComponent} from './planning/task-input/task-input.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {LocalStorageGoalService, GoalServiceToken, GoalsFromJsonMapper} from './
     Safe,
     DayPlanTileComponent,
     QuestionComponent,
-    GoalSystemTileComponent
+    GoalSystemTileComponent,
+    TaskInputComponent
   ],
   imports: [
     BrowserModule,
