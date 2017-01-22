@@ -18,7 +18,7 @@ import {RectangleProgressBarComponent} from './rectangle-progress-bar/rectangle-
 import {DayTasksProgressComponent} from './day-tasks-progress/day-tasks-progress.component';
 import {Safe} from './shared/pipes';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
-import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
+import {LocalStorageModule} from 'angular-2-local-storage';
 import {
   DaysFromJsonMapper,
   localStorageServiceConfig,
@@ -56,6 +56,7 @@ import {TaskInputComponent} from './planning/task-input/task-input.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    LocalStorageModule.withConfig(localStorageServiceConfig),
     AppRoutingModule
   ],
   providers: [
@@ -68,8 +69,6 @@ import {TaskInputComponent} from './planning/task-input/task-input.component';
     {provide: APP_BASE_HREF, useValue: '/'},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     GoalsFromJsonMapper,
-    LocalStorageService,
-    {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig}
   ],
   bootstrap: [AppComponent],
 })

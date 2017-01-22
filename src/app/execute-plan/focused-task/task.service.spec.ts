@@ -4,7 +4,7 @@ import {EventBusService} from '../../event-bus/event-bus.service';
 import {TaskServiceToken, TaskService} from './';
 import {DaysFromJsonMapper, LocalStorageTaskService, localStorageServiceConfig} from './task.service';
 import {Day, DayJson} from '../../task/task';
-import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
+import {LocalStorageModule} from 'angular-2-local-storage';
 import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
 
 let day1Date = '2016-11-20';
@@ -47,10 +47,11 @@ class FixedTimeProvider implements TimeProvider {
 describe('TaskService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        LocalStorageModule.withConfig(localStorageServiceConfig),
+      ],
       providers: [
         EventBusService,
-        LocalStorageService,
-        {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig},
         {provide: TaskServiceToken, useClass: LocalStorageTaskService},
         DaysFromJsonMapper,
         {provide: TimeProviderToken, useClass: FixedTimeProvider},

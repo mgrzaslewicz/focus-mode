@@ -9,7 +9,7 @@ import {
   GoalsFromJsonMapper
 } from '../../execute-plan/focused-task/goal.service';
 import {localStorageServiceConfig} from '../../execute-plan/focused-task/task.service';
-import {LOCAL_STORAGE_SERVICE_CONFIG, LocalStorageService} from 'angular-2-local-storage';
+import {LocalStorageModule} from 'angular-2-local-storage';
 
 describe('GoalSystemTileComponent', () => {
   let component: GoalSystemTileComponent;
@@ -22,13 +22,12 @@ describe('GoalSystemTileComponent', () => {
         QuestionComponent
       ],
       imports: [
-        FormsModule
+        FormsModule,
+        LocalStorageModule.withConfig(localStorageServiceConfig),
       ],
       providers: [
         {provide: GoalServiceToken, useClass: LocalStorageGoalService},
-        LocalStorageService,
         GoalsFromJsonMapper,
-        {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig},
       ]
     }).compileComponents();
   }));

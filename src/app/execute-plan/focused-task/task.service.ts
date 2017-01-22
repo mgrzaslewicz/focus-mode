@@ -1,7 +1,7 @@
 import {Injectable, OpaqueToken, Inject} from '@angular/core';
 import {SuccessCallback, ErrorCallback} from '../../shared/callback';
 import {Day, Task, DayJson, TaskJson} from '../../task/task';
-import {LocalStorageService} from 'angular-2-local-storage';
+import {LocalStorageService, ILocalStorageServiceConfig} from 'angular-2-local-storage';
 import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
 
 export class DaysFromJsonMapper {
@@ -31,7 +31,7 @@ export interface TaskService {
 
 export const TaskServiceToken = new OpaqueToken('taskService');
 
-export const localStorageServiceConfig = {
+export const localStorageServiceConfig: ILocalStorageServiceConfig = {
   prefix: 'th',
   storageType: 'localStorage'
 };

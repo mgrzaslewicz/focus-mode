@@ -8,12 +8,12 @@ import {
   LocalStorageTaskService,
   TaskServiceToken
 } from '../../execute-plan/focused-task/task.service';
-import {LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
+import {LocalStorageModule} from 'angular-2-local-storage';
 import {Router} from '@angular/router';
-import createSpy = jasmine.createSpy;
 import {QuestionComponent} from '../../question/question.component';
 import {RealTimeProvider, TimeProviderToken} from '../../time-provider/time-provider';
 import {TaskInputComponent} from '../task-input/task-input.component';
+import createSpy = jasmine.createSpy;
 
 class MockRouter {
   navigate = createSpy('navigate');
@@ -32,12 +32,12 @@ describe('DayPlanTileComponent', () => {
       ],
       imports: [
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        LocalStorageModule.withConfig(localStorageServiceConfig),
       ],
       providers: [
         EventBusService,
         {provide: TaskServiceToken, LocalStorageTaskService},
-        {provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig},
         {provide: TimeProviderToken, useValue: RealTimeProvider},
         {provide: Router, useClass: MockRouter},
       ]
