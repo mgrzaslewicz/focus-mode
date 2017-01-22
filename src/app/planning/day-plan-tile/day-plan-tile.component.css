@@ -1,3 +1,7 @@
+.day.day-current {
+  border: 1px solid gray;
+}
+
 .day .task, .day .new-task {
   border-left: none;
   border-right: none;
