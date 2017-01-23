@@ -1,9 +1,9 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, QueryList, ViewChildren} from '@angular/core';
 import {Day} from '../task/task';
 import {EventBusService} from '../event-bus';
 import {TaskService, TaskServiceToken} from '../execute-plan/focused-task/task.service';
 import {Router} from '@angular/router';
-import {CopyTaskEvent, CopyNotDoneTasksEvent} from './day-plan-tile/day-plan-tile.component';
+import {CopyTaskEvent, CopyNotDoneTasksEvent, DayPlanTileComponent} from './day-plan-tile/day-plan-tile.component';
 
 @Component({
   selector: ' planning',
@@ -12,6 +12,7 @@ import {CopyTaskEvent, CopyNotDoneTasksEvent} from './day-plan-tile/day-plan-til
 })
 export class PlanningComponent implements OnInit {
 
+  @ViewChildren('dayComponents') dayComponents: QueryList<DayPlanTileComponent>;
   private eventBus: EventBusService;
   private days: Array<Day> = [];
   private isShowingFutureDays: boolean = false;
@@ -53,6 +54,10 @@ export class PlanningComponent implements OnInit {
 
   public showFutureDays() {
     this.isShowingFutureDays = true;
+    let futureDays: Array<DayPlanTileComponent> = this.dayComponents.filter((dayComponent: DayPlanTileComponent) => dayComponent.isDayInTheFuture());
+    setTimeout(() => {
+      futureDays[futureDays.length - 1].scrollInto()
+    }, 100);
   }
 
 }

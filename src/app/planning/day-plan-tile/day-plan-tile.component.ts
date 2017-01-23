@@ -138,6 +138,10 @@ export class DayPlanTileComponent implements OnInit {
     return this.getTimeline() == 'current';
   }
 
+  public isDayInTheFuture(): boolean {
+    return this.getTimeline() == 'future';
+  }
+
   public isDayCurrentOrPast(): boolean {
     return this.getTimeline() != 'future';
   }
@@ -154,5 +158,9 @@ export class DayPlanTileComponent implements OnInit {
     this.isShowingQuestion = false;
   }
 
+  public scrollInto() {
+    console.log(this.elementRef.nativeElement);
+    this.elementRef.nativeElement.scrollIntoView();
+  }
 
 }

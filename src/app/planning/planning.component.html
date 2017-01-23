@@ -16,6 +16,7 @@
     <day-plan-tile [day]="day" [dayIndex]="dayIndex" [isShowingFutureDay]="isShowingFutureDays"
                    (copyTask)="copyTaskToNextDay($event)"
                    (copyNotDoneTasks)="copyNotDoneTasksToNextDay($event)"
+                   #dayComponents
     ></day-plan-tile>
   </div>
 </div>
