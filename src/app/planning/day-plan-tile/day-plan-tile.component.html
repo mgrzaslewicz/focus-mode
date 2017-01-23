@@ -52,6 +52,7 @@
     </li>
     <li *ngFor="let task of day.tasks; let taskIndex = index; let isFirst = first; let isLast = last"
         class="task list-group-item"
+        [class.last-task]="isLast"
         [class.done-task]="task.isDone()">
                         <span class="done-mark">
                             <i *ngIf="task.isDone()" class="fa fa-check-circle-o"></i>
@@ -75,6 +76,12 @@
                 title="Przesuń w dół">
           <i class="fa fa-angle-down" aria-hidden="true"></i>
         </button>
+        <button (click)="copyTaskToNextDay(taskIndex)" class="btn btn-sm btn-secondary"
+                title="Skopiuj na następny dzień">
+          <i class="fa fa-files-o" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div *ngIf="isDayInThePast()" class="actions">
         <button (click)="copyTaskToNextDay(taskIndex)" class="btn btn-sm btn-secondary"
                 title="Skopiuj na następny dzień">
           <i class="fa fa-files-o" aria-hidden="true"></i>

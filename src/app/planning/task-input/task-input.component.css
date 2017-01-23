@@ -1,4 +1,4 @@
-input {
+.task-input {
   display: inline-block;
   width: calc(100% - 20px);
   border: none;

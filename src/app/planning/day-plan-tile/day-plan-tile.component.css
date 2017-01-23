@@ -10,11 +10,13 @@
 .day .task .actions {
   margin-top: 5px;
   padding-top: 5px;
-  display: none;
 }
 
-.day .todo-day-list:hover .actions {
-  display: inherit;
+.day.day-past .task .actions {
+  position: absolute;
+  right: 15px;
+  top: 0px;
+  opacity: 0.5;
 }
 
 .card-top {
@@ -37,4 +39,8 @@
 
 .buttons button {
   margin-left: 2px;
+}
+
+.last-task {
+  border-bottom: none;
 }
