@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-md-7 col-lg-5">
-    <button *ngIf="!isShowingFutureDays" (click)="showFutureDays()"
-            class="btn btn-secondary show-more-days-ahead">
-      Pokaż więcej dni do przodu <i class="fa fa-arrow-up" aria-hidden="true"></i>
-    </button>
+    <goal-system-tile></goal-system-tile>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-md-7 col-lg-5">
-    <goal-system-tile></goal-system-tile>
+    <button *ngIf="!isShowingFutureDays" (click)="showFutureDays()"
+            class="btn btn-secondary show-more-days-ahead">
+      Pokaż więcej dni do przodu <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
   </div>
 </div>
 <div class="row" *ngFor="let day of days; let dayIndex = index; let isLastDay = last">

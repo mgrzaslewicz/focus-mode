@@ -34,6 +34,4 @@ export class EventBusService {
   public taskChangedSubject: BehaviorSubjectWithSource<Task> = new BehaviorSubjectWithSource<Task>(null, 'taskChanged');
   public hideLeftMenuSubject: BehaviorSubjectWithSource<boolean> = new BehaviorSubjectWithSource<boolean>(false, 'hideLeftMenu');
 
-  public focusTaskInputSubject: BehaviorSubjectWithSource<number> = new BehaviorSubjectWithSource<number>(-1, 'focusTaskInput');
-
 }

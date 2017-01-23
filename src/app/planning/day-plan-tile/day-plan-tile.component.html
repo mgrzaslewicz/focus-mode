@@ -58,7 +58,7 @@
                             <i *ngIf="!task.isDone()" class="fa fa-circle-o"></i>
                         </span>
       <task-input *ngIf="!isDayInThePast()" [task]="task" [taskIndex]="taskIndex"
-                  (taskChanged)="saveDay()"></task-input>
+                  (taskChanged)="saveDay()" #taskInputComponents></task-input>
       <span *ngIf="isDayInThePast()">{{ task.name }}</span>
       <div *ngIf="!isDayInThePast()" class="actions">
         <button (click)="removeTask(taskIndex)" class="btn btn-sm btn-secondary">

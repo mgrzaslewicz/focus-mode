@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, EventEmitter, Output, ElementRef} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Task} from '../../task/task';
-import {EventBusService} from '../../event-bus/event-bus.service';
 
 export interface TaskChangedEvent {
 }
@@ -18,20 +17,13 @@ export class TaskInputComponent implements OnInit {
 
   private taskInputControl: FormControl = new FormControl();
   private elementRef: ElementRef;
-  private eventBus: EventBusService;
 
-  constructor(elementRef: ElementRef, eventBus: EventBusService) {
+  constructor(elementRef: ElementRef) {
     this.elementRef = elementRef;
-    this.eventBus = eventBus;
   }
 
   ngOnInit() {
     this.subscribeToInputChanges();
-    this.eventBus.focusTaskInputSubject.asObservable().subscribe((taskIndexZeroBased: number) => {
-      if (taskIndexZeroBased == this.taskIndex) {
-        this.focus();
-      }
-    })
   }
 
   private subscribeToInputChanges() {
@@ -43,7 +35,7 @@ export class TaskInputComponent implements OnInit {
       });
   }
 
-  private focus() {
+  public focusInput() {
     this.getInput().focus();
   }
 

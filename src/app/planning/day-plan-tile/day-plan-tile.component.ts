@@ -1,9 +1,20 @@
-import {Component, OnInit, Input, Inject, Output, EventEmitter} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Inject,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ViewChildren,
+  QueryList
+} from '@angular/core';
 import {Day} from '../../task/task';
 import {EventBusService} from '../../event-bus/event-bus.service';
 import {TaskService, TaskServiceToken} from '../../execute-plan/focused-task/task.service';
 import {Router} from '@angular/router';
 import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
+import {TaskInputComponent} from '../task-input/task-input.component';
 
 export interface CopyTaskEvent {
   dayIndex: number;
@@ -24,6 +35,7 @@ export class DayPlanTileComponent implements OnInit {
   @Input() public isShowingFutureDay: boolean;
   @Output() public copyTask: EventEmitter<CopyTaskEvent> = new EventEmitter<CopyTaskEvent>();
   @Output() public copyNotDoneTasks: EventEmitter<CopyNotDoneTasksEvent> = new EventEmitter<CopyNotDoneTasksEvent>();
+  @ViewChildren('taskInputComponents') taskInputComponents: QueryList<TaskInputComponent>;
 
   private eventBus: EventBusService;
   private taskService: TaskService;
@@ -31,12 +43,16 @@ export class DayPlanTileComponent implements OnInit {
   private timeProvider: TimeProvider;
   private timeline: string = null;
   private isShowingQuestion: boolean = false;
+  private elementRef: ElementRef;
 
-  constructor(eventBus: EventBusService, @Inject(TaskServiceToken) taskService: TaskService, router: Router, @Inject(TimeProviderToken) timeProvider: TimeProvider) {
+  constructor(eventBus: EventBusService, @Inject(TaskServiceToken) taskService: TaskService,
+              router: Router, @Inject(TimeProviderToken) timeProvider: TimeProvider,
+              elementRef: ElementRef) {
     this.eventBus = eventBus;
     this.taskService = taskService;
     this.router = router;
     this.timeProvider = timeProvider;
+    this.elementRef = elementRef;
   }
 
   ngOnInit() {
@@ -76,7 +92,7 @@ export class DayPlanTileComponent implements OnInit {
   }
 
   public editTask(taskIndexZeroBased: number) {
-    this.eventBus.focusTaskInputSubject.next(taskIndexZeroBased);
+    this.taskInputComponents.toArray()[taskIndexZeroBased].focusInput();
   }
 
   public moveTaskDown(taskIndexZeroBased: number) {

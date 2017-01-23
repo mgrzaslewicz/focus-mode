@@ -3,7 +3,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {TaskInputComponent} from './task-input.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Task} from '../../task/task';
-import {EventBusService} from '../../event-bus/event-bus.service';
 
 describe('TaskInputComponent', () => {
   let component: TaskInputComponent;
@@ -16,9 +15,7 @@ describe('TaskInputComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      providers: [
-        EventBusService
-      ]
+      providers: []
     }).compileComponents();
   }));
 
