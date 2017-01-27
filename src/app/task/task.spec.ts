@@ -1,4 +1,4 @@
-import {Day, Task} from './task';
+import {Day, Task, DayList} from './task';
 
 let testDate = '2016-11-20';
 
@@ -160,5 +160,26 @@ describe('Model: Task', () => {
 
     destinationDay.copyNotDoneTasksFrom(sourceDayWithAllTasksDone);
     expect(destinationDay.getTasks().length).toBe(numberOfDestinationTasksBeforeCopying);
+  });
+  it('should dayList copy all not done tasks from other day when all from source are not done', () => {
+    let day0 = getSampleDay('11/29/2016');
+    let tasksInDay0Before = day0.getTasks().length;
+    let day1 = getSampleDay('11/28/2016');
+    let tasksInDay1 = day1.getTasks().length;
+
+    let dayList = new DayList([day0, day1, getSampleDay('11/27/2016')]);
+    dayList.copyNotDoneTasksToNextDay(1);
+
+    expect(dayList.getDays()[0].getTasks().length).toBe(tasksInDay0Before + tasksInDay1);
+  });
+  it('should dayList copy task to next day', () => {
+    let day0 = getSampleDay('11/29/2016');
+    let tasksInDay0Before = day0.getTasks().length;
+    let day1 = getSampleDay('11/28/2016');
+
+    let dayList = new DayList([day0, day1, getSampleDay('11/27/2016')]);
+    dayList.copyTaskToNextDay(1, 1);
+
+    expect(dayList.getDays()[0].getTasks().length).toBe(tasksInDay0Before + 1);
   });
 });

@@ -1,6 +1,6 @@
 import {Injectable, OpaqueToken, Inject} from '@angular/core';
 import {SuccessCallback, ErrorCallback} from '../../shared/callback';
-import {Day, Task, DayJson, TaskJson} from '../../task/task';
+import {Day, Task, DayJson, TaskJson, DayList} from '../../task/task';
 import {LocalStorageService, ILocalStorageServiceConfig} from 'angular-2-local-storage';
 import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
 
@@ -24,7 +24,7 @@ export class DaysFromJsonMapper {
 }
 
 export interface TaskService {
-  getDays(successCallback: SuccessCallback<Array<Day>>, errorCallback?: ErrorCallback): void;
+  getDayList(successCallback: SuccessCallback<DayList>, errorCallback?: ErrorCallback): void;
   saveDays(days: Array<Day>, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback): void;
   saveDay(day: Day, successCallback: SuccessCallback<any>): void;
 }
@@ -50,22 +50,22 @@ export class LocalStorageTaskService implements TaskService {
 
   }
 
-  public getDays(successCallback: SuccessCallback<Array<Day>>, errorCallback?: ErrorCallback) {
+  public getDayList(successCallback: SuccessCallback<DayList>, errorCallback?: ErrorCallback) {
     let dayDateIndex: Array<string> = this.getDayDateIndexOrCreateEmpty();
     this.add7NextDaysIfNotExistTo(dayDateIndex);
     this.sortDayDateIndexDescending(dayDateIndex);
-    let result: Array<Day> = this.createDaysFrom(dayDateIndex);
+    let result: DayList = this.createDayListFrom(dayDateIndex);
     successCallback(result);
   }
 
-  private createDaysFrom(dayDateIndex: Array<string>): Array<Day> {
+  private createDayListFrom(dayDateIndex: Array<string>): DayList {
     let result: Array<Day> = [];
     dayDateIndex.forEach((dayDate: string) => {
       let dayJson: DayJson = <DayJson> this.localStorageService.get(`day.${dayDate}`);
       let day: Day = dayJson ? this.dayFromJsonMapper.createDayFrom(dayJson) : this.createEmptyDay(dayDate);
       result.push(day);
     });
-    return result;
+    return new DayList(result);
   }
 
   public saveDays(days: Array<Day>, successCallback: SuccessCallback<any>, errorCallback?: ErrorCallback) {

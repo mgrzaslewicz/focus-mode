@@ -3,7 +3,7 @@ import {inject, TestBed} from '@angular/core/testing';
 import {EventBusService} from '../../event-bus/event-bus.service';
 import {TaskServiceToken, TaskService} from './';
 import {DaysFromJsonMapper, LocalStorageTaskService, localStorageServiceConfig} from './task.service';
-import {Day, DayJson} from '../../task/task';
+import {Day, DayJson, DayList} from '../../task/task';
 import {LocalStorageModule} from 'angular-2-local-storage';
 import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
 
@@ -75,7 +75,7 @@ describe('TaskService', () => {
   }));
   it('should get 7 days ahead when no saved days', inject([TaskServiceToken], (taskService: TaskService) => {
     let days: Array<Day>;
-    taskService.getDays((response: Array<Day>) => days = response);
+    taskService.getDayList((response: DayList) => days = response.getDays());
     expect(days.length).toBe(7);
     expect(days[0].date).toEqual(new Date('2016-11-26'));
     expect(days[1].date).toEqual(new Date('2016-11-25'));
@@ -87,11 +87,11 @@ describe('TaskService', () => {
   }));
   it('should get 7 saved days and 7 days ahead (2 exclusive day periods)', inject([TaskServiceToken, TimeProviderToken], (taskService: TaskService, timeProvider: FixedTimeProvider) => {
     let days: Array<Day>;
-    taskService.getDays((response: Array<Day>) => days = response);
+    taskService.getDayList((response: DayList) => days = response.getDays());
     taskService.saveDays(days, () => {
     });
     timeProvider.setTime(fixedTime10DaysLater);
-    taskService.getDays((response: Array<Day>) => days = response);
+    taskService.getDayList((response: DayList) => days = response.getDays());
     expect(days.length).toBe(14);
     expect(days[0].date).toEqual(new Date('2016-12-06'));
     expect(days[1].date).toEqual(new Date('2016-12-05'));
@@ -111,11 +111,11 @@ describe('TaskService', () => {
   }));
   it('should get 7 saved days and 4 days ahead (2 inclusive day periods, 3 common dates)', inject([TaskServiceToken, TimeProviderToken], (taskService: TaskService, timeProvider: FixedTimeProvider) => {
     let days: Array<Day>;
-    taskService.getDays((response: Array<Day>) => days = response);
+    taskService.getDayList((response: DayList) => days = response.getDays());
     taskService.saveDays(days, () => {
     });
     timeProvider.setTime(fixedTime4DaysLater);
-    taskService.getDays((response: Array<Day>) => days = response);
+    taskService.getDayList((response: DayList) => days = response.getDays());
     expect(days.length).toBe(11);
     expect(days[0].date).toEqual(new Date('2016-11-30'));
     expect(days[1].date).toEqual(new Date('2016-11-29'));

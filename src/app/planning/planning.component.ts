@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject, QueryList, ViewChildren} from '@angular/core';
-import {Day} from '../task/task';
+import {Day, DayList} from '../task/task';
 import {EventBusService} from '../event-bus';
 import {TaskService, TaskServiceToken} from '../execute-plan/focused-task/task.service';
 import {Router} from '@angular/router';
@@ -14,7 +14,7 @@ export class PlanningComponent implements OnInit {
 
   @ViewChildren('dayComponents') dayComponents: QueryList<DayPlanTileComponent>;
   private eventBus: EventBusService;
-  private days: Array<Day> = [];
+  private dayList: DayList;
   private isShowingFutureDays: boolean = false;
   private taskService: TaskService;
   private router: Router;
@@ -26,28 +26,28 @@ export class PlanningComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.taskService.getDays((days: Array<Day>) => this.setDays(days));
+    this.taskService.getDayList((dayList: DayList) => this.setDayList(dayList));
   }
 
-  private setDays(days: Array<Day>) {
-    this.days = days;
+  private setDayList(dayList: DayList) {
+    this.dayList = dayList;
   }
 
   public saveDays() {
-    this.taskService.saveDays(this.days, () => {
+    this.taskService.saveDays(this.dayList.getDays(), () => {
     });
   }
 
   public copyTaskToNextDay(copyTaskEvent: CopyTaskEvent) {
     if (copyTaskEvent.dayIndex > 0) {
-      this.days[copyTaskEvent.dayIndex - 1].createTaskFrom(this.days[copyTaskEvent.dayIndex].getTasks()[copyTaskEvent.taskIndex]);
+      this.dayList.copyTaskToNextDay(copyTaskEvent.dayIndex, copyTaskEvent.taskIndex);
     }
     this.saveDays();
   }
 
   public copyNotDoneTasksToNextDay(copyNotDoneTasksEvent: CopyNotDoneTasksEvent) {
     if (copyNotDoneTasksEvent.dayIndex > 0) {
-      this.days[copyNotDoneTasksEvent.dayIndex - 1].copyNotDoneTasksFrom(this.days[copyNotDoneTasksEvent.dayIndex]);
+      this.dayList.copyNotDoneTasksToNextDay(copyNotDoneTasksEvent.dayIndex);
     }
     this.saveDays();
   }

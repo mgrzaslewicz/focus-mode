@@ -225,3 +225,26 @@ export class Day {
     return result;
   }
 }
+
+export class DayList {
+  private days: Array<Day>;
+
+  constructor(days: Array<Day>) {
+    this.days = days;
+  }
+
+  public getDays(): Array<Day> {
+    return this.days;
+  }
+
+  public copyTaskToNextDay(dayIndexToCopyFrom: number, taskIndex: number) {
+    let nextDayIndex = dayIndexToCopyFrom - 1;
+    this.days[nextDayIndex].createTaskFrom(this.days[dayIndexToCopyFrom].getTasks()[taskIndex]);
+  }
+
+  copyNotDoneTasksToNextDay(dayIndexToCopyFrom: number) {
+    let nextDayIndex = dayIndexToCopyFrom - 1;
+    this.days[nextDayIndex].copyNotDoneTasksFrom(this.days[dayIndexToCopyFrom]);
+  }
+
+}
