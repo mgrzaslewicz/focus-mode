@@ -18,6 +18,9 @@
   top: 0px;
   opacity: 0.5;
 }
+.day.day-past .task:hover .actions {
+  opacity: 1;
+}
 
 .card-top {
   position: relative;

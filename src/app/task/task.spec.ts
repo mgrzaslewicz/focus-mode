@@ -3,9 +3,12 @@ import {Day, Task, DayList} from './task';
 let testDate = '2016-11-20';
 
 describe('Model: Task', () => {
-  function getSampleDay(dateMMddYYYY?: string, allTasksDone?: boolean): Day {
+  function getSampleDay(dateMMddYYYY?: string, allTasksDone?: boolean, positionInTime?: string): Day {
     if (allTasksDone === undefined) {
       allTasksDone = false;
+    }
+    if (positionInTime === undefined) {
+      positionInTime = Day.DAY_PAST;
     }
     let tasks: Array<Task> = [
       new Task('test1 $2000', allTasksDone),
@@ -16,11 +19,13 @@ describe('Model: Task', () => {
     if (dateMMddYYYY) {
       day.setDate(new Date(dateMMddYYYY));
     }
+    day.setPositionInTime(positionInTime);
     return day;
   };
   function getSampleDayWithAllTasksDone(dateMMddYYYY?: string) {
     return getSampleDay(dateMMddYYYY, true);
   }
+
   it('should have focus on zero task initially', () => {
     let day = getSampleDay();
     expect(day.getFocusedTask().getName()).toBe('test1 $2000');
@@ -151,7 +156,8 @@ describe('Model: Task', () => {
     let numberOfDestinationTasksBeforeCopying = destinationDay.getTasks().length;
 
     destinationDay.copyNotDoneTasksFrom(sourceDay);
-    expect(destinationDay.getTasks().length).toBe(numberOfNotDoneTasksBeforeCopying + numberOfDestinationTasksBeforeCopying);
+    expect(destinationDay.getTasks().length)
+      .toBe(numberOfNotDoneTasksBeforeCopying + numberOfDestinationTasksBeforeCopying);
   });
   it('should copy all not done tasks from other day when all from source are done', () => {
     let sourceDayWithAllTasksDone = getSampleDayWithAllTasksDone();
@@ -173,12 +179,14 @@ describe('Model: Task', () => {
     expect(dayList.getDays()[0].getTasks().length).toBe(tasksInDay0Before + tasksInDay1);
   });
   it('should dayList copy task to next day', () => {
-    let day0 = getSampleDay('11/29/2016');
-    let tasksInDay0Before = day0.getTasks().length;
-    let day1 = getSampleDay('11/28/2016');
+    let day0 = getSampleDay('11/29/2016', false, Day.DAY_CURRENT);
+    let day1 = getSampleDay('11/28/2016', false, Day.DAY_PAST);
+    let day2 = getSampleDay('11/27/2016', false, Day.DAY_PAST);
 
-    let dayList = new DayList([day0, day1, getSampleDay('11/27/2016')]);
-    dayList.copyTaskToNextDayInTheFuture(1, 1);
+    let tasksInDay0Before = day0.getTasks().length;
+
+    let dayList = new DayList([day0, day1, day2]);
+    dayList.copyTaskToNextDayInTheFuture(2, 1);
 
     expect(dayList.getDays()[0].getTasks().length).toBe(tasksInDay0Before + 1);
   });

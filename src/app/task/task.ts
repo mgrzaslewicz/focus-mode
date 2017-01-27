@@ -254,6 +254,10 @@ export class Day {
     return this.getPositionInTime() != Day.DAY_FUTURE;
   }
 
+  public isDayCurrentOrFuture(): boolean {
+    return this.getPositionInTime() != Day.DAY_PAST;
+  }
+
 }
 
 export class DayList {
@@ -268,7 +272,14 @@ export class DayList {
   }
 
   private getNextDayInTheFutureIndex(dayIndex: number) {
-    return dayIndex - 1;
+    let result = 0;
+    for (let possibleDayInTheFutureIndex = dayIndex - 1; possibleDayInTheFutureIndex >= 0; possibleDayInTheFutureIndex--) {
+      if (this.days[possibleDayInTheFutureIndex].isDayCurrentOrFuture()) {
+        result = possibleDayInTheFutureIndex;
+        break;
+      }
+    }
+    return result;
   }
 
   public copyTaskToNextDayInTheFuture(dayIndexToCopyFrom: number, taskIndex: number) {
