@@ -2,7 +2,10 @@
 import {inject, TestBed} from '@angular/core/testing';
 import {EventBusService} from '../../event-bus/event-bus.service';
 import {TaskServiceToken, TaskService} from './';
-import {DaysFromJsonMapper, LocalStorageTaskService, localStorageServiceConfig} from './task.service';
+import {
+  DaysFromJsonMapper, LocalStorageTaskService, localStorageServiceConfig,
+  DayPositionInTimeCalculator
+} from './task.service';
 import {Day, DayJson, DayList} from '../../task/task';
 import {LocalStorageModule} from 'angular-2-local-storage';
 import {TimeProviderToken, TimeProvider} from '../../time-provider/time-provider';
@@ -52,6 +55,7 @@ describe('TaskService', () => {
       ],
       providers: [
         EventBusService,
+        DayPositionInTimeCalculator,
         {provide: TaskServiceToken, useClass: LocalStorageTaskService},
         DaysFromJsonMapper,
         {provide: TimeProviderToken, useClass: FixedTimeProvider},
@@ -128,5 +132,15 @@ describe('TaskService', () => {
     expect(days[8].date).toEqual(new Date('2016-11-22'));
     expect(days[9].date).toEqual(new Date('2016-11-21'));
     expect(days[10].date).toEqual(new Date('2016-11-20'));
+  }));
+  it('should every day have positionInTime', inject([TaskServiceToken, TimeProviderToken], (taskService: TaskService, timeProvider: FixedTimeProvider) => {
+    let days: Array<Day>;
+    timeProvider.setTime(fixedTime);
+    taskService.getDayList((response: DayList) => days = response.getDays());
+
+    taskService.getDayList((response: DayList) => days = response.getDays());
+    days.forEach((day: Day) => {
+      expect(day.getPositionInTime()).not.toBeNull()
+    });
   }));
 });

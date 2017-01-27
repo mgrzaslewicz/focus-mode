@@ -36,17 +36,44 @@ export const localStorageServiceConfig: ILocalStorageServiceConfig = {
   storageType: 'localStorage'
 };
 
+@Injectable()
+export class DayPositionInTimeCalculator {
+  private timeProvider: TimeProvider;
+
+  constructor(@Inject(TimeProviderToken) timeProvider: TimeProvider) {
+    this.timeProvider = timeProvider;
+  }
+
+  private getCurrentDayWithoutMinutesTime(): number {
+    return new Date(new Date(this.timeProvider.getTime()).toISOString().slice(0, 10)).getTime();
+  }
+
+  public updatePositionInTime(day: Day) {
+    let positionInTime: string = Day.DAY_CURRENT;
+    let differenceBetweenNowAndDay = this.getCurrentDayWithoutMinutesTime() - day.date.getTime();
+    if (differenceBetweenNowAndDay < 0) {
+      positionInTime = Day.DAY_FUTURE;
+    } else if (differenceBetweenNowAndDay > 0) {
+      positionInTime = Day.DAY_PAST;
+    }
+    day.setPositionInTime(positionInTime);
+  }
+
+}
 
 @Injectable()
 export class LocalStorageTaskService implements TaskService {
   private localStorageService: LocalStorageService;
   private dayFromJsonMapper: DaysFromJsonMapper;
   private timeProvider: TimeProvider;
+  private dayPositionInTimeCalculator: DayPositionInTimeCalculator;
 
-  constructor(localStorageService: LocalStorageService, dayFromJsonMapper: DaysFromJsonMapper, @Inject(TimeProviderToken) timeProvider: TimeProvider) {
+  constructor(localStorageService: LocalStorageService, dayFromJsonMapper: DaysFromJsonMapper,
+              @Inject(TimeProviderToken) timeProvider: TimeProvider, dayPositionInTimeCalculator: DayPositionInTimeCalculator) {
     this.localStorageService = localStorageService;
     this.dayFromJsonMapper = dayFromJsonMapper;
     this.timeProvider = timeProvider;
+    this.dayPositionInTimeCalculator = dayPositionInTimeCalculator;
 
   }
 
@@ -63,6 +90,7 @@ export class LocalStorageTaskService implements TaskService {
     dayDateIndex.forEach((dayDate: string) => {
       let dayJson: DayJson = <DayJson> this.localStorageService.get(`day.${dayDate}`);
       let day: Day = dayJson ? this.dayFromJsonMapper.createDayFrom(dayJson) : this.createEmptyDay(dayDate);
+      this.dayPositionInTimeCalculator.updatePositionInTime(day);
       result.push(day);
     });
     return new DayList(result);
@@ -141,5 +169,6 @@ export class LocalStorageTaskService implements TaskService {
   private sortDayDateIndexDescending(dayDateIndex: Array<string>) {
     dayDateIndex.sort((dayDate1: string, dayDate2: string) => new Date(dayDate2).getTime() - new Date(dayDate1).getTime());
   }
+
 
 }

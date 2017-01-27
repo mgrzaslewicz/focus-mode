@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject, QueryList, ViewChildren} from '@angular/core';
-import {Day, DayList} from '../task/task';
+import {DayList} from '../task/task';
 import {EventBusService} from '../event-bus';
 import {TaskService, TaskServiceToken} from '../execute-plan/focused-task/task.service';
 import {Router} from '@angular/router';
@@ -38,23 +38,23 @@ export class PlanningComponent implements OnInit {
     });
   }
 
-  public copyTaskToNextDay(copyTaskEvent: CopyTaskEvent) {
+  public copyTaskToNextDayInTheFuture(copyTaskEvent: CopyTaskEvent) {
     if (copyTaskEvent.dayIndex > 0) {
-      this.dayList.copyTaskToNextDay(copyTaskEvent.dayIndex, copyTaskEvent.taskIndex);
+      this.dayList.copyTaskToNextDayInTheFuture(copyTaskEvent.dayIndex, copyTaskEvent.taskIndex);
     }
     this.saveDays();
   }
 
-  public copyNotDoneTasksToNextDay(copyNotDoneTasksEvent: CopyNotDoneTasksEvent) {
+  public copyNotDoneTasksToNextDayInTheFuture(copyNotDoneTasksEvent: CopyNotDoneTasksEvent) {
     if (copyNotDoneTasksEvent.dayIndex > 0) {
-      this.dayList.copyNotDoneTasksToNextDay(copyNotDoneTasksEvent.dayIndex);
+      this.dayList.copyNotDoneTasksToNextDayInTheFuture(copyNotDoneTasksEvent.dayIndex);
     }
     this.saveDays();
   }
 
   public showFutureDays() {
     this.isShowingFutureDays = true;
-    let futureDays: Array<DayPlanTileComponent> = this.dayComponents.filter((dayComponent: DayPlanTileComponent) => dayComponent.isDayInTheFuture());
+    let futureDays: Array<DayPlanTileComponent> = this.dayComponents.filter((dayComponent: DayPlanTileComponent) => dayComponent.day.isDayInTheFuture());
     setTimeout(() => {
       futureDays[futureDays.length - 1].scrollInto()
     }, 100);

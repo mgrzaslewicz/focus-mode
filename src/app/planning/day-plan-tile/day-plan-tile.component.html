@@ -1,4 +1,4 @@
-<div *ngIf="isDayVisible()" class="card day day-{{ timeline }}">
+<div *ngIf="isDayVisible()" class="card day day-{{ day.getPositionInTime() }}">
   <div class="card-block card-top">
     <div *ngIf="!isShowingQuestion">
       <div class="c100 small green p{{ day.getProgressPercent() }} circle-progress">
@@ -13,7 +13,7 @@
         <h4 *ngIf="!day.hasZeroTasksValue()" class="text-muted task-value">${{ day.tasksValue() }}</h4>
       </div>
       <h6 class="card-subtitle text-muted">{{ day.date | date:'mediumDate' }}</h6>
-      <div *ngIf="!isDayInThePast()" class="buttons">
+      <div *ngIf="!day.isDayInThePast()" class="buttons">
         <button class="btn btn-sm btn-secondary pull-xs-right" [class.faded]="day.hasZeroTasksValue()"
                 title="Posortuj po wartości rzeczy do zrobienia"
                 (click)="sortTasks(day)">
@@ -28,10 +28,10 @@
         <button class="btn btn-sm btn-secondary pull-xs-right"
                 [class.faded]="day.hasNoTasks() || day.hasAllTasksDone()"
                 title="Skopiuj nieukończone zadania na kolejny dzień"
-                (click)="copyNotDoneTasksToNextDay()">
+                (click)="copyNotDoneTasksToNextDayInTheFuture()">
           <i class="fa fa-files-o" aria-hidden="true"></i>
         </button>
-        <button *ngIf="isDayCurrent()" (click)="goToExecuteDay(day)"
+        <button *ngIf="day.isDayCurrent()" (click)="goToExecuteDay(day)"
                 [class.faded]="day.hasNoTasks()" class="btn btn-sm btn-success pull-xs-right"
                 title="Zrealizuj plan & rośnij">
           <i class="fa fa-line-chart" aria-hidden="true"></i>
@@ -44,7 +44,7 @@
     </div>
   </div>
   <ul class="list-group list-group-flush todo-day-list">
-    <li class="new-task list-group-item" *ngIf="!isDayInThePast()">
+    <li class="new-task list-group-item" *ngIf="!day.isDayInThePast()">
       <input type="text" class="form-control"
              placeholder="następna rzecz do zrobienia"
              [(ngModel)]="day.draftTaskName"
@@ -58,10 +58,10 @@
                             <i *ngIf="task.isDone()" class="fa fa-check-circle-o"></i>
                             <i *ngIf="!task.isDone()" class="fa fa-circle-o"></i>
                         </span>
-      <task-input *ngIf="!isDayInThePast()" [task]="task" [taskIndex]="taskIndex"
+      <task-input *ngIf="!day.isDayInThePast()" [task]="task" [taskIndex]="taskIndex"
                   (taskChanged)="saveDay()" #taskInputComponents></task-input>
-      <span *ngIf="isDayInThePast()">{{ task.name }}</span>
-      <div *ngIf="!isDayInThePast()" class="actions">
+      <span *ngIf="day.isDayInThePast()">{{ task.name }}</span>
+      <div *ngIf="!day.isDayInThePast()" class="actions">
         <button (click)="removeTask(taskIndex)" class="btn btn-sm btn-secondary">
           <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button>
@@ -76,13 +76,13 @@
                 title="Przesuń w dół">
           <i class="fa fa-angle-down" aria-hidden="true"></i>
         </button>
-        <button (click)="copyTaskToNextDay(taskIndex)" class="btn btn-sm btn-secondary"
+        <button (click)="copyTaskToNextDayInTheFuture(taskIndex)" class="btn btn-sm btn-secondary"
                 title="Skopiuj na następny dzień">
           <i class="fa fa-files-o" aria-hidden="true"></i>
         </button>
       </div>
-      <div *ngIf="isDayInThePast()" class="actions">
-        <button (click)="copyTaskToNextDay(taskIndex)" class="btn btn-sm btn-secondary"
+      <div *ngIf="day.isDayInThePast()" class="actions">
+        <button (click)="copyTaskToNextDayInTheFuture(taskIndex)" class="btn btn-sm btn-secondary"
                 title="Skopiuj na następny dzień">
           <i class="fa fa-files-o" aria-hidden="true"></i>
         </button>

@@ -168,7 +168,7 @@ describe('Model: Task', () => {
     let tasksInDay1 = day1.getTasks().length;
 
     let dayList = new DayList([day0, day1, getSampleDay('11/27/2016')]);
-    dayList.copyNotDoneTasksToNextDay(1);
+    dayList.copyNotDoneTasksToNextDayInTheFuture(1);
 
     expect(dayList.getDays()[0].getTasks().length).toBe(tasksInDay0Before + tasksInDay1);
   });
@@ -178,7 +178,7 @@ describe('Model: Task', () => {
     let day1 = getSampleDay('11/28/2016');
 
     let dayList = new DayList([day0, day1, getSampleDay('11/27/2016')]);
-    dayList.copyTaskToNextDay(1, 1);
+    dayList.copyTaskToNextDayInTheFuture(1, 1);
 
     expect(dayList.getDays()[0].getTasks().length).toBe(tasksInDay0Before + 1);
   });

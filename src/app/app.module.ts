@@ -22,7 +22,7 @@ import {LocalStorageModule} from 'angular-2-local-storage';
 import {
   DaysFromJsonMapper,
   localStorageServiceConfig,
-  LocalStorageTaskService
+  LocalStorageTaskService, DayPositionInTimeCalculator
 } from './execute-plan/focused-task/task.service';
 import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
 import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider';
@@ -63,6 +63,7 @@ import {TaskInputComponent} from './planning/task-input/task-input.component';
     EventBusService,
     CookieService,
     DaysFromJsonMapper,
+    DayPositionInTimeCalculator,
     {provide: TaskServiceToken, useClass: LocalStorageTaskService},
     {provide: GoalServiceToken, useClass: LocalStorageGoalService},
     {provide: TimeProviderToken, useClass: RealTimeProvider},

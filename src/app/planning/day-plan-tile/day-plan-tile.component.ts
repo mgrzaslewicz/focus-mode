@@ -41,7 +41,6 @@ export class DayPlanTileComponent implements OnInit {
   private taskService: TaskService;
   private router: Router;
   private timeProvider: TimeProvider;
-  private timeline: string = null;
   private isShowingQuestion: boolean = false;
   private elementRef: ElementRef;
 
@@ -105,49 +104,16 @@ export class DayPlanTileComponent implements OnInit {
     this.saveDay();
   }
 
-  public copyTaskToNextDay(taskIndex: number) {
+  public copyTaskToNextDayInTheFuture(taskIndex: number) {
     this.copyTask.emit({dayIndex: this.dayIndex, taskIndex: taskIndex});
   }
 
-  public copyNotDoneTasksToNextDay() {
+  public copyNotDoneTasksToNextDayInTheFuture() {
     this.copyNotDoneTasks.emit({dayIndex: this.dayIndex});
   }
 
-  private getCurrentDayWithoutMinutesTime(): number {
-    return new Date(new Date(this.timeProvider.getTime()).toISOString().slice(0, 10)).getTime();
-  }
-
-  public getTimeline(): string {
-    if (this.timeline == null) {
-      this.timeline = 'current';
-      let differenceBetweenNowAndDay = this.getCurrentDayWithoutMinutesTime() - this.day.date.getTime();
-      if (differenceBetweenNowAndDay < 0) {
-        this.timeline = 'future';
-      } else if (differenceBetweenNowAndDay > 0) {
-        this.timeline = 'past';
-      }
-    }
-    return this.timeline;
-  }
-
-  public isDayInThePast(): boolean {
-    return this.getTimeline() == 'past';
-  }
-
-  public isDayCurrent(): boolean {
-    return this.getTimeline() == 'current';
-  }
-
-  public isDayInTheFuture(): boolean {
-    return this.getTimeline() == 'future';
-  }
-
-  public isDayCurrentOrPast(): boolean {
-    return this.getTimeline() != 'future';
-  }
-
   public isDayVisible(): boolean {
-    return this.day && (this.isShowingFutureDay || this.isDayCurrentOrPast());
+    return this.day && (this.isShowingFutureDay || this.day.isDayCurrentOrPast());
   }
 
   public showQuestion() {

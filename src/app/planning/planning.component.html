@@ -14,8 +14,8 @@
 <div class="row" *ngFor="let day of dayList.getDays(); let dayIndex = index; let isLastDay = last">
   <div class="col-xs-12 col-sm-10 col-md-7 col-lg-7 col-xl-6">
     <day-plan-tile [day]="day" [dayIndex]="dayIndex" [isShowingFutureDay]="isShowingFutureDays"
-                   (copyTask)="copyTaskToNextDay($event)"
-                   (copyNotDoneTasks)="copyNotDoneTasksToNextDay($event)"
+                   (copyTask)="copyTaskToNextDayInTheFuture($event)"
+                   (copyNotDoneTasks)="copyNotDoneTasksToNextDayInTheFuture($event)"
                    #dayComponents
     ></day-plan-tile>
   </div>

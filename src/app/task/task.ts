@@ -53,8 +53,13 @@ export interface DayJson {
 }
 
 export class Day {
+  public static DAY_PAST = 'past';
+  public static DAY_CURRENT = 'current';
+  public static DAY_FUTURE = 'future';
+
   private tasks: Array<Task>;
   public date: Date;
+  private positionInTime: string;
   private draftTaskName: string;
   private focusedTaskIndexZeroBased: number = 0;
   private static dayOfWeekNameSundayFirst: Array<string> = ['Nd', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb'];
@@ -224,6 +229,31 @@ export class Day {
     }
     return result;
   }
+
+  public setPositionInTime(positionInTime: string) {
+    this.positionInTime = positionInTime;
+  }
+
+  public getPositionInTime(): string {
+    return this.positionInTime;
+  }
+
+  public isDayInThePast(): boolean {
+    return this.getPositionInTime() == Day.DAY_PAST;
+  }
+
+  public isDayCurrent(): boolean {
+    return this.getPositionInTime() == Day.DAY_CURRENT;
+  }
+
+  public isDayInTheFuture(): boolean {
+    return this.getPositionInTime() == Day.DAY_FUTURE;
+  }
+
+  public isDayCurrentOrPast(): boolean {
+    return this.getPositionInTime() != Day.DAY_FUTURE;
+  }
+
 }
 
 export class DayList {
@@ -237,14 +267,16 @@ export class DayList {
     return this.days;
   }
 
-  public copyTaskToNextDay(dayIndexToCopyFrom: number, taskIndex: number) {
-    let nextDayIndex = dayIndexToCopyFrom - 1;
-    this.days[nextDayIndex].createTaskFrom(this.days[dayIndexToCopyFrom].getTasks()[taskIndex]);
+  private getNextDayInTheFutureIndex(dayIndex: number) {
+    return dayIndex - 1;
   }
 
-  copyNotDoneTasksToNextDay(dayIndexToCopyFrom: number) {
-    let nextDayIndex = dayIndexToCopyFrom - 1;
-    this.days[nextDayIndex].copyNotDoneTasksFrom(this.days[dayIndexToCopyFrom]);
+  public copyTaskToNextDayInTheFuture(dayIndexToCopyFrom: number, taskIndex: number) {
+    this.days[this.getNextDayInTheFutureIndex(dayIndexToCopyFrom)].createTaskFrom(this.days[dayIndexToCopyFrom].getTasks()[taskIndex]);
+  }
+
+  public copyNotDoneTasksToNextDayInTheFuture(dayIndexToCopyFrom: number) {
+    this.days[this.getNextDayInTheFutureIndex(dayIndexToCopyFrom)].copyNotDoneTasksFrom(this.days[dayIndexToCopyFrom]);
   }
 
 }
