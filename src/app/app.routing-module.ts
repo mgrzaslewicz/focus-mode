@@ -4,6 +4,7 @@ import {ExecutePlanComponent} from './execute-plan/execute-plan.component';
 import {PlanningComponent} from './planning/planning.component';
 import {PresentationComponent} from './presentation/presentation.component';
 import {NotesComponent} from './notes/notes.component';
+import {DiscussionComponent} from './discussion/discussion.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import {NotesComponent} from './notes/notes.component';
       {path: 'executeplan', component: ExecutePlanComponent},
       {path: 'presentation', component: PresentationComponent},
       {path: 'notes', component: NotesComponent},
+      {path: 'discussion', component: DiscussionComponent},
     ])
   ],
   exports: [

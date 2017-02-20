@@ -20,17 +20,20 @@ import {Safe} from './shared/pipes';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
 import {LocalStorageModule} from 'angular-2-local-storage';
 import {
+  DayPositionInTimeCalculator,
   DaysFromJsonMapper,
   localStorageServiceConfig,
-  LocalStorageTaskService, DayPositionInTimeCalculator
+  LocalStorageTaskService
 } from './execute-plan/focused-task/task.service';
-import {HashLocationStrategy, LocationStrategy, APP_BASE_HREF} from '@angular/common';
+import {APP_BASE_HREF, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {RealTimeProvider, TimeProviderToken} from './time-provider/time-provider';
 import {DayPlanTileComponent} from './planning/day-plan-tile/day-plan-tile.component';
 import {QuestionComponent} from './question/question.component';
 import {GoalSystemTileComponent} from './planning/goal-tile/goal-system-tile.component';
-import {LocalStorageGoalService, GoalServiceToken, GoalsFromJsonMapper} from './execute-plan/focused-task/goal.service';
+import {GoalServiceToken, GoalsFromJsonMapper, LocalStorageGoalService} from './execute-plan/focused-task/goal.service';
 import {TaskInputComponent} from './planning/task-input/task-input.component';
+import {DiscussionComponent} from './discussion/discussion.component';
+import {DisqusModule} from 'ng2-awesome-disqus';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import {TaskInputComponent} from './planning/task-input/task-input.component';
     DayPlanTileComponent,
     QuestionComponent,
     GoalSystemTileComponent,
-    TaskInputComponent
+    TaskInputComponent,
+    DiscussionComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,8 @@ import {TaskInputComponent} from './planning/task-input/task-input.component';
     ReactiveFormsModule,
     HttpModule,
     LocalStorageModule.withConfig(localStorageServiceConfig),
-    AppRoutingModule
+    AppRoutingModule,
+    DisqusModule
   ],
   providers: [
     EventBusService,
