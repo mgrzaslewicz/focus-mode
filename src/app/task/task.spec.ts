@@ -1,4 +1,4 @@
-import {Day, Task, DayList} from './task';
+import {Day, DayList, Task} from './task';
 
 let testDate = '2016-11-20';
 
@@ -189,5 +189,55 @@ describe('Model: Task', () => {
     dayList.copyTaskToNextDayInTheFuture(2, 1);
 
     expect(dayList.getDays()[0].getTasks().length).toBe(tasksInDay0Before + 1);
+  });
+  it('should return only last 3 days when day list length > 3', () => {
+    let day0 = getSampleDay('11/29/2016', false, Day.DAY_CURRENT);
+    let day1 = getSampleDay('11/28/2016', false, Day.DAY_PAST);
+    let day2 = getSampleDay('11/27/2016', false, Day.DAY_PAST);
+    let day3 = getSampleDay('11/26/2016', false, Day.DAY_PAST);
+
+    let dayList = new DayList([day0, day1, day2, day3]);
+
+    let last2Days = dayList.getLastDays(2);
+
+    expect(last2Days.length).toBe(2);
+    expect(last2Days[0].getPositionInTime()).toBe(Day.DAY_CURRENT);
+  });
+  it('should return only last 2 days when day list length = 2', () => {
+    // given
+    let day0 = getSampleDay('11/29/2016', false, Day.DAY_CURRENT);
+    let day1 = getSampleDay('11/28/2016', false, Day.DAY_PAST);
+
+    let dayList = new DayList([day0, day1]);
+
+    // when
+    let last2Days = dayList.getLastDays(2);
+
+    // then
+    expect(last2Days.length).toBe(2);
+    expect(last2Days[0].getPositionInTime()).toBe(Day.DAY_CURRENT);
+  });
+  it('should return only last 1 days when day list length = 1 and asked for 3 last days', () => {
+    // given
+    let day0 = getSampleDay('11/29/2016', false, Day.DAY_CURRENT);
+
+    let dayList = new DayList([day0]);
+
+    // when
+    let last3Days = dayList.getLastDays(3);
+
+    // then
+    expect(last3Days.length).toBe(1);
+    expect(last3Days[0].getPositionInTime()).toBe(Day.DAY_CURRENT);
+  });
+  it('should return no days when day list length = 0 and asked for 3 last days', () => {
+    // given
+    let dayList = new DayList([]);
+
+    // when
+    let last3Days = dayList.getLastDays(3);
+
+    // then
+    expect(last3Days.length).toBe(0);
   });
 });

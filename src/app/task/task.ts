@@ -271,6 +271,15 @@ export class DayList {
     return this.days;
   }
 
+  public getLastDays(howMany: number): Array<Day> {
+    let howManyToCopy = Math.min(this.days.length, howMany);
+    let result:Array<Day> = [];
+    for (let i = 0; i < howManyToCopy; i++) {
+      result.push(this.days[i]);
+    }
+    return result;
+  }
+
   private getNextDayInTheFutureIndex(dayIndex: number) {
     let result = 0;
     for (let possibleDayInTheFutureIndex = dayIndex - 1; possibleDayInTheFutureIndex >= 0; possibleDayInTheFutureIndex--) {
